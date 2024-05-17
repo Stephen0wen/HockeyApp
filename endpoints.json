@@ -1,0 +1,121 @@
+{
+    "GET /api": {
+      "description": "serves up a json representation of all the available endpoints of the api"
+    },
+    "GET /api/league_tables": {
+      "description": "serves an array of all league table objects",
+      "queries": [],
+      "exampleResponse": {
+        "league_tables": [
+            {
+                "division_id": 1,
+                "ranks": [
+                    {"team_name": "Leicester Wolves", "points": 45, "wins": 12, "draws": 4, "losses": 4,"goals_for": 108, "goals_against": 67},
+                    {"team_name": "Old Bags", "points": 38, "wins": 10, "draws": 4, "losses": 6,"goals_for": 102, "goals_against": 77}
+                ]
+            }
+        ]
+      }
+    },
+    "GET /api/fixtures": {
+        "description": "serves an array of all fixtures",
+        "exampleResponse": {
+            "fixtures": [
+                {
+                "fixture_id": 1,
+                "match_status": "completed",
+                "Team1_name": "Leicester Wolves",
+                "Team2_name": "Old Bags",
+                "Team1_score": 20, 
+                "Team2_score": 10,
+                "match_venue": "Alfie Fenables Centre",
+                "match_date": "11/5/24"
+            }
+            ]
+        }
+    },
+    "GET /api/fixtures/:fixture_id": {
+        "description": "serves a fixture object corresponding to the given fixture id",
+        "exampleResponse": {
+            "fixture":
+                {
+                "fixture_id": 1,
+                "match_status": "created",
+                "Team1_name": "Leicester Wolves",
+                "Team2_name": "Old Bags",
+                "Team1_score": 20, 
+                "Team2_score": 10,
+                "match_venue": "Mior Sufian Centre",
+                "match_date": "11/5/24"
+            }
+        }
+    },
+    "PATCH /api/fixtures/:fixture_id": {
+        "description": "updates and serves a fixture object corresponding to the given fixture id",
+        "exampleRequest": {
+            "body": {
+                "Team1_score": 10, 
+                "Team2_score": 6
+            }
+        },
+        "exampleResponse": {
+            "fixture":
+                {
+                "fixture_id": 1,
+                "match_status": "completed",
+                "Team1_name": "Leicester Wolves",
+                "Team2_name": "Old Bags",
+                "Team1_score": 10, 
+                "Team2_score": 6,
+                "match_venue": "Mior Sufian Centre",
+                "match_date": "11/5/24"
+            }
+        }
+    },
+    "GET /api/fixtures/:fixture_id/team_sheet": {
+        "description": "serves an team sheet object corresponding to the given fixture id",
+        "exampleResponse": {
+            "team_sheet":
+                {
+                "fixture_id": 1,
+                "Team1_name": "Leicester Wolves",
+                "Team2_name": "Old Bags",
+                "Team1_players": [
+                    {"name": "Hanif", "person_id": 1, "availability": "yes"},
+                    {"name": "Stephen", "person_id": 2, "availability": "yes"},
+                    {"name": "Alec", "person_id": 3, "availability": "maybe"},
+                    {"name": "Mior", "person_id": 4, "availability": "no"},
+                    {"name": "Alfie", "person_id": 5, "availability": "no"}
+                ],
+                "Team2_players": [
+                    {"name": "Hanifah", "person_id": 6, "availability": "yes"},
+                    {"name": "Stephanie", "person_id": 7, "availability": "yes"},
+                    {"name": "Alecandra", "person_id": 8, "availability": "maybe"},
+                    {"name": "Miora", "person_id": 9, "availability": "no"},
+                    {"name": "Alfiena", "person_id": 10, "availability": "no"}
+                ]
+            }
+        }
+    },
+    "GET /api/teams": {
+        "description": "serves an array of all teams",
+        "queries": [],
+        "exampleResponse": {
+          "teams": [
+              {
+                "team_id": 1,
+                "division_id": 2,
+                "team_name": "Leicester Wolves", 
+                "points": 45
+              },
+              {
+                "team_id": 3,
+                "division_id": 1,
+                "team_name": "Bedouins", 
+                "points": 41
+              }
+          ]
+        }
+      }
+  }
+  
