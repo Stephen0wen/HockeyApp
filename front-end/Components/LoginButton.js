@@ -12,8 +12,8 @@ export default function LoginButton() {
     const styles = StyleSheet.create({
         button: {
             marginTop: 0,
-            backgroundColor: theme.colors.secondaryContainer,
-            color: theme.colors.onSecondaryContainer,
+            backgroundColor: theme.colors.primaryContainer,
+            color: theme.colors.onPrimaryContainer,
         },
     });
 

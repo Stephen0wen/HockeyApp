@@ -3,6 +3,20 @@
         "name": "front-end",
         "slug": "front-end",
         "version": "1.0.0",
-        "userInterfaceStyle": "automatic"
+        "userInterfaceStyle": "automatic",
+        "plugins": [
+            [
+                "expo-font",
+                {
+                    "fonts": [
+                        "./Assets/fonts/Jaro_9pt-Regular.ttf",
+                        "./Assets/fonts/Jaro_24pt-Regular.ttf",
+                        "./Assets/fonts/Jaro_36pt-Regular.ttf",
+                        "./Assets/fonts/Jaro_60pt-Regular.ttf",
+                        "./Assets/fonts/Jaro-Regular.ttf"
+                    ]
+                }
+            ]
+        ]
     }
 }
