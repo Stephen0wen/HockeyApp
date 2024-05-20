@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Card, Text } from "react-native-paper";
 
-export default function HomePage() {
+export default function ResultsPage() {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -13,7 +13,7 @@ export default function HomePage() {
 
     return (
         <Card style={styles.container}>
-            <Text>Home Page</Text>
+            <Text>Results Page</Text>
         </Card>
     );
 }
