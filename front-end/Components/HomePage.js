@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
-import { Card, Text } from "react-native-paper";
+import { Card } from "react-native-paper";
+import LeagueTable from "./LeagueTable";
 
 export default function HomePage() {
     const styles = StyleSheet.create({
@@ -7,13 +8,12 @@ export default function HomePage() {
             flex: 1,
             alignItems: "center",
             justifyContent: "center",
-            margin: 20,
+            margin: 10,
         },
     });
-
     return (
         <Card style={styles.container}>
-            <Text>Home Page</Text>
+            <LeagueTable />
         </Card>
     );
 }
