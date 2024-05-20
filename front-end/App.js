@@ -8,6 +8,7 @@ import HomePage from "./Components/HomePage";
 import ResultsPage from "./Components/ResultsPage";
 import UpcomingPage from "./Components/UpcomingPage";
 import MyFixturesPage from "./Components/MyFixturesPage";
+import Header from "./Components/Header";
 
 export default function App() {
     const theme = useTheme();
@@ -15,6 +16,7 @@ export default function App() {
 
     return (
         <>
+            <Header />
             <NavigationContainer>
                 <Tab.Navigator
                     initialRouteName="Home"
