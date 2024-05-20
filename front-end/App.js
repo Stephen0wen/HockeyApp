@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomePage from "./Components/HomePage";
+import ResultsPage from "./Components/ResultsPage";
+import UpcomingPage from "./Components/UpcomingPage";
+import MyFixturesPage from "./Components/MyFixturesPage";
 
 export default function App() {
     const theme = useTheme();
@@ -24,6 +27,45 @@ export default function App() {
                             tabBarIcon: ({ color }) => (
                                 <MaterialCommunityIcons
                                     name="home"
+                                    color={color}
+                                    size={30}
+                                />
+                            ),
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Results"
+                        component={ResultsPage}
+                        options={{
+                            tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons
+                                    name="scoreboard"
+                                    color={color}
+                                    size={30}
+                                />
+                            ),
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Upcoming"
+                        component={UpcomingPage}
+                        options={{
+                            tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons
+                                    name="calendar"
+                                    color={color}
+                                    size={30}
+                                />
+                            ),
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Fixtures"
+                        component={MyFixturesPage}
+                        options={{
+                            tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons
+                                    name="hockey-sticks"
                                     color={color}
                                     size={30}
                                 />
