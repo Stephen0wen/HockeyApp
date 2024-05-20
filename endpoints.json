@@ -159,7 +159,7 @@
           "venue_id": 1,
           "venue_name": "Parker Ground",
           "venue_postcode": "LE1 3EA",
-          "venue_phone": 755642,
+          "venue_phone": "755642",
           "venue_latitude": 52.636879,
           "venue_longitude": -1.139759
         },
@@ -167,7 +167,7 @@
           "venue_id": 2,
           "venue_name": "Uddinford Bridge",
           "venue_postcode": "LE1 3EA",
-          "venue_phone": 352682,
+          "venue_phone": "352682",
           "venue_latitude": 51.636879,
           "venue_longitude": -1.132757
         }
@@ -182,7 +182,7 @@
         "venue_id": 1,
         "venue_name": "Parker Ground",
         "venue_postcode": "LE1 3EA",
-        "venue_phone": 755642,
+        "venue_phone": "755642",
         "venue_latitude": 52.636879,
         "venue_longitude": -1.139759
       }
@@ -202,7 +202,8 @@
           "user_address_1": "10 Downing St",
           "user_address_2": "London",
           "user_postcode": "BR23 2XU",
-          "user_dob": "15/02/2000"
+          "user_dob": "15/02/2000",
+          "user_phone": "1234567"
         },
         {
           "user_id": 2,
@@ -211,7 +212,8 @@
           "team_name": "Old Bags",
           "user_role": ["player", "secretary"],
           "user_postcode": "SH19 3LJ",
-          "user_dob": "25/06/1980"
+          "user_dob": "25/06/1980",
+          "user_phone": "1234567"
         }
       ]
     }
@@ -229,7 +231,8 @@
         "user_address_1": "10 Downing St",
         "user_address_2": "London",
         "user_postcode": "BR23 2XU",
-        "user_dob": "15/02/2000"
+        "user_dob": "15/02/2000",
+        "user_phone": "1234567"
       }
     }
   },
@@ -246,7 +249,8 @@
         "user_address_1": "10 Downing St",
         "user_address_2": "London",
         "user_postcode": "BR24 8XY",
-        "team_name": "Bedouins"
+        "team_name": "Bedouins",
+        "user_phone": "1234567"
       }
     },
     "exampleResponse": {
@@ -259,7 +263,8 @@
         "user_address_1": "10 Downing St",
         "user_address_2": "London",
         "user_postcode": "BR23 2XU",
-        "user_dob": "15/02/2000"
+        "user_dob": "15/02/2000",
+        "user_phone": "1234567"
       }
     }
   },
@@ -274,7 +279,8 @@
         "user_address_1": "10 Downing St",
         "user_address_2": "London",
         "user_postcode": "BR23 2XU",
-        "user_dob": "15/02/2000"
+        "user_dob": "15/02/2000",
+        "user_phone": "1234567"
       }
     },
     "exampleResponse": {
@@ -287,7 +293,8 @@
         "user_address_1": "10 Downing St",
         "user_address_2": "London",
         "user_postcode": "BR23 2XU",
-        "user_dob": "15/02/2000"
+        "user_dob": "15/02/2000",
+        "user_phone": "1234567"
       }
     }
   }
