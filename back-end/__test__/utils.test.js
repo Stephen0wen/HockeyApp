@@ -1,4 +1,5 @@
 const {
+    generateLeagueTable
     toNestedArr,
     createLookup,
     replaceProperty,
@@ -485,4 +486,140 @@ describe("Tests for compareMoney", () => {
         const b = "£48.99";
         expect(compareMoney(a, b)).toBeGreaterThan(0);
     });
+});
+
+describe("generateTableFunction", () => {
+  it("should generate correct team stats for a single match", () => {
+    const completedMatches = {
+      rows: [
+        {
+          team1_id: 1,
+          team2_id: 2,
+          team1_score: 2,
+          team2_score: 1,
+        },
+      ],
+    };
+
+    const teamStats = generateTableFunction(completedMatches);
+
+    expect(teamStats[1]).toEqual({
+      teamName: "Team 1",
+      gamesPlayed: 1,
+      wins: 1,
+      draws: 0,
+      losses: 0,
+      goalsFor: 2,
+      goalsAgainst: 1,
+      points: 3,
+    });
+
+    expect(teamStats[2]).toEqual({
+      teamName: "Team 2",
+      gamesPlayed: 1,
+      wins: 0,
+      draws: 0,
+      losses: 1,
+      goalsFor: 1,
+      goalsAgainst: 2,
+      points: 0,
+    });
+  });
+
+  it("should generate correct team stats for multiple matches", () => {
+    const completedMatches = {
+      rows: [
+        {
+          team1_id: 1,
+          team2_id: 2,
+          team1_score: 2,
+          team2_score: 1,
+        },
+        {
+          team1_id: 2,
+          team2_id: 3,
+          team1_score: 1,
+          team2_score: 1,
+        },
+        {
+          team1_id: 1,
+          team2_id: 3,
+          team1_score: 0,
+          team2_score: 2,
+        },
+      ],
+    };
+
+    const teamStats = generateTableFunction(completedMatches);
+
+    expect(teamStats[1]).toEqual({
+      teamName: "Team 1",
+      gamesPlayed: 2,
+      wins: 1,
+      draws: 0,
+      losses: 1,
+      goalsFor: 2,
+      goalsAgainst: 3,
+      points: 3,
+    });
+
+    expect(teamStats[2]).toEqual({
+      teamName: "Team 2",
+      gamesPlayed: 2,
+      wins: 0,
+      draws: 1,
+      losses: 1,
+      goalsFor: 2,
+      goalsAgainst: 3,
+      points: 1,
+    });
+
+    expect(teamStats[3]).toEqual({
+      teamName: "Team 3",
+      gamesPlayed: 2,
+      wins: 1,
+      draws: 1,
+      losses: 0,
+      goalsFor: 3,
+      goalsAgainst: 1,
+      points: 4,
+    });
+  });
+
+  it("should handle a draw match correctly", () => {
+    const completedMatches = {
+      rows: [
+        {
+          team1_id: 1,
+          team2_id: 2,
+          team1_score: 1,
+          team2_score: 1,
+        },
+      ],
+    };
+
+    const teamStats = generateTableFunction(completedMatches);
+
+    expect(teamStats[1]).toEqual({
+      teamName: "Team 1",
+      gamesPlayed: 1,
+      wins: 0,
+      draws: 1,
+      losses: 0,
+      goalsFor: 1,
+      goalsAgainst: 1,
+      points: 1,
+    });
+
+    expect(teamStats[2]).toEqual({
+      teamName: "Team 2",
+      gamesPlayed: 1,
+      wins: 0,
+      draws: 1,
+      losses: 0,
+      goalsFor: 1,
+      goalsAgainst: 1,
+      points: 1,
+    });
+  });
 });
