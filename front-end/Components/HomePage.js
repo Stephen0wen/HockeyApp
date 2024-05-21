@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import { Card } from "react-native-paper";
 import LeagueTable from "./LeagueTable";
 
@@ -6,14 +6,19 @@ export default function HomePage() {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            margin: 10,
+            margin: 5,
+            padding: 5,
+        },
+        scroll: {
+            height: "100%",
+            width: "100%",
         },
     });
     return (
-        <Card style={styles.container}>
-            <LeagueTable />
-        </Card>
+        <ScrollView style={styles.scroll}>
+            <Card style={styles.container}>
+                <LeagueTable />
+            </Card>
+        </ScrollView>
     );
 }
