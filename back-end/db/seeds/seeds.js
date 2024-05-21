@@ -95,7 +95,7 @@ const seed = ({
       CREATE TABLE responses (
         response_id SERIAL PRIMARY KEY,
         user_id INT REFERENCES users(user_id) NOT NULL,
-        fixture_id INT REFERENCES fixtures(fixtures_id) NOT NULL,
+        fixture_id INT REFERENCES fixtures(fixture_id) NOT NULL,
         response VARCHAR NOT NULL,
         created_at TIMESTAMP DEFAULT NOW(),
         updated_at TIMESTAMP
@@ -172,7 +172,7 @@ const seed = ({
     })
     .then(() => {
       const insertRolesQueryStr = format(
-        `INSERT INTO roles (user_id, player_bool, sec_bool, umpire_bool, organiser_bool) VALUE %L`,
+        `INSERT INTO roles (user_id, player_bool, sec_bool, umpire_bool, organiser_bool) VALUES %L`,
         rolesData.map(
           ({ user_id, player_bool, sec_bool, umpire_bool, organiser_bool }) => [
             user_id,

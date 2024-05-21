@@ -1,4 +1,4 @@
-export const fixtures = [
+module.exports = [
   {
     fixture_id: 1,
     match_status: "Upcoming",

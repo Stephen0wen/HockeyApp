@@ -1,4 +1,4 @@
-export const responses = [
+module.exports = [
   {
     response_id: 1,
     user_id: 1,

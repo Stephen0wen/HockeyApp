@@ -1,4 +1,4 @@
-export const role = [
+module.exports = [
   {
     user_id: 1,
     player_bool: 1,

@@ -1,4 +1,4 @@
-export const teams = [
+module.exports = [
   {
     team_id: 1,
     team_name: "Leicester Wolves",

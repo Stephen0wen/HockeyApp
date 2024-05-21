@@ -1,4 +1,4 @@
-export const venues = [
+module.exports = [
   {
     venue_id: 1,
     venue_name: "Manor Road",
