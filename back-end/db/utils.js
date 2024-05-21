@@ -1,4 +1,4 @@
-const treasures = require("./data/dev-data/treasures");
+// const treasures = require("./data/dev-data/treasures");
 
 exports.toNestedArr = (objArr) => {
   return objArr.map((obj) => {
