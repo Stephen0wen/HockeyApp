@@ -6,9 +6,9 @@ import { useState } from "react";
 export default function ResultsPage() {
     const [value, setValue] = useState("");
 
-    const fixture = {
+    const pastFixture = {
         fixture_id: 1,
-        match_status: "completed", // If this is changed, 'VS' will be displayed instead of the score
+        match_status: "completed",
         team1_id: 1,
         team1_name: "Leicester Wolves",
         team2_id: 2,
@@ -22,7 +22,25 @@ export default function ResultsPage() {
         division: "Division 1",
     };
 
+    const futureFixture = {
+        fixture_id: 1,
+        match_status: "planned",
+        team1_id: 1,
+        team1_name: "Leicester Wolves",
+        team2_id: 2,
+        team2_name: "Old Bags",
+        venue_id: 3,
+        venue_name: "Alfie Fenables Centre",
+        match_date: "11/5/24",
+        start_time: 13.0,
+        division: "Division 1",
+    };
+
     const styles = StyleSheet.create({
+        scroll: {
+            flex: 1,
+            alignItems: "center",
+        },
         container: {
             marginTop: 10,
             flexDirection: "row",
@@ -69,12 +87,12 @@ export default function ResultsPage() {
     );
 
     return (
-        <ScrollView>
-            <FixtureCard fixture={fixture}>{fixtureUI}</FixtureCard>
-            <FixtureCard fixture={fixture}>{fixtureUI}</FixtureCard>
-            <FixtureCard fixture={fixture}>{fixtureUI}</FixtureCard>
-            <FixtureCard fixture={fixture} />
-            <FixtureCard fixture={fixture} />
+        <ScrollView contentStyle={styles.scroll}>
+            <FixtureCard fixture={futureFixture}>{fixtureUI}</FixtureCard>
+            <FixtureCard fixture={futureFixture}>{fixtureUI}</FixtureCard>
+            <FixtureCard fixture={futureFixture}>{fixtureUI}</FixtureCard>
+            <FixtureCard fixture={futureFixture} />
+            <FixtureCard fixture={pastFixture} />
         </ScrollView>
     );
 }

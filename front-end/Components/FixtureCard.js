@@ -5,6 +5,7 @@ export default function FixtureCard({ children, fixture }) {
     const styles = StyleSheet.create({
         card: {
             margin: 5,
+            maxWidth: 500,
         },
         cardContent: {
             width: "100%",
