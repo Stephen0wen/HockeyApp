@@ -37,15 +37,17 @@ export default function ResultsPage() {
     };
 
     const styles = StyleSheet.create({
-        scroll: {
-            flex: 1,
-            alignItems: "center",
-        },
         container: {
             marginTop: 10,
             flexDirection: "row",
             width: "100%",
             justifyContent: "center",
+        },
+        scroll: {
+            flex: 1,
+            alignItems: "center",
+            gap: 5,
+            padding: 5,
         },
         button: {
             flex: 2,

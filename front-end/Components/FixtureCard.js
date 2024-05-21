@@ -4,8 +4,8 @@ import { StyleSheet, View } from "react-native";
 export default function FixtureCard({ children, fixture }) {
     const styles = StyleSheet.create({
         card: {
-            margin: 5,
             maxWidth: 500,
+            width: "100%",
         },
         cardContent: {
             width: "100%",
@@ -55,7 +55,7 @@ export default function FixtureCard({ children, fixture }) {
 
     return (
         <>
-            <Card style={styles.card}>
+            <Card mode="contained" style={styles.card}>
                 <Card.Content style={styles.cardContent}>
                     <View style={styles.fixtureContainer}>
                         <Text variant="titleSmall" style={styles.teamName}>
