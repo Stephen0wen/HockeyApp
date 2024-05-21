@@ -4,6 +4,7 @@ import { useTheme } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useFonts } from "expo-font";
 import HomePage from "./Components/HomePage";
 import ResultsPage from "./Components/ResultsPage";
 import UpcomingPage from "./Components/UpcomingPage";
@@ -13,6 +14,9 @@ import Header from "./Components/Header";
 export default function App() {
     const theme = useTheme();
     const Tab = createMaterialBottomTabNavigator();
+    const [fontsLoaded] = useFonts({
+        Jaro: require("./assets/fonts/Jaro-Regular.ttf"),
+    });
 
     return (
         <>
