@@ -1,35 +1,24 @@
 import { Card, Text } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 
-export default function FixtureCard() {
-    const fixture = {
-        fixture_id: 1,
-        match_status: "complete",
-        team1_id: 1,
-        team1_name: "Leicester Wolves",
-        team2_id: 2,
-        team2_name: "Old Bags",
-        team1_score: 20,
-        team2_score: 10,
-        venue_id: 3,
-        venue_name: "Alfie Fenables Centre",
-        match_date: "11/5/24",
-        start_time: 13.0,
-        division: "Division 1",
-    };
-
+export default function FixtureCard({ children, fixture }) {
     const styles = StyleSheet.create({
         card: {
             margin: 5,
         },
         cardContent: {
             width: "100%",
+            justifyContent: "space-between",
+            paddingVertical: 0,
+            paddingHorizontal: 0,
+        },
+        fixtureContainer: {
             flexDirection: "row",
-            gap: 5,
             alignItems: "center",
             justifyContent: "space-evenly",
+            marginVertical: 10,
         },
-        scoreContainer: {
+        scoreNumbers: {
             flexDirection: "row",
             justifyContent: "center",
         },
@@ -45,7 +34,6 @@ export default function FixtureCard() {
     });
 
     let scoreDisplay = <></>;
-
     if (fixture.match_status === "completed") {
         scoreDisplay = (
             <>
@@ -65,16 +53,21 @@ export default function FixtureCard() {
     }
 
     return (
-        <Card style={styles.card}>
-            <Card.Content style={styles.cardContent}>
-                <Text variant="titleSmall" style={styles.teamName}>
-                    {fixture.team1_name}
-                </Text>
-                <View style={styles.scoreContainer}>{scoreDisplay}</View>
-                <Text variant="titleSmall" style={styles.teamName}>
-                    {fixture.team2_name}
-                </Text>
-            </Card.Content>
-        </Card>
+        <>
+            <Card style={styles.card}>
+                <Card.Content style={styles.cardContent}>
+                    <View style={styles.fixtureContainer}>
+                        <Text variant="titleSmall" style={styles.teamName}>
+                            {fixture.team1_name}
+                        </Text>
+                        <View style={styles.scoreNumbers}>{scoreDisplay}</View>
+                        <Text variant="titleSmall" style={styles.teamName}>
+                            {fixture.team2_name}
+                        </Text>
+                    </View>
+                    <View>{children}</View>
+                </Card.Content>
+            </Card>
+        </>
     );
 }
