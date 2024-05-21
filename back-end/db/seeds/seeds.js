@@ -219,6 +219,7 @@ const seed = ({
           response,
         ])
       );
+      return db.query(insertResponsesQueryStr);
     });
 };
 
