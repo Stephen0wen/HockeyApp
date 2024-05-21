@@ -16,7 +16,7 @@ module.exports = [
     team2_id: 7,
     team1_score: 0,
     team2_score: 0,
-    match_venue: 13,
+    match_venue: 3,
     match_date: "2024-05-25",
   },
   {
@@ -176,7 +176,7 @@ module.exports = [
     team2_id: 18,
     team1_score: 2,
     team2_score: 0,
-    match_venue: 13,
+    match_venue: 2,
     match_date: "2024-05-18",
   },
   {
@@ -286,7 +286,7 @@ module.exports = [
     team2_id: 5,
     team1_score: 1,
     team2_score: 3,
-    match_venue: 11,
+    match_venue: 10,
     match_date: "2024-05-18",
   },
   {
@@ -296,7 +296,7 @@ module.exports = [
     team2_id: 6,
     team1_score: 2,
     team2_score: 0,
-    match_venue: 11,
+    match_venue: 7,
     match_date: "2024-05-18",
   },
   {
@@ -306,7 +306,7 @@ module.exports = [
     team2_id: 7,
     team1_score: 1,
     team2_score: 0,
-    match_venue: 11,
+    match_venue: 4,
     match_date: "2024-05-18",
   },
   {
@@ -316,7 +316,7 @@ module.exports = [
     team2_id: 6,
     team1_score: 0,
     team2_score: 2,
-    match_venue: 12,
+    match_venue: 8,
     match_date: "2024-05-18",
   },
   {
@@ -326,7 +326,7 @@ module.exports = [
     team2_id: 7,
     team1_score: 3,
     team2_score: 2,
-    match_venue: 12,
+    match_venue: 5,
     match_date: "2024-05-18",
   },
 ];
