@@ -70,7 +70,7 @@ const seed = ({
         CREATE TABLE roles (
           user_id INT PRIMARY KEY REFERENCES users(user_id) NOT NULL,
           player_bool BOOL,
-          secretary_bool BOOL,
+          sec_bool BOOL,
           umpire_bool BOOL,
           organiser_bool BOOL
       )
@@ -169,12 +169,57 @@ const seed = ({
         )
       );
       return db.query(insertUsersQueryStr);
+    })
+    .then(() => {
+      const insertRolesQueryStr = format(
+        `INSERT INTO roles (user_id, player_bool, sec_bool, umpire_bool, organiser_bool) VALUE %L`,
+        rolesData.map(
+          ({ user_id, player_bool, sec_bool, umpire_bool, organiser_bool }) => [
+            user_id,
+            player_bool,
+            sec_bool,
+            umpire_bool,
+            organiser_bool,
+          ]
+        )
+      );
+      return db.query(insertRolesQueryStr);
+    })
+    .then(() => {
+      const insertFixturesQueryStr = format(
+        `INSERT INTO fixtures (match_status, team1_id, team2_id, team1_score, team2_score, match_venue, match_date) VALUES %L`,
+        fixturesData.map(
+          ({
+            match_status,
+            team1_id,
+            team2_id,
+            team1_score,
+            team2_score,
+            match_venue,
+            match_date,
+          }) => [
+            match_status,
+            team1_id,
+            team2_id,
+            team1_score,
+            team2_score,
+            match_venue,
+            match_date,
+          ]
+        )
+      );
+      return db.query(insertFixturesQueryStr);
+    })
+    .then(() => {
+      const insertResponsesQueryStr = format(
+        `INSERT INTO responses (user_id, fixture_id, response) VALUES %L`,
+        responsesData.map(({ user_id, fixture_id, response }) => [
+          user_id,
+          fixture_id,
+          response,
+        ])
+      );
     });
 };
 
-//`.Responses
-//Fixtures
-//Roles
-//Users
-//Teams
-//Venues
+module.exports = seed;
