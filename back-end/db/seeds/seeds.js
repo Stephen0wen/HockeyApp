@@ -45,8 +45,8 @@ const seed = ({
           team_id SERIAL PRIMARY KEY,
           team_name VARCHAR NOT NULL,
           venue_id INT REFERENCES venues(venue_id) NOT NULL,
-          team_start_time INT NOT NULL,
-          team_division VARCHAR NOT NULL,  
+          team_start_time VARCHAR NOT NULL,
+          team_division VARCHAR NOT NULL
         );`);
     })
     .then(() => {
@@ -55,18 +55,20 @@ const seed = ({
           user_id SERIAL PRIMARY KEY,
           team_id INT REFERENCES teams(team_id) NOT NULL,
           user_name VARCHAR NOT NULL,
-          user_address_1 VARCHAR NOT NULL,
-          user_address_2 VARCHAR NOT NULL,
+          user_address_1 VARCHAR,
+          user_address_2 VARCHAR,
           user_postcode VARCHAR,
-          user_dob DATE NOT NULL,
-          user_phone VARCHAR
+          user_dob DATE,
+          user_phone VARCHAR,
+          user_email VARCHAR NOT NULL,
+          user_password VARCHAR NOT NULL
         )
       `);
     })
     .then(() => {
       return db.query(`
         CREATE TABLE roles (
-          user_id INT REFERENCES users(user_id) NOT NULL,
+          user_id INT PRIMARY KEY REFERENCES users(user_id) NOT NULL,
           player_bool BOOL,
           secretary_bool BOOL,
           umpire_bool BOOL,
@@ -83,7 +85,7 @@ const seed = ({
           team2_id INT REFERENCES teams(team_id) NOT NULL,
           team1_score INT NOT NULL,
           team2_score INT NOT NULL,
-          venue_id INT REFERENCES venues(venue_id) NOT NULL,
+          match_venue INT REFERENCES venues(venue_id) NOT NULL,
           match_date DATE NOT NULL
         )
       `);
@@ -95,9 +97,78 @@ const seed = ({
         user_id INT REFERENCES users(user_id) NOT NULL,
         fixture_id INT REFERENCES fixtures(fixtures_id) NOT NULL,
         response VARCHAR NOT NULL,
-        created_at TIMESTAMP DEFAULT NOW()
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP
       )
       `);
+    })
+    .then(() => {
+      const insertVenuesQueryStr = format(
+        `INSERT INTO venues (venue_name, venue_address_1, venue_address_2, venue_postcode, venue_phone, venue_latitude, venue_longitude) VALUES %L`,
+        venuesData.map(
+          ({
+            venue_name,
+            venue_address_1,
+            venue_address_2,
+            venue_postcode,
+            venue_phone,
+            venue_latitude,
+            venue_longitude,
+          }) => [
+            venue_name,
+            venue_address_1,
+            venue_address_2,
+            venue_postcode,
+            venue_phone,
+            venue_latitude,
+            venue_longitude,
+          ]
+        )
+      );
+      return db.query(insertVenuesQueryStr);
+    })
+    .then(() => {
+      const insertTeamsQueryStr = format(
+        `INSERT INTO teams (team_name, venue_id, team_start_time, team_division) VALUES %L`,
+        teamsData.map(
+          ({ team_name, venue_id, team_start_time, team_division }) => [
+            team_name,
+            venue_id,
+            team_start_time,
+            team_division,
+          ]
+        )
+      );
+      return db.query(insertTeamsQueryStr);
+    })
+    .then(() => {
+      const insertUsersQueryStr = format(
+        `INSERT INTO users (team_id, user_name, user_address_1, user_address_2, user_postcode, user_dob, user_phone, user_email, user_password) VALUES %L`,
+        usersData.map(
+          ({
+            team_id,
+            user_name,
+            user_address_1,
+            user_address_2,
+            user_postcode,
+            user_dob,
+            user_phone,
+            user_email,
+            user_password,
+          }) => [
+            team_id,
+            user_name,
+            user_address_1,
+            user_address_2,
+            user_postcode,
+            user_dob,
+            user_phone,
+            user_email,
+            user_password,
+          ]
+        )
+      );
+      return db.query(insertUsersQueryStr);
     });
 };
 
