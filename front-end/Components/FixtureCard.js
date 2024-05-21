@@ -28,7 +28,7 @@ export default function FixtureCard({ children, fixture }) {
             padding: 2,
         },
         teamName: {
-            width: "30%",
+            width: "35%",
             textAlign: "center",
             margin: 5,
         },

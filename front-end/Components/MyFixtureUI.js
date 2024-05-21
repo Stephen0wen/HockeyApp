@@ -19,7 +19,11 @@ export default function MyFixtureUI() {
             paddingH: 0,
             lineHeight: 20,
             fontSize: 20,
-            width: 100,
+            width: 80,
+        },
+        details: {
+            marginLeft: 5,
+            marginRight: 80,
         },
     });
 
