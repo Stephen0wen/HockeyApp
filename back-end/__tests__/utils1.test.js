@@ -1,3 +1,6 @@
+const db = require("../db/connection");
+const seed = require("../db/seeds/seeds");
+const data = require("../db/data/test-data");
 const {
   generateLeagueTable,
   toNestedArr,
@@ -6,6 +9,11 @@ const {
   compareMoney,
 } = require("../db/utils.js");
 const { describe, test } = require("@jest/globals");
+
+beforeEach(() => seed(data));
+afterAll(() => {
+  return db.end();
+});
 
 describe("Tests for toNestedArr", () => {
   test("Should return a new array", () => {
@@ -465,7 +473,7 @@ describe("Tests for compareMoney", () => {
   });
 });
 
-describe("generateLeagueTable", () => {
+describe.only("generateLeagueTable", () => {
   it("should generate correct team stats for a single match", () => {
     const completedMatches = {
       rows: [
