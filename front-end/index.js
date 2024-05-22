@@ -2,6 +2,7 @@ import { registerRootComponent } from "expo";
 import { MD3DarkTheme, MD3LightTheme, PaperProvider } from "react-native-paper";
 import { useColorScheme } from "react-native";
 import App from "./App";
+import { UserProvider } from "./Contexts/UserContext";
 
 export default function Main() {
     const colorScheme = useColorScheme();
@@ -10,7 +11,9 @@ export default function Main() {
 
     return (
         <PaperProvider theme={theme}>
-            <App />
+            <UserProvider>
+                <App />
+            </UserProvider>
         </PaperProvider>
     );
 }

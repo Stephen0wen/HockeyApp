@@ -1,13 +1,16 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Modal, Portal, Text, useTheme } from "react-native-paper";
-import LogOut from "./UserLogOut";
+import { Modal, Portal, useTheme } from "react-native-paper";
 import UserLogOut from "./UserLogOut";
 import UserDelete from "./UserDelete";
 import UserUpdate from "./UserUpdate";
 import UserView from "./UserView";
+import { useContext } from "react";
+import { UserContext } from "../Contexts/UserContext";
 
 export default function UserOptions({ visible, setVisible }) {
     const hideModal = () => setVisible(false);
+
+    const { userRole, setUserRole } = useContext(UserContext);
 
     const theme = useTheme();
 
@@ -40,7 +43,10 @@ export default function UserOptions({ visible, setVisible }) {
                 <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
                     <View style={styles.innerContainer}>
                         <View>
-                            <UserView />
+                            <UserView
+                                userRole={userRole}
+                                setUserRole={setUserRole}
+                            />
                             <UserUpdate />
                             <UserLogOut />
                         </View>

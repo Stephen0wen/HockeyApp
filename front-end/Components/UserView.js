@@ -2,7 +2,7 @@ import { Text, Surface, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import UserViewSwitch from "./UserViewSwitch";
 
-export default function UserView() {
+export default function UserView({ userRole, setUserRole }) {
     const theme = useTheme();
 
     const styles = StyleSheet.create({
@@ -21,9 +21,21 @@ export default function UserView() {
             <Text variant="titleMedium" style={styles.text}>
                 View As
             </Text>
-            <UserViewSwitch label="public" />
-            <UserViewSwitch label="player" />
-            <UserViewSwitch label="super" />
+            <UserViewSwitch
+                label="public"
+                userRole={userRole}
+                setUserRole={setUserRole}
+            />
+            <UserViewSwitch
+                label="player"
+                userRole={userRole}
+                setUserRole={setUserRole}
+            />
+            <UserViewSwitch
+                label="super"
+                userRole={userRole}
+                setUserRole={setUserRole}
+            />
         </Surface>
     );
 }

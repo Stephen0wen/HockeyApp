@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useTheme } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
@@ -10,13 +10,19 @@ import ResultsPage from "./Components/ResultsPage";
 import UpcomingPage from "./Components/UpcomingPage";
 import MyFixturesPage from "./Components/MyFixturesPage";
 import Header from "./Components/Header";
+import { UserContext } from "./Contexts/UserContext";
 
 export default function App() {
+    const { userRole } = useContext(UserContext);
     const theme = useTheme();
     const Tab = createMaterialBottomTabNavigator();
     const [fontsLoaded] = useFonts({
         Jaro: require("./assets/fonts/Jaro-Regular.ttf"),
     });
+
+    useEffect(() => {
+        console.log(userRole);
+    }, [userRole]);
 
     return (
         <>
