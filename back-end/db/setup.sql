@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS hockey_test;
+DROP DATABASE IF EXISTS hockey_dev;
+
+CREATE DATABASE hockey_test;
+CREATE DATABASE hockey_dev;
