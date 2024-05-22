@@ -10,11 +10,13 @@ exports.selectUsers = () => {
         row.user_role = [];
         for (const [key, value] of Object.entries(row)) {
           if (value === true) {
-            row.user_role.push(key);
+            row.user_role.push(key.slice(0, -5));
           }
         }
+        row.user_dob = row.user_dob.toISOString().slice(0, 10);
         return row;
       });
+      console.log(userRows);
       return userRows;
     });
 };
