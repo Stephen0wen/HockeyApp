@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, StatusBar } from "react-native";
 
 import { useTheme, Surface } from "react-native-paper";
 import LoginButton from "./LoginButton";
@@ -12,9 +12,10 @@ export default function Header() {
         surface: {
             backgroundColor: theme.colors.primary,
             flexDirection: "row",
-            alignItems: "flex-end",
+            alignItems: "center",
             justifyContent: "center",
-            height: 75,
+            height: 50 + StatusBar.currentHeight,
+            paddingTop: StatusBar.currentHeight,
         },
         content: {
             flexDirection: "row",
