@@ -16,7 +16,6 @@ exports.selectUsers = () => {
         row.user_dob = row.user_dob.toISOString().slice(0, 10);
         return row;
       });
-      console.log(userRows);
       return userRows;
     });
 };
