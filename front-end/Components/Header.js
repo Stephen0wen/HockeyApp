@@ -1,8 +1,9 @@
 import { StyleSheet, View } from "react-native";
 
-import { Text, useTheme, Surface } from "react-native-paper";
+import { useTheme, Surface } from "react-native-paper";
 import LoginButton from "./LoginButton";
 import Logo from "./Logo";
+import UserAvatar from "./UserAvatar";
 
 export default function Header() {
     const theme = useTheme();
@@ -23,6 +24,12 @@ export default function Header() {
             height: "max-content",
             padding: 5,
         },
+        rightContainer: {
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 50,
+        },
         text: {
             color: theme.colors.onPrimary,
         },
@@ -32,8 +39,13 @@ export default function Header() {
         <Surface style={styles.surface} elevation={0}>
             <View style={styles.content}>
                 <Logo />
-                <LoginButton />
+                <View style={styles.rightContainer}>
+                    <LoginButton />
+                    <UserAvatar />
+                </View>
             </View>
         </Surface>
     );
+
+    // The LoginButton / UserAvatar will not both be rendered at the same time
 }
