@@ -7,6 +7,7 @@ export default function UserViewSwitch({ label }) {
             flexDirection: "row",
             justifyContent: "space-evenly",
             alignItems: "center",
+            marginVertical: 10,
         },
     });
 

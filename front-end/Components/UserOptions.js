@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Modal, Portal, Text, useTheme } from "react-native-paper";
 import LogOut from "./UserLogOut";
 import UserLogOut from "./UserLogOut";
@@ -12,16 +12,20 @@ export default function UserOptions({ visible, setVisible }) {
     const theme = useTheme();
 
     const styles = StyleSheet.create({
-        container: {
+        modal: {
             flex: 1,
             alignSelf: "flex-end",
+            width: 180,
+            marginTop: 50,
+
+            backgroundColor: theme.colors.secondaryContainer,
+        },
+        innerContainer: {
+            padding: 5,
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            width: 180,
-            marginTop: 50,
-            padding: 5,
-            backgroundColor: theme.colors.secondaryContainer,
+            height: "100%",
         },
     });
 
@@ -30,15 +34,20 @@ export default function UserOptions({ visible, setVisible }) {
             <Modal
                 visible={visible}
                 onDismiss={hideModal}
-                contentContainerStyle={styles.container}
+                contentContainerStyle={styles.modal}
                 animationType="slide"
             >
-                <View>
-                    <UserView />
-                    <UserUpdate />
-                    <UserLogOut />
-                </View>
-                <UserDelete />
+                <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+                    <View style={styles.innerContainer}>
+                        <View>
+                            <UserView />
+                            <UserUpdate />
+                            <UserLogOut />
+                        </View>
+                        <View style={{ height: 50 }}></View>
+                        <UserDelete />
+                    </View>
+                </ScrollView>
             </Modal>
         </Portal>
     );
