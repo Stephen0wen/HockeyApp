@@ -9,6 +9,9 @@ const {
   handlePsqlErrors,
   handleServerErrors,
 } = require("./errors/index.js");
+const {
+  getFixturesById,
+} = require("./controllers/fixtures_byId.controller.js");
 
 const app = express();
 app.use(express.json());
@@ -21,6 +24,8 @@ app.post("/api/users", postUser);
 app.get("/api/league_tables", getLeagueTables);
 
 app.get("/api/venues", getVenues);
+
+app.get("/api/fixtures/:fixture_id", getFixturesById);
 
 app.all("*", (req, res, next) => {
   res.status(404).send({ msg: "Not Found" });
