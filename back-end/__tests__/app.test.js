@@ -297,4 +297,33 @@ describe("/api/fixtures", () => {
                 });
             });
     });
+    test("GET 200: Should combine queries correctly", () => {
+        return request(app)
+            .get("/api/fixtures")
+            .query({
+                division: "2",
+                match_status: "completed",
+            })
+            .expect(200)
+            .then(({ body: { fixtures } }) => {
+                expect(fixtures.length).toBe(4);
+                fixtures.forEach((fixture) => {
+                    expect(typeof fixture.fixture_id).toBe("number");
+                    expect(fixture.match_status).toBe("completed");
+                    expect(typeof fixture.team1_id).toBe("number");
+                    expect(typeof fixture.team1_name).toBe("string");
+                    expect(typeof fixture.team2_id).toBe("number");
+                    expect(typeof fixture.team1_name).toBe("string");
+                    if (fixture.match_status === "completed") {
+                        expect(typeof fixture.team1_score).toBe("number");
+                        expect(typeof fixture.team2_score).toBe("number");
+                    }
+                    expect(typeof fixture.venue_id).toBe("number");
+                    expect(typeof fixture.venue_name).toBe("string");
+                    expect(typeof fixture.match_date).toBe("string");
+                    expect(typeof fixture.start_time).toBe("string");
+                    expect(fixture.division).toBe("2");
+                });
+            });
+    });
 });

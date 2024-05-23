@@ -56,7 +56,7 @@ exports.selectAllFixtures = ({ match_status, team_id, division }) => {
         division = false;
     }
 
-    if (team_id) {
+    if (division) {
         sqlString += `
       AND team1.team_division = $${insertposition++}`;
         sqlArr.push(division);
