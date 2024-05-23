@@ -46,6 +46,31 @@ describe("/api/users", () => {
         });
       });
   });
+
+  test("POST 201: Should insert a user object into users and return it", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        user_name: "Alfie Fenables",
+        team_name: "Leicester Wolves",
+        user_roles: ["player_bool", "sec_bool"],
+        user_email: "magicthegathering@gmail.com",
+        user_password:
+          "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
+      })
+      .expect(201)
+      .then(({ body }) => {
+        const { user } = body;
+        expect(typeof user.user_id).toBe("number");
+        expect(typeof user.team_id).toBe("number");
+        expect(user.user_name).toBe("Alfie Fenables");
+        expect(user.user_roles).toEqual(["player", "sec"]);
+        expect(user.user_email).toBe("magicthegathering@gmail.com");
+        expect(user.user_password).toBe(
+          "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK"
+        );
+      });
+  });
 });
 
 describe("/api/league_tables", () => {
