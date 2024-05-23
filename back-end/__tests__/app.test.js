@@ -31,7 +31,7 @@ describe("/api/users", () => {
       .expect(200)
       .then(({ body }) => {
         const { users } = body;
-        expect(users).toHaveLength(35);
+        expect(users).toHaveLength(5);
         users.forEach((user) => {
           expect(typeof user.user_id).toBe("number");
           expect(typeof user.team_id).toBe("number");
@@ -44,6 +44,100 @@ describe("/api/users", () => {
           expect(typeof user.user_dob).toBe("string");
           expect(typeof user.user_phone).toBe("string");
         });
+      });
+  });
+});
+
+describe("/api/league_tables", () => {
+  test("Should return an array with the correct keys", () => {
+    return request(app)
+      .get("/api/league_tables")
+      .expect(200)
+      .then(({ body }) => {
+        const leaguetable = body.league_tables[1];
+        leaguetable.forEach((team) => {
+          expect(typeof team.team_name).toBe("string");
+          expect(typeof team.points).toBe("number");
+          expect(typeof team.wins).toBe("number");
+          expect(typeof team.draws).toBe("number");
+          expect(typeof team.losses).toBe("number");
+          expect(typeof team.goals_for).toBe("number");
+          expect(typeof team.goals_against).toBe("number");
+        });
+      });
+  });
+  test("Should return a league table sorted into the correct order", () => {
+    return request(app)
+      .get("/api/league_tables")
+      .expect(200)
+      .then(({ body }) => {
+        const sortedTables = {
+          1: [
+            {
+              team_name: "Sutton Bonington",
+              points: 7,
+              wins: 2,
+              draws: 1,
+              losses: 0,
+              goals_for: 7,
+              goals_against: 4,
+              goal_difference: 3,
+            },
+            {
+              team_name: "Welford",
+              points: 1,
+              wins: 0,
+              draws: 1,
+              losses: 1,
+              goals_for: 2,
+              goals_against: 4,
+              goal_difference: -2,
+            },
+            {
+              team_name: "Leicester Thursday",
+              points: 0,
+              wins: 0,
+              draws: 0,
+              losses: 1,
+              goals_for: 2,
+              goals_against: 3,
+              goal_difference: -1,
+            },
+          ],
+          2: [
+            {
+              team_name: "Leicester Wolves",
+              points: 6,
+              wins: 2,
+              draws: 0,
+              losses: 1,
+              goals_for: 6,
+              goals_against: 5,
+              goal_difference: 1,
+            },
+            {
+              team_name: "Leicester Oldbags",
+              points: 3,
+              wins: 1,
+              draws: 0,
+              losses: 1,
+              goals_for: 5,
+              goals_against: 4,
+              goal_difference: 1,
+            },
+            {
+              team_name: "South Wigston Tigers",
+              points: 3,
+              wins: 1,
+              draws: 0,
+              losses: 2,
+              goals_for: 6,
+              goals_against: 8,
+              goal_difference: -2,
+            },
+          ],
+        };
+        expect(body.league_tables).toEqual(sortedTables);
       });
   });
 });
