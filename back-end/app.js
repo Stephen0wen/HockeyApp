@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const { getApi } = require("./controllers/api.controller");
 const { getUsers } = require("./controllers/users-controllers");
 const { getVenues } = require("./controllers/venues-controller");
@@ -8,7 +7,7 @@ const {
   handlePsqlErrors,
   handleServerErrors,
 } = require("./errors/index.js");
-
+const app = express();
 app.use(express.json());
 
 app.get("/api", getApi);
