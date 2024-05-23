@@ -15,7 +15,8 @@
                         "draws": 4,
                         "losses": 4,
                         "goals_for": 108,
-                        "goals_against": 67
+                        "goals_against": 67,
+                        "goals_difference": 41
                     },
                     {
                         "team_name": "Old Bags",
@@ -24,7 +25,8 @@
                         "draws": 4,
                         "losses": 6,
                         "goals_for": 102,
-                        "goals_against": 77
+                        "goals_against": 77,
+                        "goals_difference": 25
                     }
                 ],
                 "2": [
@@ -35,7 +37,8 @@
                         "draws": 4,
                         "losses": 4,
                         "goals_for": 108,
-                        "goals_against": 67
+                        "goals_against": 67,
+                        "goals_difference": 41
                     },
                     {
                         "team_name": "Even Worse Dudes",
@@ -44,7 +47,8 @@
                         "draws": 4,
                         "losses": 6,
                         "goals_for": 102,
-                        "goals_against": 77
+                        "goals_against": 77,
+                        "goals_difference": 25
                     }
                 ]
             }
