@@ -1,4 +1,8 @@
-const { selectUsers, insertUser } = require("../models/users-models");
+const {
+  selectUsers,
+  insertUser,
+  removeUserByUserId,
+} = require("../models/users-models");
 
 exports.getUsers = (request, response, next) => {
   selectUsers()
@@ -21,7 +25,7 @@ exports.deleteUserByUserId = (request, response, next) => {
   const { user_id } = request.params;
   removeUserByUserId(user_id)
     .then(() => {
-      res.status(204).send();
+      response.status(204).send();
     })
     .catch(next);
 };

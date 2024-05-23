@@ -221,3 +221,27 @@ describe("/api/venues/:venue_id", () => {
       });
   });
 });
+
+describe("DELETE /api/users/:user_id", () => {
+  it("DELETE:204 should be able to delete user", () => {
+    return request(app).delete("/api/users/1").expect(204);
+  });
+
+  it("DELETE:404 send error if unable to delete user due to valid user_id which is not in DB", () => {
+    return request(app)
+      .delete("/api/users/99999")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Unable to delete user");
+      });
+  });
+
+  it("DELETE:400 send error if unable to delete user due to invalid user_id", () => {
+    return request(app)
+      .delete("/api/users/invalidID")
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Invalid input");
+      });
+  });
+});
