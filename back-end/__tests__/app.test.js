@@ -327,3 +327,57 @@ describe("/api/fixtures", () => {
             });
     });
 });
+
+describe("/api/venues/:venue_id", () => {
+  test("GET 200: Should return a venue object", () => {
+    return request(app)
+      .get("/api/venues/2")
+      .expect(200)
+      .then(({ body }) => {
+        const { venue } = body;
+        expect(venue.venue_id).toBe(2);
+        expect(venue.venue_name).toBe("Groby Community College");
+        expect(venue.venue_postcode).toBe("LE10 1AA");
+        expect(venue.venue_phone).toBe("01223456789");
+        expect(venue.venue_latitude).toBe(52.65771378088554);
+        expect(venue.venue_longitude).toBe(-1.237326940164323);
+      });
+  });
+
+  test("GET:404 should return error if valid ID but not presence on DB", () => {
+    return request(app)
+      .get("/api/venues/1234567")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Invalid venue");
+      });
+  });
+
+  test("GET:400 should return error if invalid ID", () => {
+    return request(app)
+      .get("/api/venues/invalidID")
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Invalid input");
+      });
+  });
+});
+
+describe("/api/teams", () => {
+  test("GET 200: Should return an array of team objects", () => {
+    return request(app)
+      .get("/api/teams")
+      .expect(200)
+      .then(({ body }) => {
+        const { teams } = body;
+        expect(teams).toHaveLength(6);
+        teams.forEach((team) => {
+          expect(typeof team.team_id).toBe("number");
+          expect(typeof team.team_name).toBe("string");
+          expect(typeof team.team_division).toBe("string");
+          expect(typeof team.team_start_time).toBe("string");
+          expect(typeof team.venue_id).toBe("number");
+        });
+      });
+  });
+});
