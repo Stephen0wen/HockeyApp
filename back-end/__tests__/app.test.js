@@ -47,3 +47,23 @@ describe("/api/users", () => {
       });
   });
 });
+
+describe("/api/venues", () => {
+  test("GET 200: Should return an array of venue objects", () => {
+    return request(app)
+      .get("/api/venues")
+      .expect(200)
+      .then(({ body }) => {
+        const { venues } = body;
+        expect(venues).toHaveLength(5);
+        venues.forEach((venue) => {
+          expect(typeof venue.venue_id).toBe("number");
+          expect(typeof venue.venue_name).toBe("string");
+          expect(typeof venue.venue_postcode).toBe("string");
+          expect(typeof venue.venue_phone).toBe("string");
+          expect(typeof venue.venue_latitude).toBe("number");
+          expect(typeof venue.venue_longitude).toBe("number");
+        });
+      });
+  });
+});
