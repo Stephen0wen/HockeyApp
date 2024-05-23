@@ -74,7 +74,7 @@ describe("/api/users", () => {
 });
 
 describe("/api/league_tables", () => {
-    test("Should return an array with the correct keys", () => {
+    test("GET 200: Should return an array with the correct keys", () => {
         return request(app)
             .get("/api/league_tables")
             .expect(200)
@@ -91,7 +91,7 @@ describe("/api/league_tables", () => {
                 });
             });
     });
-    test("Should return a league table sorted into the correct order", () => {
+    test("GET 200: Should return a league table sorted into the correct order", () => {
         return request(app)
             .get("/api/league_tables")
             .expect(200)
@@ -238,6 +238,62 @@ describe("/api/fixtures", () => {
                     expect(typeof fixture.match_date).toBe("string");
                     expect(typeof fixture.start_time).toBe("string");
                     expect(typeof fixture.division).toBe("string");
+                });
+            });
+    });
+    test("GET 200: Should return an array fixtures, filtered by team_id", () => {
+        return request(app)
+            .get("/api/fixtures")
+            .query({
+                team_id: 1,
+            })
+            .expect(200)
+            .then(({ body: { fixtures } }) => {
+                expect(fixtures.length).toBe(7);
+                fixtures.forEach((fixture) => {
+                    expect(typeof fixture.fixture_id).toBe("number");
+                    expect(typeof fixture.match_status).toBe("string");
+                    expect(typeof fixture.team1_id).toBe("number");
+                    expect(typeof fixture.team1_name).toBe("string");
+                    expect(typeof fixture.team2_id).toBe("number");
+                    expect(typeof fixture.team1_name).toBe("string");
+                    if (fixture.match_status === "completed") {
+                        expect(typeof fixture.team1_score).toBe("number");
+                        expect(typeof fixture.team2_score).toBe("number");
+                    }
+                    expect(typeof fixture.venue_id).toBe("number");
+                    expect(typeof fixture.venue_name).toBe("string");
+                    expect(typeof fixture.match_date).toBe("string");
+                    expect(typeof fixture.start_time).toBe("string");
+                    expect(typeof fixture.division).toBe("string");
+                });
+            });
+    });
+    test("GET 200: Should return an array fixtures, filtered by division", () => {
+        return request(app)
+            .get("/api/fixtures")
+            .query({
+                division: "2",
+            })
+            .expect(200)
+            .then(({ body: { fixtures } }) => {
+                expect(fixtures.length).toBe(8);
+                fixtures.forEach((fixture) => {
+                    expect(typeof fixture.fixture_id).toBe("number");
+                    expect(typeof fixture.match_status).toBe("string");
+                    expect(typeof fixture.team1_id).toBe("number");
+                    expect(typeof fixture.team1_name).toBe("string");
+                    expect(typeof fixture.team2_id).toBe("number");
+                    expect(typeof fixture.team1_name).toBe("string");
+                    if (fixture.match_status === "completed") {
+                        expect(typeof fixture.team1_score).toBe("number");
+                        expect(typeof fixture.team2_score).toBe("number");
+                    }
+                    expect(typeof fixture.venue_id).toBe("number");
+                    expect(typeof fixture.venue_name).toBe("string");
+                    expect(typeof fixture.match_date).toBe("string");
+                    expect(typeof fixture.start_time).toBe("string");
+                    expect(fixture.division).toBe("2");
                 });
             });
     });

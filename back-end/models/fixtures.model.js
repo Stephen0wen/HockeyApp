@@ -1,6 +1,6 @@
 const db = require("../db/connection");
 
-exports.selectAllFixtures = ({ match_status }) => {
+exports.selectAllFixtures = ({ match_status, team_id, division }) => {
     const sqlArr = [];
     let insertposition = 1;
     let sqlString = `
@@ -30,6 +30,36 @@ exports.selectAllFixtures = ({ match_status }) => {
         sqlString += `
     WHERE match_status = $${insertposition++}`;
         sqlArr.push(match_status);
+    }
+
+    if (team_id && insertposition === 1) {
+        sqlString += `
+    WHERE (team1_id = $${insertposition++}
+      OR team2_id = $${insertposition++})`;
+        sqlArr.push(team_id);
+        sqlArr.push(team_id);
+        team_id = false;
+    }
+
+    if (team_id) {
+        sqlString += `
+      AND (team1_id = $${insertposition++}
+        OR team2_id = $${insertposition++})`;
+        sqlArr.push(team_id);
+        sqlArr.push(team_id);
+    }
+
+    if (division && insertposition === 1) {
+        sqlString += `
+    WHERE team1.team_division = $${insertposition++}`;
+        sqlArr.push(division);
+        division = false;
+    }
+
+    if (team_id) {
+        sqlString += `
+      AND team1.team_division = $${insertposition++}`;
+        sqlArr.push(division);
     }
 
     sqlString += ";";
