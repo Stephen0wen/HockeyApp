@@ -187,7 +187,7 @@ describe("/api/venues", () => {
   });
 });
 
-describe.only("/api/teams", () => {
+describe("/api/teams", () => {
   test("GET 200: Should return an array of team objects", () => {
     return request(app)
       .get("/api/teams")
