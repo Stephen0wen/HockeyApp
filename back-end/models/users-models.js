@@ -27,6 +27,12 @@ exports.selectUserById = (user_id) => {
       [user_id]
     )
     .then(({ rows }) => {
+      if (!rows.length) {
+        return Promise.reject({
+          status: 404,
+          msg: "User not found",
+        });
+      }
       rows[0].user_roles = [];
       for (const [key, value] of Object.entries(rows[0])) {
         if (value === true) {
@@ -34,7 +40,6 @@ exports.selectUserById = (user_id) => {
         }
       }
       rows[0].user_dob = rows[0].user_dob.toISOString().slice(0, 10);
-      console.log(rows[0]);
       return rows[0];
     });
 };

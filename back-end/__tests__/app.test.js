@@ -93,6 +93,24 @@ describe("/api/users/:user_id", () => {
         expect(user.user_password).toBe("password123");
       });
   });
+
+  test("GET 404: Should respond with a status and error message if user id is not found in database", () => {
+    return request(app)
+      .get("/api/users/100")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("User not found");
+      });
+  });
+
+  test("GET 400: Should respond with a status and error message if user id is invalid", () => {
+    return request(app)
+      .get("/api/users/invalid_id")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
+  });
 });
 
 describe("/api/league_tables", () => {
