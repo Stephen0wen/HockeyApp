@@ -20,10 +20,6 @@ export default function App() {
         Jaro: require("./assets/fonts/Jaro-Regular.ttf"),
     });
 
-    useEffect(() => {
-        console.log(userRole);
-    }, [userRole]);
-
     return (
         <>
             <Header />
