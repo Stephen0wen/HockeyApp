@@ -16,3 +16,12 @@ exports.postUser = (request, response, next) => {
     })
     .catch(next);
 };
+
+exports.deleteUserByUserId = (request, response, next) => {
+  const { user_id } = request.params;
+  removeUserByUserId(user_id)
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch(next);
+};
