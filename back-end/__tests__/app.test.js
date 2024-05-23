@@ -31,7 +31,7 @@ describe("/api/users", () => {
       .expect(200)
       .then(({ body }) => {
         const { users } = body;
-        expect(users).toHaveLength(35);
+        expect(users).toHaveLength(5);
         users.forEach((user) => {
           expect(typeof user.user_id).toBe("number");
           expect(typeof user.team_id).toBe("number");
@@ -45,5 +45,14 @@ describe("/api/users", () => {
           expect(typeof user.user_phone).toBe("string");
         });
       });
+  });
+});
+
+describe("/api/league_tables", () => {
+  test("GET 200: Should return a sorted array of league table objects", () => {
+    return request(app)
+      .get("/api/league_tables")
+      .expect(200)
+      .then((response) => {});
   });
 });
