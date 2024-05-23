@@ -193,9 +193,38 @@ describe("/api/fixtures", () => {
             .get("/api/fixtures")
             .expect(200)
             .then(({ body: { fixtures } }) => {
+                expect(fixtures.length).toBe(12);
                 fixtures.forEach((fixture) => {
                     expect(typeof fixture.fixture_id).toBe("number");
                     expect(typeof fixture.match_status).toBe("string");
+                    expect(typeof fixture.team1_id).toBe("number");
+                    expect(typeof fixture.team1_name).toBe("string");
+                    expect(typeof fixture.team2_id).toBe("number");
+                    expect(typeof fixture.team1_name).toBe("string");
+                    if (fixture.match_status === "completed") {
+                        expect(typeof fixture.team1_score).toBe("number");
+                        expect(typeof fixture.team2_score).toBe("number");
+                    }
+                    expect(typeof fixture.venue_id).toBe("number");
+                    expect(typeof fixture.venue_name).toBe("string");
+                    expect(typeof fixture.match_date).toBe("string");
+                    expect(typeof fixture.start_time).toBe("string");
+                    expect(typeof fixture.division).toBe("string");
+                });
+            });
+    });
+    test("GET 200: Should return an array fixtures, filtered by match_status", () => {
+        return request(app)
+            .get("/api/fixtures")
+            .query({
+                match_status: "completed",
+            })
+            .expect(200)
+            .then(({ body: { fixtures } }) => {
+                expect(fixtures.length).toBe(7);
+                fixtures.forEach((fixture) => {
+                    expect(typeof fixture.fixture_id).toBe("number");
+                    expect(fixture.match_status).toBe("completed");
                     expect(typeof fixture.team1_id).toBe("number");
                     expect(typeof fixture.team1_name).toBe("string");
                     expect(typeof fixture.team2_id).toBe("number");

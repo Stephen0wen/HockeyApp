@@ -1,9 +1,9 @@
 const db = require("../db/connection");
 
-exports.selectAllFixtures = () => {
-    return db
-        .query(
-            `
+exports.selectAllFixtures = ({ match_status }) => {
+    const sqlArr = [];
+    let insertposition = 1;
+    let sqlString = `
     SELECT
       fixture_id,
       match_status,
@@ -24,10 +24,17 @@ exports.selectAllFixtures = () => {
     JOIN teams AS team2
       ON fixtures.team2_id = team2.team_id
     JOIN venues
-      ON fixtures.match_venue = venues.venue_id
-    ;`
-        )
-        .then(({ rows }) => {
-            return rows;
-        });
+      ON fixtures.match_venue = venues.venue_id`;
+
+    if (match_status) {
+        sqlString += `
+    WHERE match_status = $${insertposition++}`;
+        sqlArr.push(match_status);
+    }
+
+    sqlString += ";";
+
+    return db.query(sqlString, sqlArr).then(({ rows }) => {
+        return rows;
+    });
 };
