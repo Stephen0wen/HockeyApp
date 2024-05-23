@@ -186,3 +186,22 @@ describe("/api/venues", () => {
       });
   });
 });
+
+describe.only("/api/teams", () => {
+  test("GET 200: Should return an array of team objects", () => {
+    return request(app)
+      .get("/api/teams")
+      .expect(200)
+      .then(({ body }) => {
+        const { teams } = body;
+        expect(teams).toHaveLength(6);
+        teams.forEach((team) => {
+          expect(typeof team.team_id).toBe("number");
+          expect(typeof team.team_name).toBe("string");
+          expect(typeof team.team_division).toBe("string");
+          expect(typeof team.team_start_time).toBe("string");
+          expect(typeof team.venue_id).toBe("number");
+        });
+      });
+  });
+});
