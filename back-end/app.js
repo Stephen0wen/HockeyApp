@@ -4,10 +4,11 @@ const { getApi } = require("./controllers/api.controller");
 const { getUsers, postUser } = require("./controllers/users-controllers");
 const { getLeagueTables } = require("./controllers/league_tables.controller");
 const { getVenues } = require("./controllers/venues-controller");
+const { getFixtures } = require("./controllers/fixtures.controller.js");
 const {
-  handleCustomErrors,
-  handlePsqlErrors,
-  handleServerErrors,
+    handleCustomErrors,
+    handlePsqlErrors,
+    handleServerErrors,
 } = require("./errors/index.js");
 
 const app = express();
@@ -22,8 +23,10 @@ app.get("/api/league_tables", getLeagueTables);
 
 app.get("/api/venues", getVenues);
 
+app.get("/api/fixtures", getFixtures);
+
 app.all("*", (req, res, next) => {
-  res.status(404).send({ msg: "Not Found" });
+    res.status(404).send({ msg: "Not Found" });
 });
 
 app.use(handleCustomErrors);
