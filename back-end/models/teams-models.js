@@ -6,6 +6,8 @@ exports.selectTeams = () => {
       `SELECT team_id, team_name, team_division, team_start_time, venue_id FROM teams;`
     )
     .then(({ rows }) => {
-      return rows;
+      if (rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "no teams in database" });
+      } else return rows;
     });
 };
