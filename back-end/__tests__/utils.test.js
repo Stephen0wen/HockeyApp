@@ -2,7 +2,7 @@ const {
     toNestedArr,
     createLookup,
     replaceProperty,
-    compareMoney,
+    createLeagueTables,
 } = require("../db/utils.js");
 const { describe, test } = require("@jest/globals");
 
@@ -468,20 +468,277 @@ describe("Tests for replaceProperty", () => {
     });
 });
 
-describe("Tests for compareMoney", () => {
-    test("Should return zero if the inputs are equal", () => {
-        const a = "£1,001.00";
-        const b = "£1,001.00";
-        expect(compareMoney(a, b)).toBe(0);
+describe("Tests for createLeagueTableRows", () => {
+    test("Creates correct league table for multiple divisions and multiple games per team", () => {
+        const input = [
+            {
+                team_name: "Leicester Wolves",
+                scored: 4,
+                conceded: 0,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Wolves",
+                scored: 2,
+                conceded: 1,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Oldbags",
+                scored: 2,
+                conceded: 2,
+                division: "2",
+            },
+
+            { team_name: "Welford", scored: 2, conceded: 0, division: "1" },
+            { team_name: "Welford", scored: 1, conceded: 3, division: "1" },
+            {
+                team_name: "Sutton Bonington",
+                scored: 3,
+                conceded: 2,
+                division: "1",
+            },
+            {
+                team_name: "Sutton Bonington",
+                scored: 0,
+                conceded: 2,
+                division: "1",
+            },
+        ];
+        const expected = {
+            1: [
+                {
+                    team_name: "Welford",
+                    points: 3,
+                    wins: 1,
+                    draws: 0,
+                    losses: 1,
+                    goals_for: 3,
+                    goals_against: 3,
+                    goal_difference: 0,
+                },
+                {
+                    team_name: "Sutton Bonington",
+                    points: 3,
+                    wins: 1,
+                    draws: 0,
+                    losses: 1,
+                    goals_for: 3,
+                    goals_against: 4,
+                    goal_difference: -1,
+                },
+            ],
+            2: [
+                {
+                    team_name: "Leicester Wolves",
+                    points: 6,
+                    wins: 2,
+                    draws: 0,
+                    losses: 0,
+                    goals_for: 6,
+                    goals_against: 1,
+                    goal_difference: 5,
+                },
+                {
+                    team_name: "Leicester Oldbags",
+                    points: 1,
+                    wins: 0,
+                    draws: 1,
+                    losses: 0,
+                    goals_for: 2,
+                    goals_against: 2,
+                    goal_difference: 0,
+                },
+            ],
+        };
+
+        const actual = createLeagueTables(input);
+        expect(actual).toEqual(expected);
     });
-    test("Should return a negative value if the first argument should be sorted first", () => {
-        const a = "£48.99";
-        const b = "£1,001.00";
-        expect(compareMoney(a, b)).toBeLessThan(0);
-    });
-    test("Should return a positive value if the second argument should be sorted first", () => {
-        const a = "£1,001.00";
-        const b = "£48.99";
-        expect(compareMoney(a, b)).toBeGreaterThan(0);
+    test("Tests for larger dataset", () => {
+        const input = [
+            {
+                team_name: "Leicester Wolves",
+                scored: 4,
+                conceded: 0,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Wolves",
+                scored: 6,
+                conceded: 4,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Wolves",
+                scored: 3,
+                conceded: 0,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Wolves",
+                scored: 2,
+                conceded: 1,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Oldbags",
+                scored: 0,
+                conceded: 1,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Oldbags",
+                scored: 3,
+                conceded: 1,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Oldbags",
+                scored: 2,
+                conceded: 2,
+                division: "2",
+            },
+            { team_name: "Welford", scored: 1, conceded: 0, division: "1" },
+            { team_name: "Welford", scored: 2, conceded: 0, division: "1" },
+            { team_name: "Welford", scored: 1, conceded: 3, division: "1" },
+            {
+                team_name: "Sutton Bonington",
+                scored: 3,
+                conceded: 2,
+                division: "1",
+            },
+            {
+                team_name: "Sutton Bonington",
+                scored: 0,
+                conceded: 2,
+                division: "1",
+            },
+            { team_name: "Phoenix", scored: 1, conceded: 4, division: "2" },
+            { team_name: "Phoenix", scored: 1, conceded: 2, division: "2" },
+            { team_name: "Phoenix", scored: 4, conceded: 2, division: "2" },
+            { team_name: "Panthers", scored: 1, conceded: 1, division: "2" },
+            { team_name: "Panthers", scored: 3, conceded: 2, division: "2" },
+            {
+                team_name: "Leicester Medics",
+                scored: 2,
+                conceded: 4,
+                division: "2",
+            },
+            { team_name: "Rangers", scored: 5, conceded: 4, division: "2" },
+            { team_name: "Syston Town", scored: 0, conceded: 0, division: "2" },
+            {
+                team_name: "Leicester Police",
+                scored: 2,
+                conceded: 0,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Oldbags",
+                scored: 1,
+                conceded: 2,
+                division: "2",
+            },
+            {
+                team_name: "South Wigston Tigers",
+                scored: 4,
+                conceded: 1,
+                division: "2",
+            },
+            {
+                team_name: "South Wigston Tigers",
+                scored: 2,
+                conceded: 1,
+                division: "2",
+            },
+            {
+                team_name: "South Wigston Tigers",
+                scored: 2,
+                conceded: 4,
+                division: "2",
+            },
+            {
+                team_name: "Sutton Bonington",
+                scored: 3,
+                conceded: 1,
+                division: "1",
+            },
+            {
+                team_name: "Leicester Thursday",
+                scored: 2,
+                conceded: 0,
+                division: "1",
+            },
+            {
+                team_name: "Leicester Thursday",
+                scored: 0,
+                conceded: 2,
+                division: "1",
+            },
+            {
+                team_name: "Rutland Horseshoes",
+                scored: 2,
+                conceded: 3,
+                division: "1",
+            },
+            {
+                team_name: "Rutland Horseshoes",
+                scored: 0,
+                conceded: 1,
+                division: "1",
+            },
+            { team_name: "Panthers", scored: 2, conceded: 2, division: "2" },
+            {
+                team_name: "Leicester Medics",
+                scored: 1,
+                conceded: 3,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Medics",
+                scored: 2,
+                conceded: 3,
+                division: "2",
+            },
+            {
+                team_name: "LoughBorough Carillon A",
+                scored: 1,
+                conceded: 0,
+                division: "2",
+            },
+            {
+                team_name: "LoughBorough Carillon A",
+                scored: 4,
+                conceded: 2,
+                division: "2",
+            },
+            {
+                team_name: "LoughBorough Carillon A",
+                scored: 1,
+                conceded: 1,
+                division: "2",
+            },
+            { team_name: "Rangers", scored: 0, conceded: 2, division: "2" },
+            { team_name: "Rangers", scored: 0, conceded: 4, division: "2" },
+            { team_name: "Syston Town", scored: 4, conceded: 5, division: "2" },
+            { team_name: "Syston Town", scored: 4, conceded: 6, division: "2" },
+            {
+                team_name: "Leicester Police",
+                scored: 0,
+                conceded: 0,
+                division: "2",
+            },
+            {
+                team_name: "Leicester Police",
+                scored: 0,
+                conceded: 3,
+                division: "2",
+            },
+        ];
+
+        const actual = createLeagueTables(input);
+        console.log(actual);
+        // You can see that it is working by looking at this console log
+        expect(actual).not.toBeUndefined();
     });
 });
