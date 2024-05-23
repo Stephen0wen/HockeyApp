@@ -3,7 +3,7 @@ const { getApi } = require("./controllers/api.controller");
 
 const { getUsers, postUser } = require("./controllers/users-controllers");
 const { getLeagueTables } = require("./controllers/league_tables.controller");
-const { getVenues } = require("./controllers/venues-controller");
+const { getVenues, getVenueById } = require("./controllers/venues-controller");
 const {
   handleCustomErrors,
   handlePsqlErrors,
@@ -21,6 +21,7 @@ app.post("/api/users", postUser);
 app.get("/api/league_tables", getLeagueTables);
 
 app.get("/api/venues", getVenues);
+app.get("/api/venues/:venue_id", getVenueById);
 
 app.all("*", (req, res, next) => {
   res.status(404).send({ msg: "Not Found" });
