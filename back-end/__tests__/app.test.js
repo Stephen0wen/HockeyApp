@@ -218,7 +218,6 @@ describe("/api/venues/:venue_id", () => {
       .expect(400)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("Invalid input");
-
       });
   });
 });
@@ -238,3 +237,6 @@ describe("/api/teams", () => {
           expect(typeof team.team_start_time).toBe("string");
           expect(typeof team.venue_id).toBe("number");
         });
+      });
+  });
+});
