@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
         team_id: 2,
         user_name: "Alfie Fenables",
         team_name: "Leicester Wolves",
-        user_role: ["player", "secretary"],
+        user_roles: ["player", "secretary"],
         user_address_1: "10 Downing St",
         user_address_2: "London",
         user_postcode: "BR23 2XU",
