@@ -491,3 +491,71 @@ describe("/api/teams", () => {
       });
   });
 });
+
+describe.only("/api/responses", () => {
+  test("PUT 201: Should insert a response object into responses and return it", () => {
+    return request(app)
+      .put("/api/responses")
+      .send({
+        user_id: 5,
+        fixture_id: 3,
+        response: 2,
+      })
+      .expect(201)
+      .then(({ body }) => {
+        const { response } = body;
+        expect(response.response_id).toBe(9);
+        expect(response.user_id).toBe(5);
+        expect(response.fixture_id).toBe(3);
+        expect(response.response).toBe("2");
+        expect(typeof response.created_at).toBe("string");
+      });
+  });
+
+  test("PUT 201: Should update an existing response object from responses and return it", () => {
+    return request(app)
+      .put("/api/responses")
+      .send({
+        user_id: 1,
+        fixture_id: 1,
+        response: 0,
+      })
+      .expect(201)
+      .then(({ body }) => {
+        const { response } = body;
+        expect(response.response_id).toBe(9);
+        expect(response.user_id).toBe(1);
+        expect(response.fixture_id).toBe(1);
+        expect(response.response).toBe("0");
+        expect(typeof response.created_at).toBe("string");
+      });
+  });
+
+  test("GET 404: Should respond with a status and error message if user id is not found in database", () => {
+    return request(app)
+      .put("/api/responses")
+      .send({
+        user_id: 10,
+        fixture_id: 1,
+        response: 0,
+      })
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("ID not presence in DB");
+      });
+  });
+
+  test("GET 400: Should respond with a status and error message if user id is invalid", () => {
+    return request(app)
+      .put("/api/responses")
+      .send({
+        user_id: "invalid_id",
+        fixture_id: 1,
+        response: 0,
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
+  });
+});
