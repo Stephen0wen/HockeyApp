@@ -1,6 +1,7 @@
 const {
   selectUsers,
   insertUser,
+  updateUserById,
   selectUserById,
 } = require("../models/users-models");
 
@@ -26,6 +27,16 @@ exports.postUser = (request, response, next) => {
   insertUser(body)
     .then((user) => {
       response.status(201).send({ user });
+    })
+    .catch(next);
+};
+
+exports.patchUserById = (request, response, next) => {
+  const { user_id } = request.params;
+  const { body } = request;
+  updateUserById(user_id, body)
+    .then((user) => {
+      response.status(200).send({ user });
     })
     .catch(next);
 };
