@@ -1,6 +1,6 @@
 const teamsRouter = require("express").Router();
-const teamsController = require("../controllers/teams-controllers");
+const { getTeams } = require("../controllers/teams-controllers");
 
-teamsRouter.get("/", teamsController.getTeams);
+teamsRouter.get("/", getTeams);
 
 module.exports = teamsRouter;

@@ -1,6 +1,6 @@
 const leagueTableRouter = require("express").Router();
-const leagueTableController = require("../controllers/league_tables.controller");
+const { getLeagueTables } = require("../controllers/league_tables.controller");
 
-leagueTableRouter.get("/", leagueTableController.getLeagueTables);
+leagueTableRouter.get("/", getLeagueTables);
 
 module.exports = leagueTableRouter;

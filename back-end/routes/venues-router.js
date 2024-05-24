@@ -1,8 +1,8 @@
 const venuesRouter = require("express").Router();
-const venuesController = require("../controllers/venues-controller");
+const { getVenues, getVenueById } = require("../controllers/venues-controller");
 
-venuesRouter.get("/", venuesController.getVenues);
+venuesRouter.get("/", getVenues);
 
-venuesRouter.get("/:venue_id", venuesController.getVenueById);
+venuesRouter.get("/:venue_id", getVenueById);
 
 module.exports = venuesRouter;
