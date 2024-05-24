@@ -13,6 +13,7 @@ import { signUpForm } from "./SignUpUtils/signUpForm";
 import IncorrectWarning from "./SignUpUtils/IncorrectWarning";
 import { getTeams } from "./SignUpUtils/teamFetcher";
 import DropDownPicker from "react-native-dropdown-picker";
+import { postUser } from "./SignUpUtils/postUser";
 
 export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
   const hideModal = () => setVisibleSignUp(false);
@@ -31,6 +32,7 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
     team: false,
   });
   const [successPopUp, setSuccessPopUp] = useState(false);
+  const [user, setUser] = useState([]);
 
   const containerStyle = {
     backgroundColor: theme.colors.primaryContainer,
@@ -46,6 +48,13 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
 
   useEffect(() => {
     if (Object.values(auth).includes(false) === false) {
+      test = postUser(name, team, email, password).then((res) => {
+        setUser([
+          "Username: " + res.user_name,
+          "Email: " + res.user_email,
+          "Team: " + team,
+        ]);
+      });
       setVisibleSignUp(false);
       setSuccessPopUp(true);
     }
@@ -134,7 +143,9 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
           setOpen={setOpen}
           setValue={setTeam}
           setItems={setItems}
+          placeholder="Choose your team"
         />
+
         <IncorrectWarning display={auth.team} check={auth.check} type="team" />
         <Text />
         <Button
@@ -156,19 +167,17 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
         contentContainerStyle={containerStyle}
         animationType="slide"
       >
-        <Text>
-          Account set up. Once you guys are done on the back end this is where
-          we will have to set up a patch request to the user database :D this
-          will also need to set some sort of context for when the user is logged
-          in to change log in to view account, etc.
-        </Text>
+        <Text>Congratulations your account it set up!</Text>
+        <Text style={{ textAlign: `left` }}>{user[0]}</Text>
+        <Text>{user[1]}</Text>
+        <Text>{user[2]}</Text>
         <Button
           width="100%"
           marginBottom={"5%"}
           mode="outlined"
           onPress={() => setSuccessPopUp(false)}
         >
-          <Text>Submit </Text>
+          <Text>Back to log in </Text>
         </Button>
       </Modal>
     </Portal>
