@@ -4,12 +4,7 @@ const getFixturesById = (req, res, next) => {
   const { fixture_id } = req.params;
   fetchFixturesById(fixture_id)
     .then((fixture) => res.status(200).send({ fixture }))
-    .catch((err) => {
-      if (err.status && err.message) {
-        res.status(err.status).send({ message: err.message });
-      }
-      next(err);
-    });
+    .catch(next);
 };
 
 module.exports = { getFixturesById };

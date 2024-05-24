@@ -2,7 +2,7 @@ const db = require("../db/connection");
 
 const fetchFixturesById = (fixture_id) => {
   if (isNaN(fixture_id) || fixture_id <= 0) {
-    return Promise.reject({ status: 400, message: "bad request" });
+    return Promise.reject({ status: 400, msg: "bad request" });
   }
   return db
     .query(
@@ -31,11 +31,11 @@ JOIN
       [fixture_id]
     )
     .then(({ rows }) => {
-      console.log(rows.length);
       if (rows.length === 0) {
-        return Promise.reject({ status: 404, message: "Not found" });
+        return Promise.reject({ status: 404, msg: "Not found" });
       }
       return rows;
     });
 };
+
 module.exports = { fetchFixturesById };

@@ -247,8 +247,8 @@ describe("/api/fixtures/:fixture_id", () => {
       .get("/api/fixtures/3")
       .expect(200)
       .then(({ body }) => {
-        const fixture = body.fixture;
-        fixture.forEach((fixture) => {
+        const fixtures = body.fixture;
+        fixtures.forEach((fixture) => {
           expect(typeof fixture.fixture_id).toBe("number");
           expect(typeof fixture.match_status).toBe("string");
           expect(typeof fixture.team1_id).toBe("number");
@@ -270,8 +270,8 @@ describe("/api/fixtures/:fixture_id", () => {
       .get("/api/fixtures/999")
       .expect(404)
       .then(({ body }) => {
-        const { message } = body;
-        expect(message).toBe("Not found");
+        const { msg } = body;
+        expect(msg).toBe("Not found");
       });
   });
   test("GET 400: Returns an error with a path of the wrong type", () => {
@@ -279,8 +279,8 @@ describe("/api/fixtures/:fixture_id", () => {
       .get("/api/fixtures/banana")
       .expect(400)
       .then(({ body }) => {
-        const { message } = body;
-        expect(message).toBe("bad request");
+        const { msg } = body;
+        expect(msg).toBe("bad request");
       });
   });
 });
