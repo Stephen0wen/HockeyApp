@@ -1,55 +1,70 @@
 import { ScrollView, StyleSheet } from "react-native";
-import { Card, Text } from "react-native-paper";
 import FixtureCard from "./FixtureCard";
 import MatchdayContainer from "./MatchdayContainer";
+import LoadScreen from "./LoadScreen";
+import { useState, useEffect } from "react";
+import { getUpcomingFixtures } from "../ApiRequests";
+import { Text } from "react-native-paper";
 
 export default function UpcomingPage() {
-    const futureFixture = {
-        fixture_id: 1,
-        match_status: "planned",
-        team1_id: 1,
-        team1_name: "Leicester Wolves",
-        team2_id: 2,
-        team2_name: "Old Bags",
-        venue_id: 3,
-        venue_name: "Alfie Fenables Centre",
-        match_date: "11/5/24",
-        start_time: 13.0,
-        division: "Division 1",
-    };
+    const [upcomingFixtures, setUpcomingFixtures] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const futureFixture2 = {
-        fixture_id: 1,
-        match_status: "planned",
-        team1_id: 1,
-        team1_name: "Leicester Wolves",
-        team2_id: 2,
-        team2_name: "Old Bags",
-        venue_id: 3,
-        venue_name: "Alfie Fenables Centre",
-        match_date: "15/5/24",
-        start_time: 13.0,
-        division: "Division 1",
-    };
+    useEffect(() => {
+        setIsLoading(true);
+        getUpcomingFixtures()
+            .then((apiUpcomingFixtures) => {
+                setUpcomingFixtures(apiUpcomingFixtures);
+            })
+            .then(() => {
+                setIsLoading(false);
+            });
+    }, []);
 
-    const styles = StyleSheet.create({
-        scroll: {
-            flex: 1,
-            alignItems: "center",
-        },
+    if (isLoading) {
+        return <LoadScreen message="Loading Results..." />;
+    }
+
+    const matchDates = [];
+    upcomingFixtures.forEach((upcomingFixture) => {
+        if (!matchDates.includes(upcomingFixture.match_date)) {
+            matchDates.push(upcomingFixture.match_date);
+        }
+    });
+
+    const matchdayContainers = matchDates.map((matchDate) => {
+        const filteredFixtures = upcomingFixtures.filter((upcomingFixture) => {
+            return upcomingFixture.match_date === matchDate;
+        });
+
+        return (
+            <MatchdayContainer date={new Date(matchDate).toLocaleDateString()}>
+                {filteredFixtures.map((filteredFixture) => {
+                    return <FixtureCard fixture={filteredFixture} />;
+                })}
+            </MatchdayContainer>
+        );
     });
 
     return (
-        <ScrollView contentStyle={styles.scroll}>
-            <MatchdayContainer date={futureFixture.match_date}>
-                <FixtureCard fixture={futureFixture} />
-                <FixtureCard fixture={futureFixture} />
-                <FixtureCard fixture={futureFixture} />
-            </MatchdayContainer>
-            <MatchdayContainer date={futureFixture2.match_date}>
-                <FixtureCard fixture={futureFixture2} />
-                <FixtureCard fixture={futureFixture2} />
-            </MatchdayContainer>
-        </ScrollView>
+        <>
+            <Text variant="headlineMedium" style={styles.title}>
+                Upcoming Fixtures
+            </Text>
+            <ScrollView contentStyle={styles.scroll}>
+                {matchdayContainers}
+            </ScrollView>
+        </>
     );
 }
+
+const styles = StyleSheet.create({
+    scroll: {
+        flex: 1,
+        alignItems: "center",
+    },
+    title: {
+        textAlign: "center",
+        margin: 5,
+    },
+});
