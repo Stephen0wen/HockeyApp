@@ -23,7 +23,7 @@ const insertUserRoles = (user_id, user_roles) => {
 exports.selectUsers = () => {
   return db
     .query(
-      `SELECT users.user_id, users.team_id, user_name, team_name, player_bool, sec_bool, umpire_bool, organiser_bool, user_address_1, user_address_2, user_postcode, user_dob, user_phone FROM users JOIN roles ON users.user_id = roles.user_id JOIN teams ON users.team_id = teams.team_id;`
+      `SELECT users.user_id, users.team_id, user_name, team_name, player_bool, sec_bool, umpire_bool, organiser_bool, user_address_1, user_address_2, user_postcode, user_dob, user_phone, user_email, user_password FROM users JOIN roles ON users.user_id = roles.user_id JOIN teams ON users.team_id = teams.team_id;`
     )
     .then(({ rows }) => {
       const userRows = rows.map((row) => {
@@ -33,7 +33,9 @@ exports.selectUsers = () => {
             row.user_role.push(key.slice(0, -5));
           }
         }
-        row.user_dob = row.user_dob.toISOString().slice(0, 10);
+        if (row.user_dob) {
+          row.user_dob = row.user_dob.toISOString().slice(0, 10);
+        }
         return row;
       });
       return userRows;
@@ -59,7 +61,9 @@ exports.selectUserById = (user_id) => {
           rows[0].user_roles.push(key.slice(0, -5));
         }
       }
-      rows[0].user_dob = rows[0].user_dob.toISOString().slice(0, 10);
+      if (rows[0].user_dob) {
+        rows[0].user_dob = rows[0].user_dob.toISOString().slice(0, 10);
+      }
       return rows[0];
     });
 };
@@ -160,7 +164,29 @@ exports.updateUserById = (user_id, body) => {
           rows[0].user_roles.push(key.slice(0, -5));
         }
       }
-      rows[0].user_dob = moment(rows[0].user_dob).format("YYYY-MM-DD");
+      if (rows[0].user_dob) {
+        rows[0].user_dob = moment(rows[0].user_dob).format("YYYY-MM-DD");
+      }
       return rows[0];
+    });
+};
+
+exports.removeUserByUserId = (user_id) => {
+  return db
+    .query(`DELETE FROM responses WHERE user_id=$1 RETURNING *`, [user_id])
+    .then(() => {
+      return db.query(`DELETE FROM roles WHERE user_id=$1 RETURNING *`, [
+        user_id,
+      ]);
+    })
+    .then(() => {
+      return db.query(`DELETE FROM users WHERE user_id=$1 RETURNING *`, [
+        user_id,
+      ]);
+    })
+    .then(({ rows: deleted_users }) => {
+      if (deleted_users.length === 0) {
+        return Promise.reject({ status: 404, msg: "Unable to delete user" });
+      }
     });
 };

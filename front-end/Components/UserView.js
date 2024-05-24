@@ -1,8 +1,9 @@
 import { Text, Surface, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import UserViewSwitch from "./UserViewSwitch";
+import { useEffect } from "react";
 
-export default function UserView({ userRole, setUserRole }) {
+export default function UserView({ user, userRole, setUserRole }) {
     const theme = useTheme();
 
     const styles = StyleSheet.create({
@@ -16,6 +17,11 @@ export default function UserView({ userRole, setUserRole }) {
             textAlign: "center",
         },
     });
+
+    if (!user.user_roles.length) {
+        return <></>;
+    }
+
     return (
         <Surface style={styles.surface}>
             <Text variant="titleMedium" style={styles.text}>
@@ -26,16 +32,15 @@ export default function UserView({ userRole, setUserRole }) {
                 userRole={userRole}
                 setUserRole={setUserRole}
             />
-            <UserViewSwitch
-                label="player"
-                userRole={userRole}
-                setUserRole={setUserRole}
-            />
-            <UserViewSwitch
-                label="super"
-                userRole={userRole}
-                setUserRole={setUserRole}
-            />
+            {user.user_roles.map((role) => {
+                return (
+                    <UserViewSwitch
+                        label={role}
+                        userRole={userRole}
+                        setUserRole={setUserRole}
+                    />
+                );
+            })}
         </Surface>
     );
 }
