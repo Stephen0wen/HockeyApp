@@ -5,8 +5,6 @@ const {
   handleServerErrors,
 } = require("./errors/index.js");
 
-const { getTeams } = require("./controllers/teams-controllers.js");
-const { getFixturesById } = require("./controllers/fixtures_byId.controller");
 const {
   getResponsesByUserId,
 } = require("./controllers/responses-byUserId.controller.js");
