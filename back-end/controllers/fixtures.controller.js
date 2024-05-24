@@ -1,11 +1,7 @@
 const { selectAllFixtures } = require("../models/fixtures.model");
 
 exports.getFixtures = (request, response, next) => {
-    selectAllFixtures(request.query)
-        .then((fixtures) => {
-            response.status(200).send({ fixtures });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    selectAllFixtures(request.query).then((fixtures) => {
+        response.status(200).send({ fixtures });
+    });
 };

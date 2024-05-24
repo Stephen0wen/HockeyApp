@@ -32,37 +32,33 @@ exports.selectAllFixtures = ({ match_status, team_id, division }) => {
         sqlArr.push(match_status);
     }
 
+    if (team_id && insertposition > 1) {
+        sqlString += `
+    AND (team1_id = $${insertposition++}
+      OR team2_id = $${insertposition++})`;
+        sqlArr.push(team_id);
+        sqlArr.push(team_id);
+    }
+
     if (team_id && insertposition === 1) {
         sqlString += `
     WHERE (team1_id = $${insertposition++}
       OR team2_id = $${insertposition++})`;
         sqlArr.push(team_id);
         sqlArr.push(team_id);
-        team_id = false;
     }
 
-    if (team_id) {
+    if (division && insertposition > 1) {
         sqlString += `
-      AND (team1_id = $${insertposition++}
-        OR team2_id = $${insertposition++})`;
-        sqlArr.push(team_id);
-        sqlArr.push(team_id);
+      AND team1.team_division = $${insertposition++}`;
+        sqlArr.push(division);
     }
 
     if (division && insertposition === 1) {
         sqlString += `
     WHERE team1.team_division = $${insertposition++}`;
         sqlArr.push(division);
-        division = false;
     }
-
-    if (division) {
-        sqlString += `
-      AND team1.team_division = $${insertposition++}`;
-        sqlArr.push(division);
-    }
-
-    sqlString += ";";
 
     return db.query(sqlString, sqlArr).then(({ rows }) => {
         return rows;
