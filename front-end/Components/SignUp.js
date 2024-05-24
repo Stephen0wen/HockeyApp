@@ -134,6 +134,7 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
           setOpen={setOpen}
           setValue={setTeam}
           setItems={setItems}
+          placeholder="Choose your team"
         />
         <IncorrectWarning display={auth.team} check={auth.check} type="team" />
         <Text />
