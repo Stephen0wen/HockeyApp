@@ -17,6 +17,7 @@ const {
     handleServerErrors,
 } = require("./errors/index.js");
 const { getTeams } = require("./controllers/teams-controllers.js");
+const { getFixturesById } = require("./controllers/fixtures_byId.controller");
 
 const app = express();
 app.use(express.json());
@@ -39,7 +40,10 @@ app.get("/api/venues/:venue_id", getVenueById);
 
 app.get("/api/teams", getTeams);
 
+app.get("/api/fixtures/:fixture_id", getFixturesById);
+
 app.get("/api/fixtures", getFixtures);
+
 
 app.all("*", (req, res, next) => {
     res.status(404).send({ msg: "Not Found" });
