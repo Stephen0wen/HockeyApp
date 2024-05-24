@@ -11,6 +11,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { signUpForm } from "./SignUpUtils/signUpForm";
 import IncorrectWarning from "./SignUpUtils/IncorrectWarning";
+import { getTeams } from "./SignUpUtils/teamFetcher";
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
   const hideModal = () => setVisibleSignUp(false);
@@ -26,6 +28,7 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
     password: false,
     password2: false,
     check: false,
+    team: false,
   });
   const [successPopUp, setSuccessPopUp] = useState(false);
 
@@ -47,6 +50,16 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
       setSuccessPopUp(true);
     }
   }, [auth]);
+
+  useEffect(() => {
+    getTeams().then((teams) => {
+      setItems(teams);
+    });
+  }, []);
+
+  const [open, setOpen] = useState(false);
+  const [team, setTeam] = useState(null);
+  const [items, setItems] = useState();
 
   return (
     <Portal>
@@ -113,12 +126,24 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
           check={auth.check}
           type="password2"
         />
+        <Text></Text>
+        <DropDownPicker
+          open={open}
+          value={team}
+          items={items}
+          setOpen={setOpen}
+          setValue={setTeam}
+          setItems={setItems}
+        />
+        <IncorrectWarning display={auth.team} check={auth.check} type="team" />
         <Text />
         <Button
           width="100%"
           marginBottom={"5%"}
           mode="outlined"
-          onPress={() => setAuth(signUpForm(name, email, password, password2))}
+          onPress={() =>
+            setAuth(signUpForm(name, email, password, password2, team))
+          }
         >
           <Divider />
           <Text>Submit </Text>
