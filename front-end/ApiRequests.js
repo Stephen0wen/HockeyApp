@@ -27,3 +27,13 @@ export const getResults = () => {
             return fixtures;
         });
 };
+
+export const getUpcomingFixtures = () => {
+    return axios
+        .get("https://hockeyapp.onrender.com/api/fixtures", {
+            params: { match_status: "upcoming" },
+        })
+        .then(({ data: { fixtures } }) => {
+            return fixtures;
+        });
+};
