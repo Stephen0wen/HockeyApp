@@ -5,7 +5,7 @@ const leagueTableRouter = require("./league-table-router");
 const venuesRouter = require("./venues-router");
 const teamsRouter = require("./teams-router");
 const fixturesRouter = require("./fixtures-router");
-const responsesRouter = require("./responeses-router");
+const responsesRouter = require("./responses-router");
 
 apiRouter.get("/", apiController.getApi);
 

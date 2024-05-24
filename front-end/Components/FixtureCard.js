@@ -2,38 +2,6 @@ import { Card, Text } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 
 export default function FixtureCard({ children, fixture }) {
-    const styles = StyleSheet.create({
-        card: {
-            maxWidth: 500,
-            width: "100%",
-        },
-        cardContent: {
-            width: "100%",
-            justifyContent: "space-between",
-            paddingVertical: 0,
-            paddingHorizontal: 0,
-        },
-        fixtureContainer: {
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            marginVertical: 10,
-        },
-        scoreNumbers: {
-            flexDirection: "row",
-            justifyContent: "center",
-        },
-        scoreText: {
-            textAlign: "center",
-            padding: 2,
-        },
-        teamName: {
-            width: "35%",
-            textAlign: "center",
-            margin: 5,
-        },
-    });
-
     let scoreDisplay = <></>;
     if (fixture.match_status === "completed") {
         scoreDisplay = (
@@ -72,3 +40,35 @@ export default function FixtureCard({ children, fixture }) {
         </>
     );
 }
+
+const styles = StyleSheet.create({
+    card: {
+        maxWidth: 500,
+        width: "100%",
+    },
+    cardContent: {
+        width: "100%",
+        justifyContent: "space-between",
+        paddingVertical: 0,
+        paddingHorizontal: 0,
+    },
+    fixtureContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        marginVertical: 10,
+    },
+    scoreNumbers: {
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    scoreText: {
+        textAlign: "center",
+        padding: 2,
+    },
+    teamName: {
+        width: "35%",
+        textAlign: "center",
+        margin: 5,
+    },
+});

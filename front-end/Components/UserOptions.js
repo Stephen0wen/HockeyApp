@@ -10,7 +10,7 @@ import { UserContext } from "../Contexts/UserContext";
 export default function UserOptions({ visible, setVisible }) {
     const hideModal = () => setVisible(false);
 
-    const { userRole, setUserRole } = useContext(UserContext);
+    const { user, userRole, setUserRole } = useContext(UserContext);
 
     const theme = useTheme();
 
@@ -44,6 +44,7 @@ export default function UserOptions({ visible, setVisible }) {
                     <View style={styles.innerContainer}>
                         <View>
                             <UserView
+                                user={user}
                                 userRole={userRole}
                                 setUserRole={setUserRole}
                             />
