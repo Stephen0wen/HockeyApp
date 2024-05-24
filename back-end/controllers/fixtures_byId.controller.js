@@ -7,4 +7,4 @@ const getFixturesById = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = getFixturesById;
+module.exports = { getFixturesById };
