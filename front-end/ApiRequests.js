@@ -17,3 +17,13 @@ export const getMyFixtures = (team_id) => {
             return fixtures;
         });
 };
+
+export const getResults = () => {
+    return axios
+        .get("https://hockeyapp.onrender.com/api/fixtures", {
+            params: { match_status: "completed" },
+        })
+        .then(({ data: { fixtures } }) => {
+            return fixtures;
+        });
+};
