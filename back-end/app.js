@@ -5,6 +5,7 @@ const {
   getUsers,
   postUser,
   patchUserById,
+  getUserById,
 } = require("./controllers/users-controllers");
 const { getLeagueTables } = require("./controllers/league_tables.controller");
 const { getVenues, getVenueById } = require("./controllers/venues-controller");
@@ -23,7 +24,11 @@ app.get("/api", getApi);
 app.get("/api/users", getUsers);
 app.post("/api/users", postUser);
 
+
 app.patch("/api/users/:user_id", patchUserById);
+
+app.get("/api/users/:user_id", getUserById);
+
 
 app.get("/api/league_tables", getLeagueTables);
 
