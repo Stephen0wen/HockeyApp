@@ -38,11 +38,13 @@ describe("/api/users", () => {
           expect(typeof user.user_name).toBe("string");
           expect(typeof user.team_name).toBe("string");
           expect(typeof user.user_role).toBe("object");
-          expect(typeof user.user_address_1).toBe("string");
-          expect(typeof user.user_address_2).toBe("string");
-          expect(typeof user.user_postcode).toBe("string");
-          expect(typeof user.user_dob).toBe("string");
-          expect(typeof user.user_phone).toBe("string");
+          expect(["string", "object"]).toContain(typeof user.user_address_1);
+          expect(["string", "object"]).toContain(typeof user.user_address_2);
+          expect(["string", "object"]).toContain(typeof user.user_postcode);
+          expect(["string", "object"]).toContain(typeof user.user_dob);
+          expect(["string", "object"]).toContain(typeof user.user_phone);
+          expect(typeof user.user_email).toBe("string");
+          expect(typeof user.user_password).toBe("string");
         });
       });
   });
@@ -54,6 +56,10 @@ describe("/api/users", () => {
         user_name: "Alfie Fenables",
         team_name: "Leicester Wolves",
         user_roles: ["player_bool", "sec_bool"],
+        user_address_1: "15 James Street",
+        user_address_2: "Rochester",
+        user_postcode: "ME1 2YL",
+        user_dob: "2002-05-29",
         user_email: "magicthegathering@gmail.com",
         user_password:
           "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
