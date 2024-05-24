@@ -19,6 +19,9 @@ const IncorrectWarning = (props) => {
   if (props.type === "password2") {
     returnText = "Passwords must match.";
   }
+  if (props.type === "team") {
+    returnText = "Please choose your team.";
+  }
   return <Text display={display}> {returnText} </Text>;
 };
 
