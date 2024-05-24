@@ -73,6 +73,46 @@ describe("/api/users", () => {
   });
 });
 
+describe("/api/users/:user_id", () => {
+  test("GET 200: Should return a user object corresponding to the passed user id", () => {
+    return request(app)
+      .get("/api/users/1")
+      .expect(200)
+      .then(({ body }) => {
+        const { user } = body;
+        expect(user.user_id).toBe(1);
+        expect(user.team_id).toBe(1);
+        expect(user.user_name).toBe("Alec");
+        expect(user.user_roles).toEqual(["player", "sec"]);
+        expect(user.user_address_1).toBe("91 Main Street");
+        expect(user.user_address_2).toBe("Swadlincote");
+        expect(user.user_postcode).toBe("W1A 1AA");
+        expect(user.user_dob).toBe("1980-01-01");
+        expect(user.user_phone).toBe("07123456789");
+        expect(user.user_email).toBe("hockeylover@gmail.com");
+        expect(user.user_password).toBe("password123");
+      });
+  });
+
+  test("GET 404: Should respond with a status and error message if user id is not found in database", () => {
+    return request(app)
+      .get("/api/users/100")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("User not found");
+      });
+  });
+
+  test("GET 400: Should respond with a status and error message if user id is invalid", () => {
+    return request(app)
+      .get("/api/users/invalid_id")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
+  });
+});
+
 describe("/api/league_tables", () => {
   test("Should return an array with the correct keys", () => {
     return request(app)

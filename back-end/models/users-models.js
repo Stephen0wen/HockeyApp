@@ -20,6 +20,30 @@ exports.selectUsers = () => {
     });
 };
 
+exports.selectUserById = (user_id) => {
+  return db
+    .query(
+      `SELECT * FROM users JOIN roles ON users.user_id = roles.user_id WHERE users.user_id = $1`,
+      [user_id]
+    )
+    .then(({ rows }) => {
+      if (!rows.length) {
+        return Promise.reject({
+          status: 404,
+          msg: "User not found",
+        });
+      }
+      rows[0].user_roles = [];
+      for (const [key, value] of Object.entries(rows[0])) {
+        if (value === true) {
+          rows[0].user_roles.push(key.slice(0, -5));
+        }
+      }
+      rows[0].user_dob = rows[0].user_dob.toISOString().slice(0, 10);
+      return rows[0];
+    });
+};
+
 exports.insertUser = ({
   user_name,
   team_name,
