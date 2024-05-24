@@ -102,7 +102,6 @@ exports.insertUser = ({
           rows[0].user_roles.push(key.slice(0, -5));
         }
       }
-      console.log(rows[0]);
       return rows[0];
     });
 };
