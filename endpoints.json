@@ -165,13 +165,15 @@
                     "team_id": 1,
                     "division_id": 2,
                     "team_name": "Leicester Wolves",
-                    "points": 45
+                    "team_start_time": "1100",
+                    "venue_id": 4
                 },
                 {
                     "team_id": 3,
                     "division_id": 1,
                     "team_name": "Bedouins",
-                    "points": 41
+                    "team_start_time": "1500",
+                    "venue_id": 4
                 }
             ]
         }
