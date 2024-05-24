@@ -644,37 +644,59 @@ describe("DELETE /api/users/:user_id", () => {
     });
 });
 describe("/api/responses/:user_id", () => {
-  test("GET 200: Responds with endpoint json data", () => {
-    return request(app)
-      .get("/api/responses/1")
-      .expect(200)
-      .then(({ body }) => {
-        const responses = body.responses;
-        responses.forEach((response) => {
-          expect(typeof response.user_id).toBe("number");
-          expect(typeof response.fixture_id).toBe("number");
-          expect(typeof response.response).toBe("string");
-          expect(typeof response.created_at).toBe("string");
-          expect(["string", "object"]).toContain(typeof response.updated_at);
-        });
-      });
-  });
-  test("GET 404: Returns an error with a path of the right type, but not present in database", () => {
-    return request(app)
-      .get("/api/responses/999")
-      .expect(404)
-      .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe("Not found");
-      });
-  });
-  test("GET 400: Returns an error with a path of the wrong type", () => {
-    return request(app)
-      .get("/api/responses/banana")
-      .expect(400)
-      .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe("bad request");
-      });
-  });
+    test("GET 200: Responds with endpoint json data", () => {
+        return request(app)
+            .get("/api/responses/1")
+            .expect(200)
+            .then(({ body }) => {
+                const responses = body.responses;
+                responses.forEach((response) => {
+                    expect(typeof response.user_id).toBe("number");
+                    expect(typeof response.fixture_id).toBe("number");
+                    expect(typeof response.response).toBe("string");
+                    expect(typeof response.created_at).toBe("string");
+                    expect(["string", "object"]).toContain(
+                        typeof response.updated_at
+                    );
+                });
+            });
+    });
+    test("GET 404: Returns an error with a path of the right type, but not present in database", () => {
+        return request(app)
+            .get("/api/responses/999")
+            .expect(404)
+            .then(({ body }) => {
+                const { msg } = body;
+                expect(msg).toBe("Not found");
+            });
+    });
+    test("GET 400: Returns an error with a path of the wrong type", () => {
+        return request(app)
+            .get("/api/responses/banana")
+            .expect(400)
+            .then(({ body }) => {
+                const { msg } = body;
+                expect(msg).toBe("bad request");
+            });
+    });
+});
+
+describe("/api/fixtures/:fixture_id/teamsheet", () => {
+    test("Should return the correct teamsheet for the given fixture", () => {
+        return request(app)
+            .get("/api/fixtures/1/teamsheet/1")
+            .expect(200)
+            .then(({ body }) => {
+                const { teamsheet } = body;
+                const allowedAvailabilities = ["yes", "no", "maybe"];
+                expect(teamsheet.length).toBe(4);
+                teamsheet.forEach((response) => {
+                    expect(typeof response.name).toBe("string");
+                    expect(typeof response.user_id).toBe("number");
+                    expect(
+                        allowedAvailabilities.includes(response.availability)
+                    ).toBe(true);
+                });
+            });
+    });
 });
