@@ -74,76 +74,6 @@ describe("/api/users", () => {
 });
 
 describe("/api/users/:user_id", () => {
-
-  test("PATCH 200: Should update a user object and return it", () => {
-    return request(app)
-      .patch("/api/users/3")
-      .send({
-        user_name: "Hanif Pudding",
-        team_name: "Leicester Thursday",
-        user_address_1: "15 James Street",
-        user_address_2: "Rochester",
-        user_postcode: "ME1 2YL",
-        user_dob: "2002-05-29",
-        user_phone: "07734564228",
-        user_roles: ["player_bool", "sec_bool"],
-        user_email: "thisisnewemail@gmail.com",
-        user_password: "newpassword123",
-      })
-      .expect(200)
-      .then(({ body }) => {
-        const { user } = body;
-        expect(user.user_id).toBe(3);
-        expect(user.team_id).toBe(6);
-        expect(user.user_name).toBe("Hanif Pudding");
-        expect(user.user_address_1).toEqual("15 James Street");
-        expect(user.user_address_2).toEqual("Rochester");
-        expect(user.user_postcode).toEqual("ME1 2YL");
-        expect(user.user_dob).toEqual("2002-05-29");
-        expect(user.user_phone).toEqual("07734564228");
-        expect(user.user_roles).toEqual(["player", "sec"]);
-        expect(user.user_email).toBe("thisisnewemail@gmail.com");
-        expect(user.user_password).toBe("newpassword123");
-      });
-  });
-
-  test("PATCH 404: responds with a status and error message if user id is not found in database", () => {
-    return request(app)
-      .patch("/api/users/100")
-      .send({
-        user_name: "Hanif Pudding",
-        team_name: "Leicester Thursday",
-        user_address_1: "15 James Street",
-        user_address_2: "Rochester",
-        user_postcode: "ME1 2YL",
-        user_dob: "2002-05-29",
-        user_phone: "07734564228",
-        user_roles: ["player_bool", "sec_bool"],
-        user_email: "thisisnewemail@gmail.com",
-        user_password: "newpassword123",
-      })
-      .expect(404)
-      .then(({ body }) => {
-        expect(body.msg).toBe("User ID not present in DB");
-      });
-  });
-
-  test("PATCH 400: responds with a status and error message if user id is invalid", () => {
-    return request(app)
-      .patch("/api/users/invalid_id")
-      .send({
-        user_name: "Hanif Pudding",
-        team_name: "Leicester Thursday",
-        user_address_1: "15 James Street",
-        user_address_2: "Rochester",
-        user_postcode: "ME1 2YL",
-        user_dob: "2002-05-29",
-        user_phone: "07734564228",
-        user_roles: ["player_bool", "sec_bool"],
-        user_email: "thisisnewemail@gmail.com",
-        user_password: "newpassword123",
-      })
-
   test("GET 200: Should return a user object corresponding to the passed user id", () => {
     return request(app)
       .get("/api/users/1")
@@ -176,7 +106,6 @@ describe("/api/users/:user_id", () => {
   test("GET 400: Should respond with a status and error message if user id is invalid", () => {
     return request(app)
       .get("/api/users/invalid_id")
-
       .expect(400)
       .then(({ body }) => {
         expect(body.msg).toBe("Invalid input");
