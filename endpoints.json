@@ -250,20 +250,26 @@
         "description": "serves an object corresponding to the given user id",
         "queries": [],
         "exampleResponse": {
-            "users": {
-                "user_id": 1,
-                "team_id": 2,
-                "user_name": "Alfie Fenables",
-                "team_name": "Leicester Wolves",
-                "user_role": ["player", "secretary"],
-                "user_address_1": "10 Downing St",
-                "user_address_2": "London",
-                "user_postcode": "BR23 2XU",
-                "user_dob": "15/02/2000",
-                "user_phone": "1234567"
-            }
-        }
-    },
+      "users": {
+        "user_id": 1,
+        "team_id": 2,
+        "user_name": "Alfie Fenables",
+        "team_name": "Leicester Wolves",
+        "user_roles": ["player", "sec"],
+        "user_address_1": "null",
+        "user_address_2": "null",
+        "user_postcode": "null",
+        "user_dob": "null",
+        "user_phone": "null",
+        "user_email": "magicthegathering@gmail.com",
+        "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
+        "player_bool": "true",
+        "sec_bool": "true",
+        "umpire_bool": "null",
+        "organiser_bool": "null"
+      }
+    }
+  },
     "DELETE /api/users/:user_id": {
         "description": "Deletes a user object corresponding to the given user id and returns no content",
         "queries": [],
