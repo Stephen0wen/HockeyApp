@@ -95,3 +95,23 @@ exports.insertUser = ({
       return rows[0];
     });
 };
+
+exports.removeUserByUserId = (user_id) => {
+  return db
+    .query(`DELETE FROM responses WHERE user_id=$1 RETURNING *`, [user_id])
+    .then(() => {
+      return db.query(`DELETE FROM roles WHERE user_id=$1 RETURNING *`, [
+        user_id,
+      ]);
+    })
+    .then(() => {
+      return db.query(`DELETE FROM users WHERE user_id=$1 RETURNING *`, [
+        user_id,
+      ]);
+    })
+    .then(({ rows: deleted_users }) => {
+      if (deleted_users.length === 0) {
+        return Promise.reject({ status: 404, msg: "Unable to delete user" });
+      }
+    });
+};
