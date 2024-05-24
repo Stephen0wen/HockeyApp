@@ -559,3 +559,71 @@ describe("/api/responses", () => {
             });
     });
 });
+
+describe("/api/fixtures/:fixture_id", () => {
+  test("GET 200: Responds with endpoint json data", () => {
+    return request(app)
+      .get("/api/fixtures/3")
+      .expect(200)
+      .then(({ body }) => {
+        const fixtures = body.fixture;
+        fixtures.forEach((fixture) => {
+          expect(typeof fixture.fixture_id).toBe("number");
+          expect(typeof fixture.match_status).toBe("string");
+          expect(typeof fixture.team1_id).toBe("number");
+          expect(typeof fixture.team1_name).toBe("string");
+          expect(typeof fixture.team2_id).toBe("number");
+          expect(typeof fixture.team2_name).toBe("string");
+          expect(typeof fixture.team1_score).toBe("number");
+          expect(typeof fixture.team2_score).toBe("number");
+          expect(typeof fixture.venue_id).toBe("number");
+          expect(typeof fixture.venue_name).toBe("string");
+          expect(typeof fixture.match_date).toBe("string");
+          expect(typeof fixture.start_time).toBe("string");
+          expect(typeof fixture.division).toBe("string");
+        });
+      });
+  });
+  test("GET 404: Returns an error with a path of the right type, but not present in database", () => {
+    return request(app)
+      .get("/api/fixtures/999")
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe("Not found");
+      });
+  });
+  test("GET 400: Returns an error with a path of the wrong type", () => {
+    return request(app)
+      .get("/api/fixtures/banana")
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe("bad request");
+      });
+  });
+});
+
+describe("DELETE /api/users/:user_id", () => {
+  it("DELETE:204 should be able to delete user", () => {
+    return request(app).delete("/api/users/1").expect(204);
+  });
+
+  it("DELETE:404 send error if unable to delete user due to valid user_id which is not in DB", () => {
+    return request(app)
+      .delete("/api/users/99999")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Unable to delete user");
+      });
+  });
+
+  it("DELETE:400 send error if unable to delete user due to invalid user_id", () => {
+    return request(app)
+      .delete("/api/users/invalidID")
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Invalid input");
+      });
+  });
+});
