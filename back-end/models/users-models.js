@@ -1,4 +1,24 @@
 const db = require("../db/connection");
+const moment = require("moment");
+
+const insertUserRoles = (user_id, user_roles) => {
+  if (!user_roles) {
+    return Promise.resolve();
+  }
+  return Promise.all(
+    user_roles.map((user_role) => {
+      return db.query(
+        `INSERT INTO roles (user_id, ${user_role})
+      VALUES (${user_id}, true)
+      ON CONFLICT(user_id)
+      DO UPDATE SET ${user_role} = EXCLUDED.${user_role}
+      RETURNING *`
+      );
+    })
+  ).catch((error) => {
+    return error;
+  });
+};
 
 exports.selectUsers = () => {
   return db
@@ -17,6 +37,30 @@ exports.selectUsers = () => {
         return row;
       });
       return userRows;
+    });
+};
+
+exports.selectUserById = (user_id) => {
+  return db
+    .query(
+      `SELECT * FROM users JOIN roles ON users.user_id = roles.user_id WHERE users.user_id = $1`,
+      [user_id]
+    )
+    .then(({ rows }) => {
+      if (!rows.length) {
+        return Promise.reject({
+          status: 404,
+          msg: "User not found",
+        });
+      }
+      rows[0].user_roles = [];
+      for (const [key, value] of Object.entries(rows[0])) {
+        if (value === true) {
+          rows[0].user_roles.push(key.slice(0, -5));
+        }
+      }
+      rows[0].user_dob = rows[0].user_dob.toISOString().slice(0, 10);
+      return rows[0];
     });
 };
 
@@ -43,17 +87,7 @@ exports.insertUser = ({
     })
     .then(({ rows }) => {
       const { user_id } = rows[0];
-      return Promise.all(
-        user_roles.map((user_role) => {
-          return db.query(
-            `INSERT INTO roles (user_id, ${user_role})
-          VALUES (${user_id}, true)
-          ON CONFLICT(user_id)
-          DO UPDATE SET ${user_role} = EXCLUDED.${user_role}
-          RETURNING *`
-          );
-        })
-      );
+      return insertUserRoles(user_id, user_roles);
     })
     .then(() => {
       return db.query(
@@ -68,6 +102,65 @@ exports.insertUser = ({
           rows[0].user_roles.push(key.slice(0, -5));
         }
       }
+      return rows[0];
+    });
+};
+
+exports.updateUserById = (user_id, body) => {
+  return insertUserRoles(user_id, body.user_roles)
+    .then(() => {
+      return db.query(`SELECT team_id from teams WHERE team_name = $1`, [
+        body.team_name || "Leicester Wolves",
+      ]);
+    })
+    .then(({ rows }) => {
+      return rows[0].team_id;
+    })
+    .then((team_id) => {
+      let insertPosition = 1;
+      const updateVals = [];
+      let sqlQueryString = `UPDATE users SET `;
+
+      if (body.team_name) {
+        updateVals.push(team_id);
+        sqlQueryString += `team_id = $${insertPosition++},`;
+      }
+      for (const [key, value] of Object.entries(body)) {
+        if (key !== "team_name" && key !== "user_roles") {
+          updateVals.push(value);
+          sqlQueryString += `${key} = $${insertPosition++},`;
+        }
+      }
+      let sqlQueryStringTrimmed = sqlQueryString.slice(0, -1);
+
+      updateVals.push(user_id);
+      sqlQueryStringTrimmed += `
+    WHERE user_id = $${insertPosition++}
+    RETURNING *;
+    `;
+
+      return db.query(sqlQueryStringTrimmed, updateVals);
+    })
+    .then(() => {
+      return db.query(
+        `SELECT * FROM users JOIN roles ON users.user_id = roles.user_id WHERE users.user_id = $1`,
+        [user_id]
+      );
+    })
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: "User ID not present in DB",
+        });
+      }
+      rows[0].user_roles = [];
+      for (const [key, value] of Object.entries(rows[0])) {
+        if (value === true) {
+          rows[0].user_roles.push(key.slice(0, -5));
+        }
+      }
+      rows[0].user_dob = moment(rows[0].user_dob).format("YYYY-MM-DD");
       return rows[0];
     });
 };

@@ -12,7 +12,7 @@ exports.selectHomeFixtures = () => {
       FROM fixtures
       JOIN teams 
         ON fixtures.team1_id = teams.team_id
-      WHERE fixtures.match_status = 'Completed' 
+      WHERE fixtures.match_status = 'completed' 
       ;`
         )
         .then(({ rows }) => {
@@ -32,7 +32,7 @@ exports.selectAwayFixtures = () => {
     FROM fixtures
     JOIN teams 
       ON fixtures.team2_id = teams.team_id
-    WHERE fixtures.match_status = 'Completed' 
+    WHERE fixtures.match_status = 'completed' 
     ;`
         )
         .then(({ rows }) => {
