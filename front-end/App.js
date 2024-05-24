@@ -68,7 +68,7 @@ export default function App() {
                         }}
                     />
                     <Tab.Screen
-                        name="Fixtures"
+                        name="My Fixtures"
                         component={MyFixturesPage}
                         options={{
                             tabBarIcon: ({ color }) => (
