@@ -681,7 +681,7 @@ describe("/api/responses/:user_id", () => {
     });
 });
 
-describe.only("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
+describe("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
     test("Should return the correct teamsheet for the given fixture", () => {
         return request(app)
             .get("/api/fixtures/1/teamsheet/1")
@@ -702,6 +702,15 @@ describe.only("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
     test("GET 200: Should return an empty teamsheet, when the fixture exists, but there are no responses", () => {
         return request(app)
             .get("/api/fixtures/3/teamsheet/1")
+            .expect(200)
+            .then(({ body }) => {
+                const { teamsheet } = body;
+                expect(teamsheet.length).toBe(0);
+            });
+    });
+    test("GET 200: Should return an empty teamsheet when team_id exists, but is not associated with the fixture", () => {
+        return request(app)
+            .get("/api/fixtures/1/teamsheet/3")
             .expect(200)
             .then(({ body }) => {
                 const { teamsheet } = body;
@@ -745,13 +754,16 @@ describe.only("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
                 expect(msg).toBe("Invalid input");
             });
     });
-    test("GET 200: Should return an empty teamsheet when team_id exists, but is not associated with the fixture", () => {
+});
+
+describe.only("/api/teams/:team_id", () => {
+    test("GET 200: Should return a teams object corresponding to the passed team_id", () => {
         return request(app)
-            .get("/api/fixtures/1/teamsheet/3")
+            .get("/api/teams/1")
             .expect(200)
             .then(({ body }) => {
-                const { teamsheet } = body;
-                expect(teamsheet.length).toBe(0);
+                const { team } = body;
+                console.log(team);
             });
     });
 });
