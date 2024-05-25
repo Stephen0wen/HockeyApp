@@ -14,10 +14,12 @@ import IncorrectWarning from "./SignUpUtils/IncorrectWarning";
 import { getTeams } from "./SignUpUtils/teamFetcher";
 import DropDownPicker from "react-native-dropdown-picker";
 import { postUser } from "./SignUpUtils/postUser";
+import { getUsers } from "./SignUpUtils/getUsers";
 
 export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
   const hideModal = () => setVisibleSignUp(false);
   const hideSuccess = () => setSuccessPopUp(false);
+  const hideFailure = () => setFailurePopUp(false);
   const theme = useTheme();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -32,7 +34,9 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
     team: false,
   });
   const [successPopUp, setSuccessPopUp] = useState(false);
+  const [failurePopUp, setFailurePopUp] = useState(false);
   const [user, setUser] = useState([]);
+  const [existingEmails, setExistingEmails] = useState([]);
 
   const containerStyle = {
     backgroundColor: theme.colors.primaryContainer,
@@ -47,16 +51,25 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
   };
 
   useEffect(() => {
+    getUsers().then((users) => {
+      setExistingEmails(users.map((user) => user.user_email));
+    });
+
     if (Object.values(auth).includes(false) === false) {
-      test = postUser(name, team, email, password).then((res) => {
-        setUser([
-          "Username: " + res.user_name,
-          "Email: " + res.user_email,
-          "Team: " + team,
-        ]);
-      });
-      setVisibleSignUp(false);
-      setSuccessPopUp(true);
+      if (existingEmails.includes(email)) {
+        setVisibleSignUp(false);
+        setFailurePopUp(true);
+      } else {
+        postUser(name, team, email, password).then((res) => {
+          setUser([
+            "Username: " + res.user_name,
+            "Email: " + res.user_email,
+            "Team: " + team,
+          ]);
+        });
+        setVisibleSignUp(false);
+        setSuccessPopUp(true);
+      }
     }
   }, [auth]);
 
@@ -158,6 +171,27 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
         >
           <Divider />
           <Text>Submit </Text>
+        </Button>
+      </Modal>
+      <Modal
+        visible={failurePopUp}
+        onDismiss={hideFailure}
+        onRequestClose={hideFailure}
+        contentContainerStyle={containerStyle}
+        animationType="slide"
+      >
+        <Text style={{ textAlign: `center` }}>
+          An account already exists with this email! Please login with this
+          email.
+        </Text>
+        <Text style={{ textAlign: `left` }}>{email}</Text>
+        <Button
+          width="100%"
+          marginBottom={"5%"}
+          mode="outlined"
+          onPress={() => setFailurePopUp(false)}
+        >
+          <Text>Back to log in </Text>
         </Button>
       </Modal>
       <Modal
