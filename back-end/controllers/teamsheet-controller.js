@@ -1,4 +1,5 @@
 const { fetchFixturesById } = require("../models/fixtures_byId.model");
+const { selectTeamById } = require("../models/teams-models");
 const { selectTeamsheet } = require("../models/teamsheet-model");
 
 exports.getTeamsheet = (request, response, next) => {
@@ -12,7 +13,7 @@ exports.getTeamsheet = (request, response, next) => {
         .then(() => {
             return Promise.all([
                 fetchFixturesById(fixture_id),
-                //fetchTeamById
+                selectTeamById(team_id),
             ]);
         })
         .then(() => {

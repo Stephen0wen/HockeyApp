@@ -735,8 +735,7 @@ describe("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
                 expect(msg).toBe("Invalid input");
             });
     });
-    //Skipped until fetchTeamById is created
-    test.skip("GET 404: Returns an error when team_id is of correct type, but does not exist in database", () => {
+    test("GET 404: Returns an error when team_id is of correct type, but does not exist in database", () => {
         return request(app)
             .get("/api/fixtures/1/teamsheet/999")
             .expect(404)
@@ -756,7 +755,7 @@ describe("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
     });
 });
 
-describe.only("/api/teams/:team_id", () => {
+describe("/api/teams/:team_id", () => {
     test("GET 200: Should return a teams object corresponding to the passed team_id", () => {
         return request(app)
             .get("/api/teams/1")
