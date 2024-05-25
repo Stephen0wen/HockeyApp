@@ -763,7 +763,24 @@ describe.only("/api/teams/:team_id", () => {
             .expect(200)
             .then(({ body }) => {
                 const { team } = body;
-                console.log(team);
+            });
+    });
+    test("GET 404: Returns an error when team_id is of correct type, but does not exist in database", () => {
+        return request(app)
+            .get("/api/teams/999")
+            .expect(404)
+            .then(({ body }) => {
+                const { msg } = body;
+                expect(msg).toBe("Not found");
+            });
+    });
+    test("GET 400: Returns an error when team_id is of incorrect type", () => {
+        return request(app)
+            .get("/api/teams/bad_id")
+            .expect(400)
+            .then(({ body }) => {
+                const { msg } = body;
+                expect(msg).toBe("Invalid input");
             });
     });
 });
