@@ -8,12 +8,15 @@ exports.getTeamsheet = (request, response, next) => {
             if (teamsheet.length > 0) {
                 response.status(200).send({ teamsheet });
             }
+        })
+        .then(() => {
             return Promise.all([
                 fetchFixturesById(fixture_id),
                 //fetchTeamById
-            ]).then(() => {
-                response.status(200).send({ teamsheet: [] });
-            });
+            ]);
+        })
+        .then(() => {
+            response.status(200).send({ teamsheet: [] });
         })
         .catch((error) => {
             next(error);
