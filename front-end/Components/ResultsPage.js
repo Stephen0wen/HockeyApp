@@ -38,7 +38,10 @@ export default function ResultsPage() {
         });
 
         return (
-            <MatchdayContainer date={new Date(matchDate).toLocaleDateString()}>
+            <MatchdayContainer
+                key={matchDate}
+                date={new Date(matchDate).toLocaleDateString()}
+            >
                 {filteredFixtures.map((filteredFixture) => {
                     return (
                         <FixtureCard
