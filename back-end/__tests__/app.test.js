@@ -677,6 +677,7 @@ describe("/api/venues/:fixture_id/venue", () => {
       .then(({ body }) => {
         const { venue } = body;
         expect(venue.venue_id).toBe(3);
+        expect(venue.venue_name).toBe("Soar Valley Leisure Centre");
         expect(venue.venue_latitude).toBe(52.728342731020206);
         expect(venue.venue_longitude).toBe(-1.1361566014711466);
       });

@@ -27,7 +27,7 @@ exports.selectVenueById = (venue_id) => {
 exports.selectVenueByFixtureId = (fixture_id) => {
   return db
     .query(
-      `SELECT v.venue_id, v.venue_latitude, v.venue_longitude from fixtures f
+      `SELECT v.venue_id, v.venue_name, v.venue_latitude, v.venue_longitude from fixtures f
       JOIN teams t ON f.team1_id = t.team_id
       JOIN venues v ON t.venue_id = v.venue_id WHERE f.fixture_id=$1;`,
       [fixture_id]
