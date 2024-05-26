@@ -1,12 +1,10 @@
 import { StyleSheet, ScrollView } from "react-native";
-import FixtureCard from "./FixtureCard";
-import MatchdayContainer from "./MatchdayContainer";
-import MyFixtureUI from "./MyFixtureUI";
 import LoadScreen from "./LoadScreen";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../Contexts/UserContext";
 import { getMyFixtures } from "../ApiRequests";
 import { Text } from "react-native-paper";
+import MyFixtureCard from "./MyFixtureCard";
 
 export default function MyFixturesPage() {
     const { user } = useContext(UserContext);
@@ -35,18 +33,7 @@ export default function MyFixturesPage() {
             </Text>
             <ScrollView contentStyle={styles.scroll}>
                 {myFixtures.map((fixture) => {
-                    return (
-                        <MatchdayContainer
-                            key={fixture.fixture_id}
-                            date={new Date(
-                                fixture.match_date
-                            ).toLocaleDateString()}
-                        >
-                            <FixtureCard fixture={fixture}>
-                                <MyFixtureUI />
-                            </FixtureCard>
-                        </MatchdayContainer>
-                    );
+                    return <MyFixtureCard fixture={fixture} />;
                 })}
             </ScrollView>
         </>
