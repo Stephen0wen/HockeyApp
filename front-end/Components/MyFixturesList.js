@@ -3,13 +3,15 @@ import LoadScreen from "./LoadScreen";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../Contexts/UserContext";
 import { getMyFixtures } from "../ApiRequests";
-import { Text } from "react-native-paper";
+import { Text, Button } from "react-native-paper";
 import MyFixtureCard from "./MyFixtureCard";
+import { MyFixtureContext } from "../Contexts/MyFixtureContext";
 
 export default function MyFixturesList({ navigation }) {
     const { user } = useContext(UserContext);
     const [myFixtures, setMyFixtures] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { setCurrentFixture } = useContext(MyFixtureContext);
 
     useEffect(() => {
         setIsLoading(true);
@@ -37,8 +39,16 @@ export default function MyFixturesList({ navigation }) {
                         <MyFixtureCard
                             key={fixture.fixture_id}
                             fixture={fixture}
-                            navigation={navigation}
-                        />
+                        >
+                            <Button
+                                onPress={() => {
+                                    setCurrentFixture(fixture);
+                                    navigation.navigate("TeamSheet");
+                                }}
+                            >
+                                View Team Sheet
+                            </Button>
+                        </MyFixtureCard>
                     );
                 })}
             </ScrollView>
