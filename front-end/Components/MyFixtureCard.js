@@ -3,7 +3,11 @@ import FixtureCard from "./FixtureCard";
 import MyFixtureUI from "./MyFixtureUI";
 import { Button } from "react-native-paper";
 
-export default function MyFixtureCard({ fixture }) {
+export default function MyFixtureCard({ fixture, navigation }) {
+    const handlePress = () => {
+        navigation.navigate("TeamSheet");
+    };
+
     return (
         <MatchdayContainer
             key={fixture.fixture_id}
@@ -12,7 +16,7 @@ export default function MyFixtureCard({ fixture }) {
             <FixtureCard fixture={fixture}>
                 <MyFixtureUI />
             </FixtureCard>
-            <Button>View Team Sheet</Button>
+            <Button onPress={handlePress}>View Team Sheet</Button>
         </MatchdayContainer>
     );
 }

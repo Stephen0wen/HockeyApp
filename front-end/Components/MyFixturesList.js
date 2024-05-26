@@ -6,7 +6,7 @@ import { getMyFixtures } from "../ApiRequests";
 import { Text } from "react-native-paper";
 import MyFixtureCard from "./MyFixtureCard";
 
-export default function MyFixturesList() {
+export default function MyFixturesList({ navigation }) {
     const { user } = useContext(UserContext);
     const [myFixtures, setMyFixtures] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +37,7 @@ export default function MyFixturesList() {
                         <MyFixtureCard
                             key={fixture.fixture_id}
                             fixture={fixture}
+                            navigation={navigation}
                         />
                     );
                 })}
