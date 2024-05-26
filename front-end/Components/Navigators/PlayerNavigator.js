@@ -12,7 +12,7 @@ export default function PlayerNavigator() {
 
     const Tab = createMaterialBottomTabNavigator();
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={theme}>
             <Tab.Navigator
                 initialRouteName="Home"
                 activeColor={theme.colors.primary}
