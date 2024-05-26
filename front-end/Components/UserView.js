@@ -35,6 +35,7 @@ export default function UserView({ user, userRole, setUserRole }) {
             {user.user_roles.map((role) => {
                 return (
                     <UserViewSwitch
+                        key={role}
                         label={role}
                         userRole={userRole}
                         setUserRole={setUserRole}

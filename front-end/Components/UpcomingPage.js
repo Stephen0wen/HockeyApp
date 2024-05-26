@@ -40,7 +40,12 @@ export default function UpcomingPage() {
         return (
             <MatchdayContainer date={new Date(matchDate).toLocaleDateString()}>
                 {filteredFixtures.map((filteredFixture) => {
-                    return <FixtureCard fixture={filteredFixture} />;
+                    return (
+                        <FixtureCard
+                            key={filteredFixture.fixture_id}
+                            fixture={filteredFixture}
+                        />
+                    );
                 })}
             </MatchdayContainer>
         );
