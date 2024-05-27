@@ -1,7 +1,7 @@
 import { MyFixtureProvider } from "../Contexts/MyFixtureContext";
-import MyFixtureTeamSheet from "./MyFixtureTeamSheet";
 import MyFixturesList from "./MyFixturesList";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import TeamSheetPage from "./TeamSheetPage";
 
 export default function MyFixturesPage() {
     const Stack = createNativeStackNavigator();
@@ -13,7 +13,7 @@ export default function MyFixturesPage() {
                     name="MyFixturesList"
                     component={MyFixturesList}
                 />
-                <Stack.Screen name="TeamSheet" component={MyFixtureTeamSheet} />
+                <Stack.Screen name="TeamSheet" component={TeamSheetPage} />
             </Stack.Navigator>
         </MyFixtureProvider>
     );
