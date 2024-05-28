@@ -12,13 +12,7 @@ export default function TeamSheet() {
     const colorScheme = useColorScheme();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [teamsheet, setTeamSheet] = useState([
-        { name: "Hanif", user_id: 1, availability: "yes" },
-        { name: "Stephen", user_id: 2, availability: "yes" },
-        { name: "Alec", user_id: 3, availability: "maybe" },
-        { name: "Mior", user_id: 4, availability: "no" },
-        { name: "Alfie", user_id: 5, availability: "no" },
-    ]);
+    const [teamsheet, setTeamSheet] = useState([]);
 
     const {
         user: { team_id },
@@ -28,16 +22,16 @@ export default function TeamSheet() {
         currentFixture: { fixture_id },
     } = useContext(MyFixtureContext);
 
-    // useEffect(() => {
-    //     setIsLoading(true);
-    //     getTeamSheet()
-    //         .then((apiTeamsheet) => {
-    //             setTeamSheet(apiTeamsheet);
-    //         })
-    //         .then(() => {
-    //             setIsLoading(false);
-    //         });
-    // }, []);
+    useEffect(() => {
+        setIsLoading(true);
+        getTeamSheet(fixture_id, team_id)
+            .then((apiTeamsheet) => {
+                setTeamSheet(apiTeamsheet);
+            })
+            .then(() => {
+                setIsLoading(false);
+            });
+    }, []);
 
     const styles = StyleSheet.create({
         teamsheet: {

@@ -5,7 +5,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState({
         user_id: 1,
-        team_id: 2,
+        team_id: 1,
         user_name: "Alfie Fenables",
         team_name: "Leicester Wolves",
         user_roles: ["player", "secretary"],
