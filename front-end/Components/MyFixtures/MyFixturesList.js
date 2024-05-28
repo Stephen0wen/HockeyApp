@@ -8,6 +8,7 @@ import MyFixtureCard from "./MyFixtureCard";
 import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 
 export default function MyFixturesList({ navigation }) {
+
     const { user } = useContext(UserContext);
 
     const [myFixtures, setMyFixtures] = useState([]);
@@ -26,47 +27,53 @@ export default function MyFixturesList({ navigation }) {
             });
     }, []);
 
-    if (isLoading) {
-        return <LoadScreen message="Loading your fixtures..." />;
-    }
 
-    return (
-        <>
-            <Text variant="headlineMedium" style={styles.title}>
-                My Fixtures
-            </Text>
-            <ScrollView contentStyle={styles.scroll}>
-                {myFixtures.map((fixture) => {
-                    return (
-                        <MyFixtureCard
-                            key={fixture.fixture_id}
-                            fixture={fixture}
-                        >
-                            <Button
-                                onPress={() => {
-                                    setCurrentFixture(fixture);
-                                    navigation.navigate("TeamSheet");
-                                }}
-                            >
-                                View Team Sheet
-                            </Button>
-                        </MyFixtureCard>
-                    );
-                })}
-            </ScrollView>
-        </>
-    );
+  if (isLoading) {
+    return <LoadScreen message="Loading your fixtures..." />;
+  }
+
+  return (
+    <>
+      <Text variant="headlineMedium" style={styles.title}>
+        My Fixtures
+      </Text>
+      <ScrollView contentStyle={styles.scroll}>
+        {myFixtures.map((fixture) => {
+          return (
+            <MyFixtureCard key={fixture.fixture_id} fixture={fixture}>
+              <Button
+                onPress={() => {
+                  setCurrentFixture(fixture);
+                  navigation.navigate("TeamSheet");
+                }}
+              >
+                View Team Sheet
+              </Button>
+              <Button
+                onPress={() => {
+                  setCurrentFixture(fixture);
+                  navigation.navigate("VenueMap");
+                }}
+              >
+                View Map of Venue
+              </Button>
+            </MyFixtureCard>
+          );
+        })}
+      </ScrollView>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
-    scroll: {
-        flex: 1,
-        alignItems: "center",
-        gap: 5,
-        padding: 5,
-    },
-    title: {
-        textAlign: "center",
-        margin: 5,
-    },
+  scroll: {
+    flex: 1,
+    alignItems: "center",
+    gap: 5,
+    padding: 5,
+  },
+  title: {
+    textAlign: "center",
+    margin: 5,
+  },
 });
