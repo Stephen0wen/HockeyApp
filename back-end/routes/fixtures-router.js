@@ -5,10 +5,6 @@ const {
   getFixturesById,
   patchFixtureById,
 } = require("../controllers/fixtures.controller");
-// const {
-//   getFixturesById,
-//   patchFixtureById,
-// } = require("../controllers/fixtures_byId.controller");
 
 fixturesRouter.get("/", getFixtures);
 
