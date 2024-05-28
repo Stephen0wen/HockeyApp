@@ -342,13 +342,30 @@
         "description": "serves an object corresponding to the given user id",
         "queries": [],
         "exampleResponse": {
-            "responses": {
-                "user_id": 1,
-                "fixture_id": "Parker Ground",
-                "response": "LE1 3EA",
-                "created_at": "2024-05-24T14:57:44.469Z",
-                "updated_at": null
-            }
+            "responses": [
+                {
+                    "user_id": 1,
+                    "fixture_id": "Parker Ground",
+                    "response": "LE1 3EA",
+                    "created_at": "2024-05-24T14:57:44.469Z",
+                    "updated_at": null
+                }
+            ]
+        }
+    },
+    "PUT /api/responses": {
+        "description": "Updates/Creates the response corresponding to the given user_id & fixture id, then serves the response object.",
+        "exampleRequest": {
+            "user_id": 5,
+            "fixture_id": 3,
+            "response": 2
+        },
+        "exampleResponse": {
+            "user_id": 1,
+            "fixture_id": 3,
+            "response": 2,
+            "created_at": "2024-05-24T14:57:44.469Z",
+            "updated_at": null
         }
     }
 }
