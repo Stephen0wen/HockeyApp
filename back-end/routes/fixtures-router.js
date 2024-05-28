@@ -1,9 +1,13 @@
 const fixturesRouter = require("express").Router();
-const { getFixtures } = require("../controllers/fixtures.controller");
 const {
+  getFixtures,
   getFixturesById,
   patchFixtureById,
-} = require("../controllers/fixtures_byId.controller");
+} = require("../controllers/fixtures.controller");
+// const {
+//   getFixturesById,
+//   patchFixtureById,
+// } = require("../controllers/fixtures_byId.controller");
 
 fixturesRouter.get("/", getFixtures);
 
