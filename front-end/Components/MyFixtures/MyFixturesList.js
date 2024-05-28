@@ -2,22 +2,24 @@ import { StyleSheet, ScrollView } from "react-native";
 import LoadScreen from "../LoadScreen";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Contexts/UserContext";
-import { getMyFixtures } from "../../ApiRequests";
+import { getMyFixtures, getMyResponses } from "../../ApiRequests";
 import { Text, Button } from "react-native-paper";
 import MyFixtureCard from "./MyFixtureCard";
 import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 
 export default function MyFixturesList({ navigation }) {
     const { user } = useContext(UserContext);
+
     const [myFixtures, setMyFixtures] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { setCurrentFixture } = useContext(MyFixtureContext);
+    const { setCurrentFixture, setMyResponses } = useContext(MyFixtureContext);
 
     useEffect(() => {
         setIsLoading(true);
-        getMyFixtures(user.team_id)
-            .then((apiMyFixtures) => {
+        Promise.all([getMyFixtures(user.team_id), getMyResponses(user.user_id)])
+            .then(([apiMyFixtures, apiMyResponses]) => {
                 setMyFixtures(apiMyFixtures);
+                setMyResponses(apiMyResponses);
             })
             .then(() => {
                 setIsLoading(false);
