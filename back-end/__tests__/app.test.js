@@ -608,6 +608,66 @@ describe("/api/fixtures/:fixture_id", () => {
         expect(msg).toBe("bad request");
       });
   });
+
+  test("PATCH 200: Should update a fixture object and return it", () => {
+    return request(app)
+      .patch("/api/fixtures/1")
+      .send({
+        match_status: "completed",
+        team1_score: 4,
+        team2_score: 3,
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { fixture } = body;
+        expect(fixture.fixture_id).toBe(1);
+        expect(fixture.match_status).toBe("completed");
+        expect(fixture.team1_id).toBe(1);
+        expect(fixture.team2_id).toBe(2);
+        expect(fixture.team1_score).toBe(4);
+        expect(fixture.team2_score).toBe(3);
+        expect(fixture.match_venue).toBe(3);
+        expect(fixture.match_date).toBe("2024-05-25");
+      });
+  });
+  test("PATCH 404: responds with a status and error message if fixture id is not found in database", () => {
+    return request(app)
+      .patch("/api/fixtures/100")
+      .send({
+        match_status: "completed",
+        team1_score: 2,
+        team2_score: 1,
+      })
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Fixture ID not present in DB");
+      });
+  });
+  test("PATCH 400: responds with a status and error message if user id is invalid", () => {
+    return request(app)
+      .patch("/api/fixtures/invalid_id")
+      .send({
+        match_status: "completed",
+        team1_score: 2,
+        team2_score: 0,
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad request");
+      });
+  });
+  test("PATCH 400: responds with a status and error message if request body is missing some fields", () => {
+    return request(app)
+      .patch("/api/fixtures/invalid_id")
+      .send({
+        match_status: "completed",
+        team1_score: 2,
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad request");
+      });
+  });
 });
 
 describe("DELETE /api/users/:user_id", () => {

@@ -97,6 +97,7 @@
         "description": "updates and serves a fixture object corresponding to the given fixture id",
         "exampleRequest": {
             "body": {
+                "match_status": "completed",
                 "team1_score": 10,
                 "team2_score": 6
             }
