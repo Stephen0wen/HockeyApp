@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import HomePage from "../HomePage";
-import ResultsPage from "../ResultsPage";
-import UpcomingPage from "../UpcomingPage";
-import MyFixturesPage from "../MyFixturesPage";
+import HomePage from "../Home/HomePage";
+import ResultsPage from "../Results/ResultsPage";
+import UpcomingPage from "../Upcoming/UpcomingPage";
+import MyFixturesPage from "../MyFixtures/MyFixturesPage";
 import { useTheme } from "react-native-paper";
 
 export default function PlayerNavigator() {
@@ -12,7 +12,7 @@ export default function PlayerNavigator() {
 
     const Tab = createMaterialBottomTabNavigator();
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={theme}>
             <Tab.Navigator
                 initialRouteName="Home"
                 activeColor={theme.colors.primary}

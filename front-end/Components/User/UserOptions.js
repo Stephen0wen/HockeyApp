@@ -5,7 +5,7 @@ import UserDelete from "./UserDelete";
 import UserUpdate from "./UserUpdate";
 import UserView from "./UserView";
 import { useContext } from "react";
-import { UserContext } from "../Contexts/UserContext";
+import { UserContext } from "../../Contexts/UserContext";
 
 export default function UserOptions({ visible, setVisible }) {
     const hideModal = () => setVisible(false);

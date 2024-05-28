@@ -37,3 +37,13 @@ export const getUpcomingFixtures = () => {
             return fixtures;
         });
 };
+
+export const getTeamSheet = (fixture_id, team_id) => {
+    return axios
+        .get(
+            `https://hockeyapp.onrender.com/api/fixtures/${fixture_id}/teamsheet/${team_id}`
+        )
+        .then(({ data: { teamsheet } }) => {
+            return teamsheet;
+        });
+};

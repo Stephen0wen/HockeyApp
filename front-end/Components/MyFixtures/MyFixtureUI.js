@@ -6,31 +6,10 @@ export default function MyFixtureUI() {
     const [value, setValue] = useState("");
     // This will be replaced with the response stored in the database
 
-    const styles = StyleSheet.create({
-        container: {
-            marginTop: 10,
-            flexDirection: "row",
-            width: "100%",
-            justifyContent: "center",
-        },
-        button: {
-            flex: 2,
-            margin: 0,
-            paddingH: 0,
-            lineHeight: 20,
-            fontSize: 20,
-            width: 80,
-        },
-        details: {
-            marginLeft: 5,
-            marginRight: 80,
-        },
-    });
-
     return (
         <View style={styles.container}>
-            <Text variant="labelMedium" style={styles.details}>
-                Details
+            <Text variant="labelMedium" style={styles.label}>
+                My Availability:
             </Text>
             <SegmentedButtons
                 value={value}
@@ -52,3 +31,22 @@ export default function MyFixtureUI() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 10,
+        flexDirection: "row",
+        width: "100%",
+        justifyContent: "space-between",
+        alignContent: "center",
+    },
+    button: {
+        flex: 2,
+        margin: 0,
+        padding: 0,
+    },
+    label: {
+        marginHorizontal: 22,
+        marginVertical: 0,
+    },
+});
