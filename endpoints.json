@@ -217,6 +217,17 @@
             }
         }
     },
+    "GET /api/venues/:fixture_id/venue": {
+        "description": "serves an object corresponding to the given fixture id",
+        "queries": [],
+        "exampleResponse": {
+            "venue": {
+                "venue_id": 1,
+                "venue_latitude": 52.636879,
+                "venue_longitude": -1.139759
+            }
+        }
+    },
     "GET /api/users": {
         "description": "serves an array of all users",
         "queries": [],

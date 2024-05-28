@@ -729,6 +729,39 @@ describe("/api/responses/:user_id", () => {
   });
 });
 
+describe("/api/venues/:fixture_id/venue", () => {
+  test("GET 200: Should return a venue object", () => {
+    return request(app)
+      .get("/api/venues/1/venue")
+      .expect(200)
+      .then(({ body }) => {
+        const { venue } = body;
+        expect(venue.venue_id).toBe(3);
+        expect(venue.venue_name).toBe("Soar Valley Leisure Centre");
+        expect(venue.venue_latitude).toBe(52.728342731020206);
+        expect(venue.venue_longitude).toBe(-1.1361566014711466);
+      });
+  });
+
+  test("GET:404 should return error if valid ID but not presence on DB", () => {
+    return request(app)
+      .get("/api/venues/1234567/venue")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Invalid venue");
+      });
+  });
+
+  test("GET:400 should return error if invalid ID", () => {
+    return request(app)
+      .get("/api/venues/invalidID/venue")
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Invalid input");
+      });
+  });
+});
+
 describe("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
   test("Should return the correct teamsheet for the given fixture", () => {
     return request(app)
