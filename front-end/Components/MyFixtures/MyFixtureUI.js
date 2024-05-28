@@ -3,10 +3,10 @@ import { SegmentedButtons, Text, useTheme } from "react-native-paper";
 import { useEffect, useState, useContext } from "react";
 import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 import { UserContext } from "../../Contexts/UserContext";
-import { putResponse } from "../../ApiRequests";
+import { getMyResponses, putResponse } from "../../ApiRequests";
 
 export default function MyFixtureUI({ fixture_id }) {
-    const { myResponses } = useContext(MyFixtureContext);
+    const { myResponses, setMyResponses } = useContext(MyFixtureContext);
     const { user } = useContext(UserContext);
 
     const {
@@ -44,9 +44,16 @@ export default function MyFixtureUI({ fixture_id }) {
             user_id: user.user_id,
             fixture_id,
             response: lookup[newValue],
-        }).catch(() => {
-            setValue(oldValue);
-        });
+        })
+            .then(() => {
+                return getMyResponses(user.user_id);
+            })
+            .then((apiResponses) => {
+                setMyResponses(apiResponses);
+            })
+            .catch(() => {
+                setValue(oldValue);
+            });
     };
 
     const styles = StyleSheet.create({
