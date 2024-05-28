@@ -609,7 +609,6 @@ describe("/api/fixtures/:fixture_id", () => {
       });
   });
 
-
   test("PATCH 200: Should update a fixture object and return it", () => {
     return request(app)
       .patch("/api/fixtures/1")
@@ -669,7 +668,6 @@ describe("/api/fixtures/:fixture_id", () => {
         expect(body.msg).toBe("Bad request");
       });
   });
-
 });
 
 describe("DELETE /api/users/:user_id", () => {
@@ -731,7 +729,6 @@ describe("/api/responses/:user_id", () => {
   });
 });
 
-
 describe("/api/venues/:fixture_id/venue", () => {
   test("GET 200: Should return a venue object", () => {
     return request(app)
@@ -760,6 +757,10 @@ describe("/api/venues/:fixture_id/venue", () => {
       .get("/api/venues/invalidID/venue")
       .expect(400)
       .then(({ body: { msg } }) => {
+        expect(msg).toBe("Invalid input");
+      });
+  });
+});
 
 describe("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
   test("Should return the correct teamsheet for the given fixture", () => {
