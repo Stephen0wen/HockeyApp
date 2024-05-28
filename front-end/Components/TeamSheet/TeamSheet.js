@@ -20,6 +20,7 @@ export default function TeamSheet() {
 
     const {
         currentFixture: { fixture_id },
+        myResponses,
     } = useContext(MyFixtureContext);
 
     useEffect(() => {
@@ -31,7 +32,7 @@ export default function TeamSheet() {
             .then(() => {
                 setIsLoading(false);
             });
-    }, []);
+    }, [myResponses]);
 
     const styles = StyleSheet.create({
         teamsheet: {
