@@ -3,8 +3,8 @@ import { Card } from "react-native-paper";
 import LeagueTable from "./LeagueTable";
 import LeagueSelector from "./LeagueSelector";
 import { useEffect, useState } from "react";
-import LoadScreen from "./LoadScreen";
-import { getLeagueTables } from "../ApiRequests";
+import LoadScreen from "../LoadScreen";
+import { getLeagueTables } from "../../ApiRequests";
 
 export default function HomePage() {
     const [leagueTables, setLeagueTables] = useState({});

@@ -1,17 +1,17 @@
 import { StyleSheet, ScrollView } from "react-native";
-import FixtureCard from "./FixtureCard";
-import MatchdayContainer from "./MatchdayContainer";
-import MyFixtureUI from "./MyFixtureUI";
-import LoadScreen from "./LoadScreen";
+import LoadScreen from "../LoadScreen";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../Contexts/UserContext";
-import { getMyFixtures } from "../ApiRequests";
-import { Text } from "react-native-paper";
+import { UserContext } from "../../Contexts/UserContext";
+import { getMyFixtures } from "../../ApiRequests";
+import { Text, Button } from "react-native-paper";
+import MyFixtureCard from "./MyFixtureCard";
+import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 
-export default function MyFixturesPage() {
+export default function MyFixturesList({ navigation }) {
     const { user } = useContext(UserContext);
     const [myFixtures, setMyFixtures] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { setCurrentFixture } = useContext(MyFixtureContext);
 
     useEffect(() => {
         setIsLoading(true);
@@ -36,16 +36,19 @@ export default function MyFixturesPage() {
             <ScrollView contentStyle={styles.scroll}>
                 {myFixtures.map((fixture) => {
                     return (
-                        <MatchdayContainer
+                        <MyFixtureCard
                             key={fixture.fixture_id}
-                            date={new Date(
-                                fixture.match_date
-                            ).toLocaleDateString()}
+                            fixture={fixture}
                         >
-                            <FixtureCard fixture={fixture}>
-                                <MyFixtureUI />
-                            </FixtureCard>
-                        </MatchdayContainer>
+                            <Button
+                                onPress={() => {
+                                    setCurrentFixture(fixture);
+                                    navigation.navigate("TeamSheet");
+                                }}
+                            >
+                                View Team Sheet
+                            </Button>
+                        </MyFixtureCard>
                     );
                 })}
             </ScrollView>

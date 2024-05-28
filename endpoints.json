@@ -123,22 +123,13 @@
     "GET /api/fixtures/:fixture_id/teamsheet/:team_id:": {
         "description": "serves an team sheet object corresponding to the given fixture id",
         "exampleResponse": {
-            "team_sheet": {
-                "fixture_id": 1,
-                "team1_id": 1,
-                "team1_name": "Leicester Wolves",
-                "team2_id": 2,
-                "team2_name": "Old Bags",
-                "match_date": "11/5/24",
-                "start_time": 13.0,
-                "teamsheet": [
-                    { "name": "Hanif", "user_id": 1, "availability": "yes" },
-                    { "name": "Stephen", "user_id": 2, "availability": "yes" },
-                    { "name": "Alec", "user_id": 3, "availability": "maybe" },
-                    { "name": "Mior", "user_id": 4, "availability": "no" },
-                    { "name": "Alfie", "user_id": 5, "availability": "no" }
-                ]
-            }
+            "teamsheet": [
+                { "name": "Hanif", "user_id": 1, "availability": "yes" },
+                { "name": "Stephen", "user_id": 2, "availability": "yes" },
+                { "name": "Alec", "user_id": 3, "availability": "maybe" },
+                { "name": "Mior", "user_id": 4, "availability": "no" },
+                { "name": "Alfie", "user_id": 5, "availability": "no" }
+            ]
         }
     },
 

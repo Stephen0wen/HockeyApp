@@ -4,11 +4,10 @@ import { StyleSheet } from "react-native";
 import LoginPopup from "./LoginPopup";
 
 export default function LoginButton() {
-
     const theme = useTheme();
     const [visible, setVisible] = useState(false);
 
-  const showModal = () => setVisible(!visible);
+    const showModal = () => setVisible(!visible);
 
     const styles = StyleSheet.create({
         button: {

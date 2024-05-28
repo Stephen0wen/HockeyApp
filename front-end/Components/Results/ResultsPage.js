@@ -1,9 +1,9 @@
 import { ScrollView, StyleSheet } from "react-native";
-import FixtureCard from "./FixtureCard";
-import MatchdayContainer from "./MatchdayContainer";
-import LoadScreen from "./LoadScreen";
+import FixtureCard from "../FixtureCard";
+import MatchdayContainer from "../MatchdayContainer";
+import LoadScreen from "../LoadScreen";
 import { useState, useEffect } from "react";
-import { getResults } from "../ApiRequests";
+import { getResults } from "../../ApiRequests";
 import { Text } from "react-native-paper";
 
 export default function ResultsPage() {
@@ -38,9 +38,17 @@ export default function ResultsPage() {
         });
 
         return (
-            <MatchdayContainer date={new Date(matchDate).toLocaleDateString()}>
+            <MatchdayContainer
+                key={matchDate}
+                date={new Date(matchDate).toLocaleDateString()}
+            >
                 {filteredFixtures.map((filteredFixture) => {
-                    return <FixtureCard fixture={filteredFixture} />;
+                    return (
+                        <FixtureCard
+                            key={filteredFixture.fixture_id}
+                            fixture={filteredFixture}
+                        />
+                    );
                 })}
             </MatchdayContainer>
         );
