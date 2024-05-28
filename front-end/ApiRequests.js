@@ -56,3 +56,19 @@ export const getVenueByFixtureId = (fixture_id) => {
       return venue;
     });
 };
+
+export const getMyResponses = (user_id) => {
+    return axios
+        .get(`https://hockeyapp.onrender.com/api/responses/${user_id}`)
+        .then(({ data: { responses } }) => {
+            return responses;
+        });
+};
+
+export const putResponse = (request) => {
+    return axios
+        .put("https://hockeyapp.onrender.com/api/responses", request)
+        .then(({ data: { response } }) => {
+            return response;
+        });
+};
