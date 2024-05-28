@@ -1,371 +1,371 @@
 {
-    "GET /api": {
-        "description": "serves up a json representation of all the available endpoints of the api"
-    },
-    "GET /api/league_tables": {
-        "description": "serves an array of all league table objects",
-        "queries": [],
-        "exampleResponse": {
-            "league_tables": {
-                "1": [
-                    {
-                        "team_name": "Leicester Wolves",
-                        "points": 45,
-                        "wins": 12,
-                        "draws": 4,
-                        "losses": 4,
-                        "goals_for": 108,
-                        "goals_against": 67
-                    },
-                    {
-                        "team_name": "Old Bags",
-                        "points": 38,
-                        "wins": 10,
-                        "draws": 4,
-                        "losses": 6,
-                        "goals_for": 102,
-                        "goals_against": 77
-                    }
-                ],
-                "2": [
-                    {
-                        "team_name": "Less Good Peeps",
-                        "points": 45,
-                        "wins": 12,
-                        "draws": 4,
-                        "losses": 4,
-                        "goals_for": 108,
-                        "goals_against": 67
-                    },
-                    {
-                        "team_name": "Even Worse Dudes",
-                        "points": 38,
-                        "wins": 10,
-                        "draws": 4,
-                        "losses": 6,
-                        "goals_for": 102,
-                        "goals_against": 77
-                    }
-                ]
-            }
-        }
-    },
-    "GET /api/fixtures": {
-        "description": "serves an array of all fixtures",
-        "queries": ["match_status", "team_id", "division"],
-        "exampleResponse": {
-            "fixtures": [
-                {
-                    "fixture_id": 1,
-                    "match_status": "completed",
-                    "team1_id": 1,
-                    "team1_name": "Leicester Wolves",
-                    "team2_id": 2,
-                    "team2_name": "Old Bags",
-                    "team1_score": 20,
-                    "team2_score": 10,
-                    "venue_id": 3,
-                    "venue_name": "Alfie Fenables Centre",
-                    "match_date": "11/5/24",
-                    "start_time": 13.0,
-                    "division": "Division 1"
-                }
-            ]
-        }
-    },
-    "GET /api/fixtures/:fixture_id": {
-        "description": "serves a fixture object corresponding to the given fixture id",
-        "exampleResponse": {
-            "fixture": {
-                "fixture_id": 1,
-                "match_status": "created",
-                "team1_id": 1,
-                "team1_name": "Leicester Wolves",
-                "team2_id": 2,
-                "team2_name": "Old Bags",
-                "team1_score": 20,
-                "team2_score": 10,
-                "venue_id": 4,
-                "venue_name": "Mior Sufian Centre",
-                "match_date": "11/5/24",
-                "start_time": 13.0,
-                "division": "Division 1"
-            }
-        }
-    },
-    "PATCH /api/fixtures/:fixture_id": {
-        "description": "updates and serves a fixture object corresponding to the given fixture id",
-        "exampleRequest": {
-            "body": {
-                "match_status": "completed",
-                "team1_score": 10,
-                "team2_score": 6
-            }
-        },
-        "exampleResponse": {
-            "fixture": {
-                "fixture_id": 1,
-                "match_status": "completed",
-                "team1_id": 1,
-                "team1_name": "Leicester Wolves",
-                "team2_id": 2,
-                "team2_name": "Old Bags",
-                "team1_score": 10,
-                "team2_score": 6,
-                "venue_id": 4,
-                "venue_name": "Mior Sufian Centre",
-                "match_date": "11/5/24",
-                "start_time": 13.0,
-                "division": "Division 1"
-            }
-        }
-    },
-    "GET /api/fixtures/:fixture_id/teamsheet/:team_id:": {
-        "description": "serves an team sheet object corresponding to the given fixture id",
-        "exampleResponse": {
-            "teamsheet": [
-                { "name": "Hanif", "user_id": 1, "availability": "yes" },
-                { "name": "Stephen", "user_id": 2, "availability": "yes" },
-                { "name": "Alec", "user_id": 3, "availability": "maybe" },
-                { "name": "Mior", "user_id": 4, "availability": "no" },
-                { "name": "Alfie", "user_id": 5, "availability": "no" }
-            ]
-        }
-    },
-
-    "GET /api/teams": {
-        "description": "serves an array of all teams",
-        "queries": [],
-        "exampleResponse": {
-            "teams": [
-                {
-                    "team_id": 1,
-                    "division_id": 2,
-                    "team_name": "Leicester Wolves",
-                    "team_start_time": "1100",
-                    "venue_id": 4
-                },
-                {
-                    "team_id": 3,
-                    "division_id": 1,
-                    "team_name": "Bedouins",
-                    "team_start_time": "1500",
-                    "venue_id": 4
-                }
-            ]
-        }
-    },
-
-    "GET /api/teams/:team_id": {
-        "description": "serves a team object corresponding to the given team_id",
-        "queries": [],
-        "exampleResponse": {
-            "teams": {
-                "team_id": 1,
-                "division_id": 2,
-                "team_name": "Leicester Wolves",
-                "team_start_time": "1100",
-                "venue_id": 4
-            }
-        }
-    },
-
-    "GET /api/venues": {
-        "description": "serves an array of all venues",
-        "queries": [],
-        "exampleResponse": {
-            "venues": [
-                {
-                    "venue_id": 1,
-                    "venue_name": "Parker Ground",
-                    "venue_postcode": "LE1 3EA",
-                    "venue_phone": "755642",
-                    "venue_latitude": 52.636879,
-                    "venue_longitude": -1.139759
-                },
-                {
-                    "venue_id": 2,
-                    "venue_name": "Uddinford Bridge",
-                    "venue_postcode": "LE1 3EA",
-                    "venue_phone": "352682",
-                    "venue_latitude": 51.636879,
-                    "venue_longitude": -1.132757
-                }
-            ]
-        }
-    },
-    "GET /api/venues/:venue_id": {
-        "description": "serves an object corresponding to the given venue id",
-        "queries": [],
-        "exampleResponse": {
-            "venue": {
-                "venue_id": 1,
-                "venue_name": "Parker Ground",
-                "venue_postcode": "LE1 3EA",
-                "venue_phone": "755642",
-                "venue_latitude": 52.636879,
-                "venue_longitude": -1.139759
-            }
-        }
-    },
-    "GET /api/venues/:fixture_id/venue": {
-        "description": "serves an object corresponding to the given fixture id",
-        "queries": [],
-        "exampleResponse": {
-            "venue": {
-                "venue_id": 1,
-                "venue_latitude": 52.636879,
-                "venue_longitude": -1.139759
-            }
-        }
-    },
-    "GET /api/users": {
-        "description": "serves an array of all users",
-        "queries": [],
-        "exampleResponse": {
-            "users": [
-                {
-                    "user_id": 1,
-                    "team_id": 2,
-                    "user_name": "Alfie Fenables",
-                    "team_name": "Leicester Wolves",
-                    "user_role": ["player", "secretary"],
-                    "user_address_1": "10 Downing St",
-                    "user_address_2": "London",
-                    "user_postcode": "BR23 2XU",
-                    "user_dob": "15/02/2000",
-                    "user_phone": "1234567"
-                },
-                {
-                    "user_id": 2,
-                    "team_id": 4,
-                    "user_name": "Mior Sufian",
-                    "team_name": "Old Bags",
-                    "user_role": ["player", "secretary"],
-                    "user_postcode": "SH19 3LJ",
-                    "user_dob": "25/06/1980",
-                    "user_phone": "1234567"
-                }
-            ]
-        }
-    },
-    "GET /api/users/:user_id": {
-        "description": "serves an object corresponding to the given user id",
-        "queries": [],
-        "exampleResponse": {
-            "users": {
-                "user_id": 1,
-                "team_id": 2,
-                "user_name": "Alfie Fenables",
-                "team_name": "Leicester Wolves",
-                "user_roles": ["player", "sec"],
-                "user_address_1": "null",
-                "user_address_2": "null",
-                "user_postcode": "null",
-                "user_dob": "null",
-                "user_phone": "null",
-                "user_email": "magicthegathering@gmail.com",
-                "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
-                "player_bool": "true",
-                "sec_bool": "true",
-                "umpire_bool": "null",
-                "organiser_bool": "null"
-            }
-        }
-    },
-    "DELETE /api/users/:user_id": {
-        "description": "Deletes a user object corresponding to the given user id and returns no content",
-        "queries": [],
-        "exampleResponse": {}
-    },
-    "PATCH /api/users/:user_id": {
-        "description": "updates and serves a user object corresponding to the given user id",
-        "queries": [],
-        "exampleRequest": {
-            "body": {
-                "user_address_1": "10 Downing St",
-                "user_address_2": "London",
-                "user_postcode": "BR24 8XY",
-                "team_name": "Bedouins",
-                "user_phone": "1234567"
-            }
-        },
-        "exampleResponse": {
-            "users": {
-                "user_id": 1,
-                "team_id": 2,
-                "user_name": "Alfie Fenables",
-                "team_name": "Leicester Wolves",
-                "user_role": ["player", "secretary"],
-                "user_address_1": "10 Downing St",
-                "user_address_2": "London",
-                "user_postcode": "BR23 2XU",
-                "user_dob": "15/02/2000",
-                "user_phone": "1234567"
-            }
-        }
-    },
-    "POST /api/users": {
-        "description": "inserts a user object and serves that user object",
-        "queries": [],
-        "exampleRequest": {
-            "body": {
-                "user_name": "Alfie Fenables",
-                "team_name": "Leicester Wolves",
-                "user_roles": ["player_bool", "sec_bool"],
-                "user_email": "magicthegathering@gmail.com",
-                "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK"
-            }
-        },
-        "exampleResponse": {
-            "users": {
-                "user_id": 1,
-                "team_id": 2,
-                "user_name": "Alfie Fenables",
-                "team_name": "Leicester Wolves",
-                "user_role": ["player", "sec"],
-                "user_address_1": "null",
-                "user_address_2": "null",
-                "user_postcode": "null",
-                "user_dob": "null",
-                "user_phone": "null",
-                "user_email": "magicthegathering@gmail.com",
-                "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
-                "player_bool": "true",
-                "sec_bool": "true",
-                "umpire_bool": "null",
-                "organiser_bool": "null"
-            }
-        }
-    },
-    "GET /api/responses/:user_id": {
-        "description": "serves an object corresponding to the given user id",
-        "queries": [],
-        "exampleResponse": {
-            "responses": [
-                {
-                    "user_id": 1,
-                    "fixture_id": "Parker Ground",
-                    "response": "LE1 3EA",
-                    "created_at": "2024-05-24T14:57:44.469Z",
-                    "updated_at": null
-                }
-            ]
-        }
-    },
-    "PUT /api/responses": {
-        "description": "Updates/Creates the response corresponding to the given user_id & fixture id, then serves the response object.",
-        "exampleRequest": {
-            "user_id": 5,
-            "fixture_id": 3,
-            "response": "2"
-        },
-        "exampleResponse": {
-            "user_id": 1,
-            "fixture_id": 3,
-            "response": "2",
-            "created_at": "2024-05-24T14:57:44.469Z",
-            "updated_at": null
-        }
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api/league_tables": {
+    "description": "serves an array of all league table objects",
+    "queries": [],
+    "exampleResponse": {
+      "league_tables": {
+        "1": [
+          {
+            "team_name": "Leicester Wolves",
+            "points": 45,
+            "wins": 12,
+            "draws": 4,
+            "losses": 4,
+            "goals_for": 108,
+            "goals_against": 67
+          },
+          {
+            "team_name": "Old Bags",
+            "points": 38,
+            "wins": 10,
+            "draws": 4,
+            "losses": 6,
+            "goals_for": 102,
+            "goals_against": 77
+          }
+        ],
+        "2": [
+          {
+            "team_name": "Less Good Peeps",
+            "points": 45,
+            "wins": 12,
+            "draws": 4,
+            "losses": 4,
+            "goals_for": 108,
+            "goals_against": 67
+          },
+          {
+            "team_name": "Even Worse Dudes",
+            "points": 38,
+            "wins": 10,
+            "draws": 4,
+            "losses": 6,
+            "goals_for": 102,
+            "goals_against": 77
+          }
+        ]
+      }
     }
+  },
+  "GET /api/fixtures": {
+    "description": "serves an array of all fixtures",
+    "queries": ["match_status", "team_id", "division"],
+    "exampleResponse": {
+      "fixtures": [
+        {
+          "fixture_id": 1,
+          "match_status": "completed",
+          "team1_id": 1,
+          "team1_name": "Leicester Wolves",
+          "team2_id": 2,
+          "team2_name": "Old Bags",
+          "team1_score": 20,
+          "team2_score": 10,
+          "venue_id": 3,
+          "venue_name": "Alfie Fenables Centre",
+          "match_date": "11/5/24",
+          "start_time": 13.0,
+          "division": "Division 1"
+        }
+      ]
+    }
+  },
+  "GET /api/fixtures/:fixture_id": {
+    "description": "serves a fixture object corresponding to the given fixture id",
+    "exampleResponse": {
+      "fixture": {
+        "fixture_id": 1,
+        "match_status": "created",
+        "team1_id": 1,
+        "team1_name": "Leicester Wolves",
+        "team2_id": 2,
+        "team2_name": "Old Bags",
+        "team1_score": 20,
+        "team2_score": 10,
+        "venue_id": 4,
+        "venue_name": "Mior Sufian Centre",
+        "match_date": "11/5/24",
+        "start_time": 13.0,
+        "division": "Division 1"
+      }
+    }
+  },
+  "PATCH /api/fixtures/:fixture_id": {
+    "description": "updates and serves a fixture object corresponding to the given fixture id",
+    "exampleRequest": {
+      "body": {
+        "match_status": "completed",
+        "team1_score": 10,
+        "team2_score": 6
+      }
+    },
+    "exampleResponse": {
+      "fixture": {
+        "fixture_id": 1,
+        "match_status": "completed",
+        "team1_id": 1,
+        "team1_name": "Leicester Wolves",
+        "team2_id": 2,
+        "team2_name": "Old Bags",
+        "team1_score": 10,
+        "team2_score": 6,
+        "venue_id": 4,
+        "venue_name": "Mior Sufian Centre",
+        "match_date": "11/5/24",
+        "start_time": 13.0,
+        "division": "Division 1"
+      }
+    }
+  },
+  "GET /api/fixtures/:fixture_id/team_sheet": {
+    "description": "serves an team sheet object corresponding to the given fixture id",
+    "exampleResponse": {
+      "team_sheet": {
+        "fixture_id": 1,
+        "team1_id": 1,
+        "team1_name": "Leicester Wolves",
+        "team2_id": 2,
+        "team2_name": "Old Bags",
+        "match_date": "11/5/24",
+        "start_time": 13.0,
+        "team1_players": [
+          { "name": "Hanif", "user_id": 1, "availability": "yes" },
+          { "name": "Stephen", "user_id": 2, "availability": "yes" },
+          { "name": "Alec", "user_id": 3, "availability": "maybe" },
+          { "name": "Mior", "user_id": 4, "availability": "no" },
+          { "name": "Alfie", "user_id": 5, "availability": "no" }
+        ],
+        "team2_players": [
+          { "name": "Hanifah", "user_id": 6, "availability": "yes" },
+          {
+            "name": "Stephanie",
+            "user_id": 7,
+            "availability": "yes"
+          },
+          {
+            "name": "Alecandra",
+            "user_id": 8,
+            "availability": "maybe"
+          },
+          { "name": "Miora", "user_id": 9, "availability": "no" },
+          { "name": "Alfiena", "user_id": 10, "availability": "no" }
+        ]
+      }
+    }
+  },
+
+  "GET /api/teams": {
+    "description": "serves an array of all teams",
+    "queries": [],
+    "exampleResponse": {
+      "teams": [
+        {
+          "team_id": 1,
+          "division_id": 2,
+          "team_name": "Leicester Wolves",
+          "team_start_time": "1100",
+          "venue_id": 4
+        },
+        {
+          "team_id": 3,
+          "division_id": 1,
+          "team_name": "Bedouins",
+          "team_start_time": "1500",
+          "venue_id": 4
+        }
+      ]
+    }
+  },
+  "GET /api/venues": {
+    "description": "serves an array of all venues",
+    "queries": [],
+    "exampleResponse": {
+      "venues": [
+        {
+          "venue_id": 1,
+          "venue_name": "Parker Ground",
+          "venue_postcode": "LE1 3EA",
+          "venue_phone": "755642",
+          "venue_latitude": 52.636879,
+          "venue_longitude": -1.139759
+        },
+        {
+          "venue_id": 2,
+          "venue_name": "Uddinford Bridge",
+          "venue_postcode": "LE1 3EA",
+          "venue_phone": "352682",
+          "venue_latitude": 51.636879,
+          "venue_longitude": -1.132757
+        }
+      ]
+    }
+  },
+  "GET /api/venues/:venue_id": {
+    "description": "serves an object corresponding to the given venue id",
+    "queries": [],
+    "exampleResponse": {
+      "venue": {
+        "venue_id": 1,
+        "venue_name": "Parker Ground",
+        "venue_postcode": "LE1 3EA",
+        "venue_phone": "755642",
+        "venue_latitude": 52.636879,
+        "venue_longitude": -1.139759
+      }
+    }
+  },
+  "GET /api/users": {
+    "description": "serves an array of all users",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "user_id": 1,
+          "team_id": 2,
+          "user_name": "Alfie Fenables",
+          "team_name": "Leicester Wolves",
+          "user_role": ["player", "secretary"],
+          "user_address_1": "10 Downing St",
+          "user_address_2": "London",
+          "user_postcode": "BR23 2XU",
+          "user_dob": "15/02/2000",
+          "user_phone": "1234567"
+        },
+        {
+          "user_id": 2,
+          "team_id": 4,
+          "user_name": "Mior Sufian",
+          "team_name": "Old Bags",
+          "user_role": ["player", "secretary"],
+          "user_postcode": "SH19 3LJ",
+          "user_dob": "25/06/1980",
+          "user_phone": "1234567"
+        }
+      ]
+    }
+  },
+  "GET /api/users/:user_id": {
+    "description": "serves an object corresponding to the given user id",
+    "queries": [],
+    "exampleResponse": {
+      "users": {
+        "user_id": 1,
+        "team_id": 2,
+        "user_name": "Alfie Fenables",
+        "team_name": "Leicester Wolves",
+        "user_roles": ["player", "sec"],
+        "user_address_1": "null",
+        "user_address_2": "null",
+        "user_postcode": "null",
+        "user_dob": "null",
+        "user_phone": "null",
+        "user_email": "magicthegathering@gmail.com",
+        "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
+        "player_bool": "true",
+        "sec_bool": "true",
+        "umpire_bool": "null",
+        "organiser_bool": "null"
+      }
+    }
+  },
+  "DELETE /api/users/:user_id": {
+    "description": "Deletes a user object corresponding to the given user id and returns no content",
+    "queries": [],
+    "exampleResponse": {}
+  },
+  "PATCH /api/users/:user_id": {
+    "description": "updates and serves a user object corresponding to the given user id",
+    "queries": [],
+    "exampleRequest": {
+      "body": {
+        "user_address_1": "10 Downing St",
+        "user_address_2": "London",
+        "user_postcode": "BR24 8XY",
+        "team_name": "Bedouins",
+        "user_phone": "1234567"
+      }
+    },
+    "exampleResponse": {
+      "users": {
+        "user_id": 1,
+        "team_id": 2,
+        "user_name": "Alfie Fenables",
+        "team_name": "Leicester Wolves",
+        "user_role": ["player", "secretary"],
+        "user_address_1": "10 Downing St",
+        "user_address_2": "London",
+        "user_postcode": "BR23 2XU",
+        "user_dob": "15/02/2000",
+        "user_phone": "1234567"
+      }
+    }
+  },
+  "POST /api/users": {
+    "description": "inserts a user object and serves that user object",
+    "queries": [],
+    "exampleRequest": {
+      "body": {
+        "user_name": "Alfie Fenables",
+        "team_name": "Leicester Wolves",
+        "user_roles": ["player_bool", "sec_bool"],
+        "user_email": "magicthegathering@gmail.com",
+        "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK"
+      }
+    },
+    "exampleResponse": {
+      "users": {
+        "user_id": 1,
+        "team_id": 2,
+        "user_name": "Alfie Fenables",
+        "team_name": "Leicester Wolves",
+        "user_role": ["player", "sec"],
+        "user_address_1": "null",
+        "user_address_2": "null",
+        "user_postcode": "null",
+        "user_dob": "null",
+        "user_phone": "null",
+        "user_email": "magicthegathering@gmail.com",
+        "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
+        "player_bool": "true",
+        "sec_bool": "true",
+        "umpire_bool": "null",
+        "organiser_bool": "null"
+      }
+    }
+  },
+  "GET /api/responses/:user_id": {
+    "description": "serves an object corresponding to the given user id",
+    "queries": [],
+    "exampleResponse": {
+      "responses": {
+        "user_id": 1,
+        "fixture_id": "Parker Ground",
+        "response": "LE1 3EA",
+        "created_at": "2024-05-24T14:57:44.469Z",
+        "updated_at": null
+      }
+    }
+  },
+  "PUT /api/responses": {
+    "description": "insert a response object into responses and return it",
+    "exampleRequest": {
+      "body": {
+        "user_id": 5,
+        "fixture_id": 3,
+        "response": 2
+      }
+    },
+    "exampleResponse": {
+      "response": {
+        "response_id": 9,
+        "user_id": 5,
+        "fixture_id": 3,
+        "response": "2",
+        "created_at": "2024-05-24T14:57:44.469Z"
+      }
+    }
+  }
 }
