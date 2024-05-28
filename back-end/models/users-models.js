@@ -78,6 +78,12 @@ exports.insertUser = ({
   return db
     .query(`SELECT team_id from teams WHERE team_name = $1`, [team_name])
     .then(({ rows }) => {
+      if (!rows.length) {
+        return Promise.reject({
+          status: 404,
+          msg: "Team id not found",
+        });
+      }
       return rows[0].team_id;
     })
     .then((team_id) => {

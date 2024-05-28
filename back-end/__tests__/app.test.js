@@ -22,6 +22,14 @@ describe("/api", () => {
         expect(body).toEqual(endpoints);
       });
   });
+  test("GET 404: Should respond with a status and error message if endpoint is incorrect", () => {
+    return request(app)
+      .get("/incorrectEndPoint")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not Found");
+      });
+  });
 });
 
 describe("/api/users", () => {
@@ -75,6 +83,45 @@ describe("/api/users", () => {
         expect(user.user_password).toBe(
           "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK"
         );
+      });
+  });
+  test("POST 404: Should return error when team name doesn't exist", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        user_name: "Alfie Fenables",
+        team_name: "Non existent team",
+        user_roles: ["player_bool", "sec_bool"],
+        user_address_1: "15 James Street",
+        user_address_2: "Rochester",
+        user_postcode: "ME1 2YL",
+        user_dob: "2002-05-29",
+        user_email: "magicthegathering@gmail.com",
+        user_password:
+          "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
+      })
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Team id not found");
+      });
+  });
+  test("POST 404: Should return error when team name is not passed", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        user_name: "Alfie Fenables",
+        user_roles: ["player_bool", "sec_bool"],
+        user_address_1: "15 James Street",
+        user_address_2: "Rochester",
+        user_postcode: "ME1 2YL",
+        user_dob: "2002-05-29",
+        user_email: "magicthegathering@gmail.com",
+        user_password:
+          "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
+      })
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Team id not found");
       });
   });
 });
@@ -440,6 +487,17 @@ describe("/api/fixtures", () => {
           expect(typeof fixture.start_time).toBe("string");
           expect(fixture.division).toBe("2");
         });
+      });
+  });
+  test("GET 200: Should return an an empty array for if non-existent division is passed", () => {
+    return request(app)
+      .get("/api/fixtures")
+      .query({
+        division: "5",
+      })
+      .expect(200)
+      .then(({ body: { fixtures } }) => {
+        expect(fixtures.length).toBe(0);
       });
   });
 });
