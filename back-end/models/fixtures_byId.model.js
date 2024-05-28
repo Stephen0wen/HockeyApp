@@ -1,4 +1,5 @@
 const db = require("../db/connection");
+const moment = require("moment");
 
 const fetchFixturesById = (fixture_id) => {
   if (isNaN(fixture_id) || fixture_id <= 0) {
@@ -38,4 +39,31 @@ JOIN
     });
 };
 
-module.exports = { fetchFixturesById };
+const updateFixtureById = (fixture_id, body) => {
+  const { match_status, team1_score, team2_score } = body;
+  if (isNaN(fixture_id) || fixture_id <= 0) {
+    return Promise.reject({ status: 400, msg: "Bad request" });
+  }
+  return db
+    .query(
+      `
+    UPDATE fixtures
+    SET match_status = $2, team1_score = $3, team2_score = $4
+    WHERE fixtures.fixture_id = $1
+    RETURNING *
+    `,
+      [fixture_id, match_status, team1_score, team2_score]
+    )
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: "Fixture ID not present in DB",
+        });
+      }
+      rows[0].match_date = moment(rows[0].match_date).format("YYYY-MM-DD");
+      return rows[0];
+    });
+};
+
+module.exports = { fetchFixturesById, updateFixtureById };

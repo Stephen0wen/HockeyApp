@@ -97,6 +97,7 @@
         "description": "updates and serves a fixture object corresponding to the given fixture id",
         "exampleRequest": {
             "body": {
+                "match_status": "completed",
                 "team1_score": 10,
                 "team2_score": 6
             }
@@ -119,7 +120,7 @@
             }
         }
     },
-    "GET /api/fixtures/:fixture_id/team_sheet": {
+    "GET /api/fixtures/:fixture_id/teamsheet/:team_id:": {
         "description": "serves an team sheet object corresponding to the given fixture id",
         "exampleResponse": {
             "team_sheet": {
@@ -130,27 +131,12 @@
                 "team2_name": "Old Bags",
                 "match_date": "11/5/24",
                 "start_time": 13.0,
-                "team1_players": [
+                "teamsheet": [
                     { "name": "Hanif", "user_id": 1, "availability": "yes" },
                     { "name": "Stephen", "user_id": 2, "availability": "yes" },
                     { "name": "Alec", "user_id": 3, "availability": "maybe" },
                     { "name": "Mior", "user_id": 4, "availability": "no" },
                     { "name": "Alfie", "user_id": 5, "availability": "no" }
-                ],
-                "team2_players": [
-                    { "name": "Hanifah", "user_id": 6, "availability": "yes" },
-                    {
-                        "name": "Stephanie",
-                        "user_id": 7,
-                        "availability": "yes"
-                    },
-                    {
-                        "name": "Alecandra",
-                        "user_id": 8,
-                        "availability": "maybe"
-                    },
-                    { "name": "Miora", "user_id": 9, "availability": "no" },
-                    { "name": "Alfiena", "user_id": 10, "availability": "no" }
                 ]
             }
         }
@@ -178,6 +164,21 @@
             ]
         }
     },
+
+    "GET /api/teams/:team_id": {
+        "description": "serves a team object corresponding to the given team_id",
+        "queries": [],
+        "exampleResponse": {
+            "teams": {
+                "team_id": 1,
+                "division_id": 2,
+                "team_name": "Leicester Wolves",
+                "team_start_time": "1100",
+                "venue_id": 4
+            }
+        }
+    },
+
     "GET /api/venues": {
         "description": "serves an array of all venues",
         "queries": [],
@@ -261,26 +262,26 @@
         "description": "serves an object corresponding to the given user id",
         "queries": [],
         "exampleResponse": {
-      "users": {
-        "user_id": 1,
-        "team_id": 2,
-        "user_name": "Alfie Fenables",
-        "team_name": "Leicester Wolves",
-        "user_roles": ["player", "sec"],
-        "user_address_1": "null",
-        "user_address_2": "null",
-        "user_postcode": "null",
-        "user_dob": "null",
-        "user_phone": "null",
-        "user_email": "magicthegathering@gmail.com",
-        "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
-        "player_bool": "true",
-        "sec_bool": "true",
-        "umpire_bool": "null",
-        "organiser_bool": "null"
-      }
-    }
-  },
+            "users": {
+                "user_id": 1,
+                "team_id": 2,
+                "user_name": "Alfie Fenables",
+                "team_name": "Leicester Wolves",
+                "user_roles": ["player", "sec"],
+                "user_address_1": "null",
+                "user_address_2": "null",
+                "user_postcode": "null",
+                "user_dob": "null",
+                "user_phone": "null",
+                "user_email": "magicthegathering@gmail.com",
+                "user_password": "$2b$10$3wRojGZW9C.BUu7qThkvr.WdF/096rlW48q.rOqYPo9YsOQ6XhiEK",
+                "player_bool": "true",
+                "sec_bool": "true",
+                "umpire_bool": "null",
+                "organiser_bool": "null"
+            }
+        }
+    },
     "DELETE /api/users/:user_id": {
         "description": "Deletes a user object corresponding to the given user id and returns no content",
         "queries": [],

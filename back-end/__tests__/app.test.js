@@ -608,6 +608,68 @@ describe("/api/fixtures/:fixture_id", () => {
         expect(msg).toBe("bad request");
       });
   });
+
+
+  test("PATCH 200: Should update a fixture object and return it", () => {
+    return request(app)
+      .patch("/api/fixtures/1")
+      .send({
+        match_status: "completed",
+        team1_score: 4,
+        team2_score: 3,
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { fixture } = body;
+        expect(fixture.fixture_id).toBe(1);
+        expect(fixture.match_status).toBe("completed");
+        expect(fixture.team1_id).toBe(1);
+        expect(fixture.team2_id).toBe(2);
+        expect(fixture.team1_score).toBe(4);
+        expect(fixture.team2_score).toBe(3);
+        expect(fixture.match_venue).toBe(3);
+        expect(fixture.match_date).toBe("2024-05-25");
+      });
+  });
+  test("PATCH 404: responds with a status and error message if fixture id is not found in database", () => {
+    return request(app)
+      .patch("/api/fixtures/100")
+      .send({
+        match_status: "completed",
+        team1_score: 2,
+        team2_score: 1,
+      })
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Fixture ID not present in DB");
+      });
+  });
+  test("PATCH 400: responds with a status and error message if user id is invalid", () => {
+    return request(app)
+      .patch("/api/fixtures/invalid_id")
+      .send({
+        match_status: "completed",
+        team1_score: 2,
+        team2_score: 0,
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad request");
+      });
+  });
+  test("PATCH 400: responds with a status and error message if request body is missing some fields", () => {
+    return request(app)
+      .patch("/api/fixtures/invalid_id")
+      .send({
+        match_status: "completed",
+        team1_score: 2,
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad request");
+      });
+  });
+
 });
 
 describe("DELETE /api/users/:user_id", () => {
@@ -669,6 +731,7 @@ describe("/api/responses/:user_id", () => {
   });
 });
 
+
 describe("/api/venues/:fixture_id/venue", () => {
   test("GET 200: Should return a venue object", () => {
     return request(app)
@@ -697,6 +760,110 @@ describe("/api/venues/:fixture_id/venue", () => {
       .get("/api/venues/invalidID/venue")
       .expect(400)
       .then(({ body: { msg } }) => {
+
+describe("/api/fixtures/:fixture_id/teamsheet/:team_id", () => {
+  test("Should return the correct teamsheet for the given fixture", () => {
+    return request(app)
+      .get("/api/fixtures/1/teamsheet/1")
+      .expect(200)
+      .then(({ body }) => {
+        const { teamsheet } = body;
+        const allowedAvailabilities = ["yes", "no", "maybe"];
+        expect(teamsheet.length).toBe(4);
+        teamsheet.forEach((response) => {
+          expect(typeof response.name).toBe("string");
+          expect(typeof response.user_id).toBe("number");
+          expect(allowedAvailabilities.includes(response.availability)).toBe(
+            true
+          );
+        });
+      });
+  });
+  test("GET 200: Should return an empty teamsheet, when the fixture exists, but there are no responses", () => {
+    return request(app)
+      .get("/api/fixtures/3/teamsheet/1")
+      .expect(200)
+      .then(({ body }) => {
+        const { teamsheet } = body;
+        expect(teamsheet.length).toBe(0);
+      });
+  });
+  test("GET 200: Should return an empty teamsheet when team_id exists, but is not associated with the fixture", () => {
+    return request(app)
+      .get("/api/fixtures/1/teamsheet/3")
+      .expect(200)
+      .then(({ body }) => {
+        const { teamsheet } = body;
+        expect(teamsheet.length).toBe(0);
+      });
+  });
+  test("GET 404: Returns an error when fixture_id is of correct type, but does not exist in database", () => {
+    return request(app)
+      .get("/api/fixtures/999/teamsheet/1")
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe("Not found");
+      });
+  });
+  test("GET 400: Returns an error when fixture_id is of incorrect type", () => {
+    return request(app)
+      .get("/api/fixtures/invalid_id/teamsheet/1")
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe("Invalid input");
+      });
+  });
+  test("GET 404: Returns an error when team_id is of correct type, but does not exist in database", () => {
+    return request(app)
+      .get("/api/fixtures/1/teamsheet/999")
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe("Not found");
+      });
+  });
+  test("GET 400: Returns an error when team_id is of incorrect type", () => {
+    return request(app)
+      .get("/api/fixtures/1/teamsheet/invalid_id")
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe("Invalid input");
+      });
+  });
+});
+
+describe("/api/teams/:team_id", () => {
+  test("GET 200: Should return a teams object corresponding to the passed team_id", () => {
+    return request(app)
+      .get("/api/teams/1")
+      .expect(200)
+      .then(({ body }) => {
+        const { team } = body;
+        expect(team.team_id).toBe(1);
+        expect(team.team_name).toBe("Leicester Wolves");
+        expect(team.team_division).toBe("2");
+        expect(team.team_start_time).toBe("1100");
+        expect(team.venue_id).toBe(3);
+      });
+  });
+  test("GET 404: Returns an error when team_id is of correct type, but does not exist in database", () => {
+    return request(app)
+      .get("/api/teams/999")
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe("Not found");
+      });
+  });
+  test("GET 400: Returns an error when team_id is of incorrect type", () => {
+    return request(app)
+      .get("/api/teams/bad_id")
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
         expect(msg).toBe("Invalid input");
       });
   });
