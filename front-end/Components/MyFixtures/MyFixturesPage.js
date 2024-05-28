@@ -1,7 +1,7 @@
-import { MyFixtureProvider } from "../Contexts/MyFixtureContext";
+import { MyFixtureProvider } from "../../Contexts/MyFixtureContext";
 import MyFixturesList from "./MyFixturesList";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import TeamSheetPage from "./TeamSheetPage";
+import TeamSheetPage from "../TeamSheet/TeamSheetPage";
 
 export default function MyFixturesPage() {
     const Stack = createNativeStackNavigator();

@@ -1,9 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import HomePage from "../HomePage";
-import ResultsPage from "../ResultsPage";
-import UpcomingPage from "../UpcomingPage";
+import HomePage from "../Home/HomePage";
+import ResultsPage from "../Results/ResultsPage";
+import UpcomingPage from "../Upcoming/UpcomingPage";
 import { useTheme } from "react-native-paper";
 
 export default function PublicNavigator() {

@@ -1,10 +1,10 @@
 import { View, StyleSheet } from "react-native";
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../Contexts/UserContext";
-import { MyFixtureContext } from "../Contexts/MyFixtureContext";
+import { UserContext } from "../../Contexts/UserContext";
+import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 import { Card, Text } from "react-native-paper";
-import LoadScreen from "./LoadScreen";
-import { getTeamSheet } from "../ApiRequests";
+import LoadScreen from "../LoadScreen";
+import { getTeamSheet } from "../../ApiRequests";
 import PlayerCard from "./PlayerCard";
 import { useColorScheme } from "react-native";
 
@@ -129,9 +129,3 @@ export default function TeamSheet() {
         );
     }
 }
-
-// {
-//     teamsheet.map((player) => {
-//         return <PlayerCard key={player.user_id} player={player} />;
-//     });
-// }

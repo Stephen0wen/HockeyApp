@@ -1,7 +1,7 @@
 import { Button } from "react-native-paper";
 import { useContext } from "react";
-import { MyFixtureContext } from "../Contexts/MyFixtureContext";
-import MyFixtureCard from "./MyFixtureCard";
+import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
+import MyFixtureCard from "../MyFixtures/MyFixtureCard";
 
 import TeamSheet from "./TeamSheet";
 import { ScrollView } from "react-native";

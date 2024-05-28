@@ -1,9 +1,8 @@
 import { StyleSheet, View, StatusBar } from "react-native";
-
 import { useTheme, Surface } from "react-native-paper";
-import LoginButton from "./LoginButton";
+import LoginButton from "../Login/LoginButton";
 import Logo from "./Logo";
-import UserAvatar from "./UserAvatar";
+import UserAvatar from "../User/UserAvatar";
 
 export default function Header() {
     const theme = useTheme();

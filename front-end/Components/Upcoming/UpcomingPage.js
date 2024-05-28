@@ -1,20 +1,20 @@
 import { ScrollView, StyleSheet } from "react-native";
-import FixtureCard from "./FixtureCard";
-import MatchdayContainer from "./MatchdayContainer";
-import LoadScreen from "./LoadScreen";
+import FixtureCard from "../FixtureCard";
+import MatchdayContainer from "../MatchdayContainer";
+import LoadScreen from "../LoadScreen";
 import { useState, useEffect } from "react";
-import { getResults } from "../ApiRequests";
+import { getUpcomingFixtures } from "../../ApiRequests";
 import { Text } from "react-native-paper";
 
-export default function ResultsPage() {
-    const [results, setResults] = useState([]);
+export default function UpcomingPage() {
+    const [upcomingFixtures, setUpcomingFixtures] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         setIsLoading(true);
-        getResults()
-            .then((apiResults) => {
-                setResults(apiResults);
+        getUpcomingFixtures()
+            .then((apiUpcomingFixtures) => {
+                setUpcomingFixtures(apiUpcomingFixtures);
             })
             .then(() => {
                 setIsLoading(false);
@@ -26,15 +26,15 @@ export default function ResultsPage() {
     }
 
     const matchDates = [];
-    results.forEach((result) => {
-        if (!matchDates.includes(result.match_date)) {
-            matchDates.push(result.match_date);
+    upcomingFixtures.forEach((upcomingFixture) => {
+        if (!matchDates.includes(upcomingFixture.match_date)) {
+            matchDates.push(upcomingFixture.match_date);
         }
     });
 
     const matchdayContainers = matchDates.map((matchDate) => {
-        const filteredFixtures = results.filter((result) => {
-            return result.match_date === matchDate;
+        const filteredFixtures = upcomingFixtures.filter((upcomingFixture) => {
+            return upcomingFixture.match_date === matchDate;
         });
 
         return (
@@ -57,7 +57,7 @@ export default function ResultsPage() {
     return (
         <>
             <Text variant="headlineMedium" style={styles.title}>
-                Results
+                Upcoming Fixtures
             </Text>
             <ScrollView contentStyle={styles.scroll}>
                 {matchdayContainers}
@@ -70,8 +70,6 @@ const styles = StyleSheet.create({
     scroll: {
         flex: 1,
         alignItems: "center",
-        gap: 5,
-        padding: 5,
     },
     title: {
         textAlign: "center",

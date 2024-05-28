@@ -1,5 +1,5 @@
-import MatchdayContainer from "./MatchdayContainer";
-import FixtureCard from "./FixtureCard";
+import MatchdayContainer from "../MatchdayContainer";
+import FixtureCard from "../FixtureCard";
 import MyFixtureUI from "./MyFixtureUI";
 
 export default function MyFixtureCard({ fixture, children }) {

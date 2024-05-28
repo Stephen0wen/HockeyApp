@@ -1,7 +1,6 @@
 import { Text, Surface, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import UserViewSwitch from "./UserViewSwitch";
-import { useEffect } from "react";
 
 export default function UserView({ user, userRole, setUserRole }) {
     const theme = useTheme();

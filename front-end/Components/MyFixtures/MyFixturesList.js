@@ -1,11 +1,11 @@
 import { StyleSheet, ScrollView } from "react-native";
-import LoadScreen from "./LoadScreen";
+import LoadScreen from "../LoadScreen";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../Contexts/UserContext";
-import { getMyFixtures } from "../ApiRequests";
+import { UserContext } from "../../Contexts/UserContext";
+import { getMyFixtures } from "../../ApiRequests";
 import { Text, Button } from "react-native-paper";
 import MyFixtureCard from "./MyFixtureCard";
-import { MyFixtureContext } from "../Contexts/MyFixtureContext";
+import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 
 export default function MyFixturesList({ navigation }) {
     const { user } = useContext(UserContext);
