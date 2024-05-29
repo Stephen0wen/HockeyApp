@@ -44,6 +44,7 @@ export default function MyFixturesList({ navigation }) {
                         >
                             <View style={styles.linkContainer}>
                                 <Button
+                                    style={styles.button}
                                     onPress={() => {
                                         setCurrentFixture(fixture);
                                         navigation.navigate("TeamSheet");
@@ -52,6 +53,7 @@ export default function MyFixturesList({ navigation }) {
                                     View Team Sheet
                                 </Button>
                                 <Button
+                                    style={styles.button}
                                     onPress={() => {
                                         setCurrentFixture(fixture);
                                         navigation.navigate("Details");
@@ -81,9 +83,12 @@ const styles = StyleSheet.create({
     },
     linkContainer: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         maxWidth: 500,
         width: "100%",
-        paddingHorizontal: 5,
+        paddingHorizontal: 0,
+    },
+    button: {
+        marginVertical: -5,
     },
 });
