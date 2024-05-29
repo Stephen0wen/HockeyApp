@@ -71,3 +71,19 @@ export const putResponse = (request) => {
       return response;
     });
 };
+
+export const getAllUsers = () => {
+  return axios
+    .get(`https://hockeyapp.onrender.com/api/users`)
+    .then(({ data: { users } }) => {
+      return users;
+    });
+};
+
+export const getAllTeams = () => {
+  return axios
+    .get(`https://hockeyapp.onrender.com/api/teams`)
+    .then(({ data: { teams } }) => {
+      return teams;
+    });
+};
