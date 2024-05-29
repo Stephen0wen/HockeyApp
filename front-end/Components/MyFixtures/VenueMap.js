@@ -33,16 +33,16 @@ const VenueMap = () => {
       });
   }, [fixture_id]);
 
+  console.log(venue);
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Map</Text>
 
-      {/* <Text style={styles.teamNames}>
-          {venue.home_team} vs {venue.away_team}
-        </Text> */}
-      {/* <Text style={styles.teamNames}>
-          Pushback at {venue.team_start_time}
-        </Text> */}
+      <Text style={styles.teamNames}>
+        {venue.home_team} vs {venue.away_team}
+      </Text>
+      <Text style={styles.teamNames}>Pushback at {venue.pushback}</Text>
       <MapView
         style={styles.map}
         region={{
