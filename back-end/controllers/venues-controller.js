@@ -25,7 +25,6 @@ exports.getVenueByFixtureId = (request, response, next) => {
   const { fixture_id } = request.params;
   selectVenueByFixtureId(fixture_id)
     .then((venue) => {
-      console.log(venue);
       response.status(200).send({ venue });
     })
     .catch(next);

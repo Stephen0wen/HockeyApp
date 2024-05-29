@@ -5,53 +5,55 @@ import Logo from "./Logo";
 import UserAvatar from "../User/UserAvatar";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Header() {
-    const theme = useTheme();
-    const { user } = useContext(UserContext);
+  const theme = useTheme();
+  const { user } = useContext(UserContext);
 
-    let userUi;
-    if (user) {
-        userUi = <UserAvatar />;
-    }
-    if (!user) {
-        userUi = <LoginButton />;
-    }
+  let userUi;
+  if (user) {
+    userUi = <UserAvatar />;
+  }
+  if (!user) {
+    userUi = <LoginButton />;
+  }
 
-    const styles = StyleSheet.create({
-        surface: {
-            backgroundColor: theme.colors.primary,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            height: 50 + StatusBar.currentHeight,
-            paddingTop: StatusBar.currentHeight,
-        },
-        content: {
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-            height: "max-content",
-            padding: 5,
-        },
-        rightContainer: {
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 50,
-        },
-        text: {
-            color: theme.colors.onPrimary,
-        },
-    });
+  const styles = StyleSheet.create({
+    surface: {
+      backgroundColor: theme.colors.primary,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      height: 50,
+    },
+    content: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      width: "100%",
+      height: "max-content",
+      padding: 5,
+    },
+    rightContainer: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      height: 50,
+    },
+    text: {
+      color: theme.colors.onPrimary,
+    },
+  });
 
-    return (
-        <Surface style={styles.surface} elevation={0}>
-            <View style={styles.content}>
-                <Logo />
-                <View style={styles.rightContainer}>{userUi}</View>
-            </View>
-        </Surface>
-    );
+  return (
+    <SafeAreaView edges={["top", "left", "right"]}>
+      <Surface style={styles.surface} elevation={0}>
+        <View style={styles.content}>
+          <Logo />
+          <View style={styles.rightContainer}>{userUi}</View>
+        </View>
+      </Surface>
+    </SafeAreaView>
+  );
 }
