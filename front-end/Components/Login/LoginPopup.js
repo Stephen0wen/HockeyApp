@@ -14,7 +14,7 @@ import { getUsers } from "../Utils/getUsers";
 import { UserContext } from "../../Contexts/UserContext";
 import LoginSuccess from "./LoginSuccess";
 import LoginError from "./LoginError";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function LoginPopup({ visible, setVisible }) {
     const hideModal = () => setVisible(false);
@@ -64,22 +64,29 @@ export default function LoginPopup({ visible, setVisible }) {
     const styles = StyleSheet.create({
         modal: {
             backgroundColor: theme.colors.primaryContainer,
-            padding: 20,
-            maxWidth: 500,
+            height: 440,
+            maxHeight: "90%",
             borderRadius: 10,
+            marginHorizontal: 20,
+            alignSelf: "center",
+        },
+        scroll: {
+            width: "100%",
             alignItems: "center",
             justifyContent: "space-between",
-            marginHorizontal: 20,
             gap: 50,
+            padding: 20,
         },
         form: {
             gap: 15,
             alignItems: "center",
             width: "100%",
+            backgroundColor: "#00fy",
         },
         field: {
             width: "100%",
             alignItems: "center",
+            gap: 2,
         },
         input: {
             height: 35,
@@ -98,51 +105,57 @@ export default function LoginPopup({ visible, setVisible }) {
                 contentContainerStyle={styles.modal}
                 animationType="slide"
             >
-                <Text variant="headlineMedium">Log In to Hockey App</Text>
-                <View style={styles.form}>
-                    <View style={styles.field}>
-                        <Text> Email: </Text>
-                        <TextInput
-                            onChangeText={setUsername}
-                            value={username}
-                            mode="outlined"
-                            multiline={false}
-                            placeholder="address@domain.com"
-                            textAlign="center"
-                            style={styles.input}
-                        ></TextInput>
+                <ScrollView contentContainerStyle={styles.scroll}>
+                    <Text variant="headlineSmall">Sign In to Hockey App</Text>
+                    <View style={styles.form}>
+                        <View style={styles.field}>
+                            <Text> Email: </Text>
+                            <TextInput
+                                onChangeText={setUsername}
+                                value={username}
+                                mode="outlined"
+                                multiline={false}
+                                placeholder="address@domain.com"
+                                textAlign="center"
+                                style={styles.input}
+                            ></TextInput>
+                        </View>
+                        <View style={styles.field}>
+                            <Text> Password: </Text>
+                            <TextInput
+                                onChangeText={setPassword}
+                                value={password}
+                                mode="outlined"
+                                multiline={false}
+                                secureTextEntry={true}
+                                textAlign="default"
+                                style={styles.input}
+                            />
+                        </View>
+                        <Button
+                            mode="elevated"
+                            style={styles.button}
+                            onPress={() => handleLogIn()}
+                        >
+                            <Text>Log In</Text>
+                        </Button>
                     </View>
-                    <View style={styles.field}>
-                        <Text> Password: </Text>
-                        <TextInput
-                            onChangeText={setPassword}
-                            value={password}
-                            mode="outlined"
-                            multiline={false}
-                            secureTextEntry={true}
-                            textAlign="default"
-                            style={styles.input}
-                        />
+                    <View style={styles.form}>
+                        <Text> Don't have an account? </Text>
+                        <Button
+                            mode="elevated"
+                            style={styles.button}
+                            onPress={() => setVisibleSignUp(!visibleSignUp)}
+                        >
+                            <SignUp
+                                visibleSignUp={visibleSignUp}
+                                setVisibleSignUp={setVisibleSignUp}
+                            />
+                            <Divider />
+                            <Text>Sign up </Text>
+                        </Button>
                     </View>
-                    <Button
-                        mode="elevated"
-                        style={styles.button}
-                        onPress={() => handleLogIn()}
-                    >
-                        Submit
-                    </Button>
-                </View>
-                <View />
-                <View style={styles.form}>
-                    <Text> Don't have an account? </Text>
-                    <Button
-                        mode="elevated"
-                        style={styles.button}
-                        onPress={() => setVisibleSignUp(!visibleSignUp)}
-                    >
-                        Sign Up
-                    </Button>
-                </View>
+                </ScrollView>
             </Modal>
             <LoginSuccess
                 visibleLogInSuccess={visibleLogInSuccess}
@@ -152,10 +165,6 @@ export default function LoginPopup({ visible, setVisible }) {
                 visibleLogInError={visibleLogInError}
                 toggleModalLogInError={toggleModalLogInError}
                 loginErrorMsg={loginErrorMsg}
-            />
-            <SignUp
-                visibleSignUp={visibleSignUp}
-                setVisibleSignUp={setVisibleSignUp}
             />
         </Portal>
     );
