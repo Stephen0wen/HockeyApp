@@ -25,44 +25,57 @@ exports.replaceProperty = (objArr, property, newProperty, lookup) => {
     });
 };
 
-exports.createLeagueTables = (fixtures) => {
+exports.createLeagueTables = (teams, fixtures) => {
     const teamData = {};
 
+    teams.forEach((team) => {
+        const { team_division, team_name } = team;
+
+        if (!teamData[team_division]) {
+            teamData[team_division] = {};
+        }
+
+        teamData[team_division][team_name] = {
+            points: 0,
+            wins: 0,
+            draws: 0,
+            losses: 0,
+            goals_for: 0,
+            goals_against: 0,
+            goal_difference: 0,
+        };
+    });
+
     fixtures.forEach((fixture) => {
-        const { division, team_name, scored, conceded } = fixture;
+        const { team1_name, team1_score, team2_name, team2_score, division } =
+            fixture;
 
-        if (!teamData[division]) {
-            teamData[division] = {};
+        const teamRow1 = teamData[division][team1_name];
+        const teamRow2 = teamData[division][team2_name];
+
+        teamRow1.goals_for += team1_score;
+        teamRow1.goals_against += team2_score;
+        teamRow1.goal_difference = teamRow1.goals_for - teamRow1.goals_against;
+
+        teamRow2.goals_for += team2_score;
+        teamRow2.goals_against += team1_score;
+        teamRow2.goal_difference = teamRow2.goals_for - teamRow2.goals_against;
+
+        if (team1_score > team2_score) {
+            teamRow1.points += 3;
+            teamRow1.wins += 1;
+            teamRow2.losses += 1;
         }
-
-        if (!teamData[division][team_name]) {
-            teamData[division][team_name] = {
-                points: 0,
-                wins: 0,
-                draws: 0,
-                losses: 0,
-                goals_for: 0,
-                goals_against: 0,
-                goal_difference: 0,
-            };
+        if (team1_score === team2_score) {
+            teamRow1.points += 1;
+            teamRow1.draws += 1;
+            teamRow2.points += 1;
+            teamRow2.draws += 1;
         }
-
-        const teamRow = teamData[division][team_name];
-
-        teamRow.goals_for += scored;
-        teamRow.goals_against += conceded;
-        teamRow.goal_difference = teamRow.goals_for - teamRow.goals_against;
-
-        if (scored > conceded) {
-            teamRow.points += 3;
-            teamRow.wins += 1;
-        }
-        if (scored === conceded) {
-            teamRow.points += 1;
-            teamRow.draws += 1;
-        }
-        if (scored < conceded) {
-            teamRow.losses += 1;
+        if (team1_score < team2_score) {
+            teamRow1.losses += 1;
+            teamRow2.points += 3;
+            teamRow2.wins += 1;
         }
     });
 

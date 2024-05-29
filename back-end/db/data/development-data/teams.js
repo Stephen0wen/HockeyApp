@@ -16,7 +16,7 @@ module.exports = [
   {
     team_id: 3,
     team_name: "South Wigston Tigers",
-    venue_id: 3,
+    venue_id: 8,
     team_start_time: "0930",
     team_division: "2",
   },
