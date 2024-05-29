@@ -7,6 +7,7 @@ import UserView from "./UserView";
 import { useContext, useState } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { UserDeletePopup } from "./UserDeletePopup";
+import UserLogOutPopup from "./UserLogOutPopup";
 
 export default function UserOptions({ visible, setVisible }) {
   const hideModal = () => setVisible(false);
@@ -17,6 +18,9 @@ export default function UserOptions({ visible, setVisible }) {
 
   const [visibleUserDelete, setVisibleUserDelete] = useState(false);
   const toggleModalUserDelete = () => setVisibleUserDelete(!visibleUserDelete);
+
+  const [visibleUserLogOff, setVisibleUserLogOff] = useState(false);
+  const toggleModalUserLogOff = () => setVisibleUserLogOff(!visibleUserLogOff);
 
   const styles = StyleSheet.create({
     modal: {
@@ -54,13 +58,20 @@ export default function UserOptions({ visible, setVisible }) {
                 setUserRole={setUserRole}
               />
               <UserUpdate />
-              <UserLogOut />
+              <UserLogOut toggleModalUserLogOff={toggleModalUserLogOff} />
             </View>
             <View style={{ height: 50 }}></View>
             <UserDelete toggleModalUserDelete={toggleModalUserDelete} />
           </View>
         </ScrollView>
       </Modal>
+      <UserLogOutPopup
+        visibleUserLogOff={visibleUserLogOff}
+        toggleModalUserLogOff={toggleModalUserLogOff}
+        user={user}
+        setUser={setUser}
+        setUserRole={setUserRole}
+      />
       <UserDeletePopup
         visibleUserDelete={visibleUserDelete}
         toggleModalUserDelete={toggleModalUserDelete}
