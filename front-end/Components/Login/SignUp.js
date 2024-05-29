@@ -38,13 +38,10 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
         modal: {
             alignSelf: "center",
             backgroundColor: theme.colors.primaryContainer,
-            height: 500,
+            maxWidth: 500,
             maxHeight: "90%",
             borderRadius: 10,
             marginHorizontal: 20,
-        },
-        scroll: {
-            width: "100%",
             alignItems: "center",
             padding: 20,
         },
@@ -68,7 +65,8 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
         input: {
             height: 35,
             lineHeight: 30,
-            width: "100%",
+            maxWidth: "100%",
+            width: 500,
         },
         button: {
             width: 100,
@@ -119,113 +117,111 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
                 contentContainerStyle={styles.modal}
                 animationType="slide"
             >
-                <ScrollView contentContainerStyle={styles.scroll}>
-                    <Text variant="headlineSmall">Sign Up</Text>
-                    <View style={styles.form}>
-                        <View style={styles.field}>
-                            <Text> Full Name: </Text>
-                            <TextInput
-                                onChangeText={setName}
-                                value={name}
-                                mode="outlined"
-                                placeholder="John Smith"
-                                multiline={false}
-                                style={styles.input}
-                            />
-                            <IncorrectWarning
-                                display={auth.name}
-                                check={auth.check}
-                                type="name"
-                            />
-                        </View>
-                        <View style={styles.field}>
-                            <Text> Email: </Text>
-                            <TextInput
-                                onChangeText={setEmail}
-                                value={email}
-                                mode="outlined"
-                                placeholder="enter email address"
-                                multiline={false}
-                                textAlign="default"
-                                style={styles.input}
-                            />
-                            <IncorrectWarning
-                                display={auth.email}
-                                check={auth.check}
-                                type="email"
-                            />
-                        </View>
-                        <View style={styles.field}>
-                            <Text> Password: </Text>
-                            <TextInput
-                                onChangeText={setPassword}
-                                value={password}
-                                mode="outlined"
-                                placeholder="enter password       "
-                                multiline={false}
-                                secureTextEntry={true}
-                                textAlign="default"
-                                style={styles.input}
-                            />
-                            <IncorrectWarning
-                                display={auth.password}
-                                check={auth.check}
-                                type="password"
-                            />
-                        </View>
-                        <View style={styles.field}>
-                            <Text> Re-enter Password: </Text>
-                            <TextInput
-                                onChangeText={setPassword2}
-                                value={password2}
-                                mode="outlined"
-                                placeholder="re-enter password   "
-                                multiline={false}
-                                secureTextEntry={true}
-                                textAlign="default"
-                                style={styles.input}
-                            />
-                            <IncorrectWarning
-                                display={auth.password2}
-                                check={auth.check}
-                                type="password2"
-                            />
-                        </View>
-                        <View style={styles.field}>
-                            <Text>Choose Your Team</Text>
-                            <DropDownPicker
-                                open={open}
-                                value={team}
-                                items={items}
-                                setOpen={setOpen}
-                                setValue={setTeam}
-                                setItems={setItems}
-                                placeholder=""
-                            />
-                            <IncorrectWarning
-                                display={auth.team}
-                                check={auth.check}
-                                type="team"
-                            />
-                        </View>
-                        <Button
+                <Text variant="headlineSmall">Sign Up</Text>
+                <View style={styles.form}>
+                    <View style={styles.field}>
+                        <Text> Full Name: </Text>
+                        <TextInput
+                            onChangeText={setName}
+                            value={name}
                             mode="outlined"
-                            onPress={() =>
-                                setAuth(
-                                    signUpForm(
-                                        name,
-                                        email,
-                                        password,
-                                        password2,
-                                        team
-                                    )
-                                )
-                            }
-                        >
-                            Submit
-                        </Button>
+                            placeholder="John Smith"
+                            multiline={false}
+                            style={styles.input}
+                        />
+                        <IncorrectWarning
+                            display={auth.name}
+                            check={auth.check}
+                            type="name"
+                        />
                     </View>
-                </ScrollView>
+                    <View style={styles.field}>
+                        <Text> Email: </Text>
+                        <TextInput
+                            onChangeText={setEmail}
+                            value={email}
+                            mode="outlined"
+                            placeholder="enter email address"
+                            multiline={false}
+                            textAlign="default"
+                            style={styles.input}
+                        />
+                        <IncorrectWarning
+                            display={auth.email}
+                            check={auth.check}
+                            type="email"
+                        />
+                    </View>
+                    <View style={styles.field}>
+                        <Text> Password: </Text>
+                        <TextInput
+                            onChangeText={setPassword}
+                            value={password}
+                            mode="outlined"
+                            placeholder="enter password       "
+                            multiline={false}
+                            secureTextEntry={true}
+                            textAlign="default"
+                            style={styles.input}
+                        />
+                        <IncorrectWarning
+                            display={auth.password}
+                            check={auth.check}
+                            type="password"
+                        />
+                    </View>
+                    <View style={styles.field}>
+                        <Text> Re-enter Password: </Text>
+                        <TextInput
+                            onChangeText={setPassword2}
+                            value={password2}
+                            mode="outlined"
+                            placeholder="re-enter password   "
+                            multiline={false}
+                            secureTextEntry={true}
+                            textAlign="default"
+                            style={styles.input}
+                        />
+                        <IncorrectWarning
+                            display={auth.password2}
+                            check={auth.check}
+                            type="password2"
+                        />
+                    </View>
+                    <View style={styles.field}>
+                        <Text>Choose Your Team</Text>
+                        <DropDownPicker
+                            open={open}
+                            value={team}
+                            items={items}
+                            setOpen={setOpen}
+                            setValue={setTeam}
+                            setItems={setItems}
+                            placeholder=""
+                        />
+                        <IncorrectWarning
+                            display={auth.team}
+                            check={auth.check}
+                            type="team"
+                        />
+                    </View>
+                    <Button
+                        mode="outlined"
+                        onPress={() =>
+                            setAuth(
+                                signUpForm(
+                                    name,
+                                    email,
+                                    password,
+                                    password2,
+                                    team
+                                )
+                            )
+                        }
+                    >
+                        Submit
+                    </Button>
+                </View>
             </Modal>
             <Modal
                 visible={successPopUp}
