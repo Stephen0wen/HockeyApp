@@ -3,9 +3,20 @@ import { useTheme, Surface } from "react-native-paper";
 import LoginButton from "../Login/LoginButton";
 import Logo from "./Logo";
 import UserAvatar from "../User/UserAvatar";
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 export default function Header() {
     const theme = useTheme();
+    const { user } = useContext(UserContext);
+
+    let userUi;
+    if (user) {
+        userUi = <UserAvatar />;
+    }
+    if (!user) {
+        userUi = <LoginButton />;
+    }
 
     const styles = StyleSheet.create({
         surface: {
@@ -13,8 +24,7 @@ export default function Header() {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            height: 50 + StatusBar.currentHeight,
-            paddingTop: StatusBar.currentHeight,
+            height: 50,
         },
         content: {
             flexDirection: "row",
@@ -39,13 +49,8 @@ export default function Header() {
         <Surface style={styles.surface} elevation={0}>
             <View style={styles.content}>
                 <Logo />
-                <View style={styles.rightContainer}>
-                    <LoginButton />
-                    <UserAvatar />
-                </View>
+                <View style={styles.rightContainer}>{userUi}</View>
             </View>
         </Surface>
     );
-
-    // The LoginButton / UserAvatar will not both be rendered at the same time
 }
