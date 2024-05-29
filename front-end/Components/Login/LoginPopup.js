@@ -15,7 +15,11 @@ import { UserContext } from "../../Contexts/UserContext";
 import LoginSuccess from "./LoginSuccess";
 import LoginError from "./LoginError";
 
-export default function LoginPopup({ visible, setVisible }) {
+export default function LoginPopup({
+  visible,
+  setVisible,
+  setHideLogInButton,
+}) {
   const hideModal = () => setVisible(false);
   const [text, onChangeText] = React.useState();
   const [text2, onChangeText2] = React.useState();
@@ -36,7 +40,7 @@ export default function LoginPopup({ visible, setVisible }) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setUserRole } = useContext(UserContext);
 
   const handleLogIn = () => {
     getUsers().then((users) => {
@@ -49,10 +53,11 @@ export default function LoginPopup({ visible, setVisible }) {
         toggleModalLogInError();
         setLoginErrorMsg("Incorrect password!");
       } else {
-        setUser({ ...correctUser, user_roles: [] });
-        console.log(user);
+        setUser({ ...correctUser });
+        setUserRole("player");
         setVisible(!visible);
         toggleModalLogIn();
+        setHideLogInButton("none");
       }
     });
   };
