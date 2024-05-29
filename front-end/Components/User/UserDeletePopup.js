@@ -7,6 +7,7 @@ export function UserDeletePopup({
   toggleModalUserDelete,
   user,
   setUser,
+  setUserRole,
 }) {
   const theme = useTheme();
   const containerStyle = {
@@ -68,6 +69,7 @@ export function UserDeletePopup({
         onDismiss={() => {
           toggleModalUserDeleteSuccess();
           setUser(null);
+          setUserRole("public");
         }}
         contentContainerStyle={containerStyle}
         animationType="slide"
@@ -82,6 +84,7 @@ export function UserDeletePopup({
           onPress={() => {
             toggleModalUserDeleteSuccess();
             setUser(null);
+            setUserRole("public");
           }}
         >
           <Divider />
