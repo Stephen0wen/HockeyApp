@@ -65,7 +65,7 @@ export default function LoginPopup({ visible, setVisible }) {
         modal: {
             alignSelf: "center",
             backgroundColor: theme.colors.primaryContainer,
-            height: 440,
+            height: 450,
             maxHeight: "90%",
             borderRadius: 10,
             marginHorizontal: 20,
@@ -74,14 +74,19 @@ export default function LoginPopup({ visible, setVisible }) {
             width: "100%",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: 50,
             padding: 20,
         },
         form: {
             gap: 15,
             alignItems: "center",
             width: "100%",
-            backgroundColor: "#00fy",
+            marginVertical: 40,
+        },
+        signUp: {
+            gap: 15,
+            alignItems: "center",
+            width: "100%",
+            marginTop: 40,
         },
         field: {
             width: "100%",
@@ -140,7 +145,7 @@ export default function LoginPopup({ visible, setVisible }) {
                             <Text>Log In</Text>
                         </Button>
                     </View>
-                    <View style={styles.form}>
+                    <View style={styles.signUp}>
                         <Text> Don't have an account? </Text>
                         <Button
                             mode="elevated"
