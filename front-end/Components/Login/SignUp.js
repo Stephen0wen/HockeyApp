@@ -71,6 +71,11 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
         button: {
             width: 100,
         },
+        success: {
+            gap: 15,
+            alignItems: "center",
+            width: 200,
+        },
     });
 
     useEffect(() => {
@@ -207,6 +212,7 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
                     </View>
                     <Button
                         mode="outlined"
+                        style={styles.button}
                         onPress={() =>
                             setAuth(
                                 signUpForm(
@@ -230,13 +236,16 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
                 contentContainerStyle={styles.modal}
                 animationType="slide"
             >
-                <Text>Congratulations your account it set up!</Text>
-                <Text style={{ textAlign: `left` }}>{user[0]}</Text>
-                <Text>{user[1]}</Text>
-                <Text>{user[2]}</Text>
-                <Button mode="outlined" onPress={() => setSuccessPopUp(false)}>
-                    Back to log in
-                </Button>
+                <View style={styles.success}>
+                    <Text>Sign Up Complete!</Text>
+                    <Button
+                        mode="elevated"
+                        style={styles.button}
+                        onPress={() => setSuccessPopUp(false)}
+                    >
+                        Log In
+                    </Button>
+                </View>
             </Modal>
         </Portal>
     );
