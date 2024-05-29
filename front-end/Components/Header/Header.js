@@ -3,49 +3,55 @@ import { useTheme, Surface } from "react-native-paper";
 import LoginButton from "../Login/LoginButton";
 import Logo from "./Logo";
 import UserAvatar from "../User/UserAvatar";
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 export default function Header() {
-  const theme = useTheme();
+    const theme = useTheme();
+    const { user } = useContext(UserContext);
 
-  const styles = StyleSheet.create({
-    surface: {
-      backgroundColor: theme.colors.primary,
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      height: 50 + StatusBar.currentHeight,
-      paddingTop: StatusBar.currentHeight,
-    },
-    content: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      width: "100%",
-      height: "max-content",
-      padding: 5,
-    },
-    rightContainer: {
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "center",
-      height: 50,
-    },
-    text: {
-      color: theme.colors.onPrimary,
-    },
-  });
+    let userUi;
+    if (user) {
+        userUi = <UserAvatar />;
+    }
+    if (!user) {
+        userUi = <LoginButton />;
+    }
 
-  return (
-    <Surface style={styles.surface} elevation={0}>
-      <View style={styles.content}>
-        <Logo />
-        <View style={styles.rightContainer}>
-          <LoginButton />
-          <UserAvatar />
-        </View>
-      </View>
-    </Surface>
-  );
+    const styles = StyleSheet.create({
+        surface: {
+            backgroundColor: theme.colors.primary,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            height: 50 + StatusBar.currentHeight,
+            paddingTop: StatusBar.currentHeight,
+        },
+        content: {
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            height: "max-content",
+            padding: 5,
+        },
+        rightContainer: {
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 50,
+        },
+        text: {
+            color: theme.colors.onPrimary,
+        },
+    });
 
-  // The LoginButton / UserAvatar will not both be rendered at the same time
+    return (
+        <Surface style={styles.surface} elevation={0}>
+            <View style={styles.content}>
+                <Logo />
+                <View style={styles.rightContainer}>{userUi}</View>
+            </View>
+        </Surface>
+    );
 }
