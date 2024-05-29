@@ -50,7 +50,6 @@ export default function LoginPopup({ visible, setVisible }) {
         setLoginErrorMsg("Incorrect password!");
       } else {
         setUser({ ...correctUser, user_roles: [] });
-        console.log(user);
         setVisible(!visible);
         toggleModalLogIn();
       }

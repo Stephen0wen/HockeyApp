@@ -4,58 +4,67 @@ import UserLogOut from "./UserLogOut";
 import UserDelete from "./UserDelete";
 import UserUpdate from "./UserUpdate";
 import UserView from "./UserView";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import { UserDeletePopup } from "./UserDeletePopup";
 
 export default function UserOptions({ visible, setVisible }) {
-    const hideModal = () => setVisible(false);
+  const hideModal = () => setVisible(false);
 
-    const { user, userRole, setUserRole } = useContext(UserContext);
+  const { user, userRole, setUserRole } = useContext(UserContext);
 
-    const theme = useTheme();
+  const theme = useTheme();
 
-    const styles = StyleSheet.create({
-        modal: {
-            flex: 1,
-            alignSelf: "flex-end",
-            width: 180,
-            marginTop: 50,
+  const [visibleUserDelete, setVisibleUserDelete] = useState(false);
+  const toggleModalUserDelete = () => setVisibleUserDelete(!visibleUserDelete);
 
-            backgroundColor: theme.colors.secondaryContainer,
-        },
-        innerContainer: {
-            padding: 5,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            height: "100%",
-        },
-    });
+  const styles = StyleSheet.create({
+    modal: {
+      flex: 1,
+      alignSelf: "flex-end",
+      width: 180,
+      marginTop: 50,
 
-    return (
-        <Portal>
-            <Modal
-                visible={visible}
-                onDismiss={hideModal}
-                contentContainerStyle={styles.modal}
-                animationType="slide"
-            >
-                <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
-                    <View style={styles.innerContainer}>
-                        <View>
-                            <UserView
-                                user={user}
-                                userRole={userRole}
-                                setUserRole={setUserRole}
-                            />
-                            <UserUpdate />
-                            <UserLogOut />
-                        </View>
-                        <View style={{ height: 50 }}></View>
-                        <UserDelete />
-                    </View>
-                </ScrollView>
-            </Modal>
-        </Portal>
-    );
+      backgroundColor: theme.colors.secondaryContainer,
+    },
+    innerContainer: {
+      padding: 5,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      height: "100%",
+    },
+  });
+
+  return (
+    <Portal>
+      <Modal
+        visible={visible}
+        onDismiss={hideModal}
+        contentContainerStyle={styles.modal}
+        animationType="slide"
+      >
+        <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+          <View style={styles.innerContainer}>
+            <View>
+              <UserView
+                user={user}
+                userRole={userRole}
+                setUserRole={setUserRole}
+              />
+              <UserUpdate />
+              <UserLogOut />
+            </View>
+            <View style={{ height: 50 }}></View>
+            <UserDelete toggleModalUserDelete={toggleModalUserDelete} />
+          </View>
+        </ScrollView>
+      </Modal>
+      <UserDeletePopup
+        visibleUserDelete={visibleUserDelete}
+        toggleModalUserDelete={toggleModalUserDelete}
+        user={user}
+      />
+    </Portal>
+  );
 }
