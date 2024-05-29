@@ -762,7 +762,7 @@ describe("DELETE /api/users/:user_id", () => {
     });
 });
 describe("/api/responses/:user_id", () => {
-    test("GET 200: Responds with endpoint json data", () => {
+    test("GET 200: Responds responses for the given user", () => {
         return request(app)
             .get("/api/responses/1")
             .expect(200)
@@ -779,13 +779,21 @@ describe("/api/responses/:user_id", () => {
                 });
             });
     });
+    test("GET 200: Responds with an empty array when the user exists, but has no responses", () => {
+        return request(app)
+            .get("/api/responses/5")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.responses).toEqual([]);
+            });
+    });
     test("GET 404: Returns an error with a path of the right type, but not present in database", () => {
         return request(app)
             .get("/api/responses/999")
             .expect(404)
             .then(({ body }) => {
                 const { msg } = body;
-                expect(msg).toBe("Not found");
+                expect(msg).toBe("User not found");
             });
     });
     test("GET 400: Returns an error with a path of the wrong type", () => {
