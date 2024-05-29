@@ -11,7 +11,7 @@ import { UserDeletePopup } from "./UserDeletePopup";
 export default function UserOptions({ visible, setVisible }) {
   const hideModal = () => setVisible(false);
 
-  const { user, userRole, setUserRole } = useContext(UserContext);
+  const { user, setUser, userRole, setUserRole } = useContext(UserContext);
 
   const theme = useTheme();
 
@@ -65,6 +65,7 @@ export default function UserOptions({ visible, setVisible }) {
         visibleUserDelete={visibleUserDelete}
         toggleModalUserDelete={toggleModalUserDelete}
         user={user}
+        setUser={setUser}
       />
     </Portal>
   );

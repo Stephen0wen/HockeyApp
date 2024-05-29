@@ -6,6 +6,7 @@ export function UserDeletePopup({
   visibleUserDelete,
   toggleModalUserDelete,
   user,
+  setUser,
 }) {
   const theme = useTheme();
   const containerStyle = {
@@ -64,7 +65,10 @@ export function UserDeletePopup({
       </Modal>
       <Modal
         visible={visibleUserDeleteSuccess}
-        onDismiss={toggleModalUserDeleteSuccess}
+        onDismiss={() => {
+          toggleModalUserDeleteSuccess();
+          setUser(null);
+        }}
         contentContainerStyle={containerStyle}
         animationType="slide"
       >
@@ -75,7 +79,10 @@ export function UserDeletePopup({
           marginBottom={"5%"}
           marginTop={"10%"}
           mode="outlined"
-          onPress={toggleModalUserDeleteSuccess}
+          onPress={() => {
+            toggleModalUserDeleteSuccess();
+            setUser(null);
+          }}
         >
           <Divider />
           <Text>Dismiss</Text>
