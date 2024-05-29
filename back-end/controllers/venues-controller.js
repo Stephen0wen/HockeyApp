@@ -22,6 +22,7 @@ exports.getVenueById = (request, response, next) => {
 };
 
 exports.getVenueByFixtureId = (request, response, next) => {
+
     const { fixture_id } = request.params;
     selectVenueByFixtureId(fixture_id)
         .then((venue) => {

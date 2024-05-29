@@ -38,4 +38,5 @@ exports.selectVenueByFixtureId = (fixture_id) => {
             }
             return venues[0];
         });
+
 };

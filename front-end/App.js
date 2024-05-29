@@ -1,7 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect, useState } from "react";
 import { useFonts } from "expo-font";
-
 import Header from "./Components/Header/Header";
 import { UserContext } from "./Contexts/UserContext";
 import PublicNavigator from "./Components/Navigators/PublicNavigator";
@@ -28,7 +26,6 @@ export default function App() {
         <>
             <Header />
             {navigator}
-            <StatusBar />
         </>
     );
 }
