@@ -6,10 +6,10 @@ import { getVenueByFixtureId } from "../../ApiRequests";
 import { useState, useEffect, useContext } from "react";
 import FixtureCard from "../FixtureCard";
 import MatchdayContainer from "../MatchdayContainer";
-import { Text } from "react-native-paper";
+import { Text, Button } from "react-native-paper";
 
-const VenueMap = () => {
-    const { currentFixture } = useContext(MyFixtureContext);
+const VenueMap = ({ navigation }) => {
+    const { currentFixture, setCurrentFixture } = useContext(MyFixtureContext);
 
     const [region, setRegion] = useState({
         latitude: 52.6386,
@@ -39,7 +39,9 @@ const VenueMap = () => {
                 date={new Date(currentFixture.match_date).toLocaleDateString()}
             >
                 <FixtureCard fixture={currentFixture} />
-                <Text variant="labelLarge">Pushback at {venue.pushback}</Text>
+                <Text variant="labelLarge">
+                    Pushback at {currentFixture.start_time}
+                </Text>
             </MatchdayContainer>
             <MapView
                 style={styles.map}
@@ -64,6 +66,14 @@ const VenueMap = () => {
                     title={venue.venue_name}
                 />
             </MapView>
+            <Button
+                onPress={() => {
+                    navigation.goBack();
+                    setCurrentFixture({});
+                }}
+            >
+                Back
+            </Button>
         </>
     );
 };
