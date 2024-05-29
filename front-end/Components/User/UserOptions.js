@@ -4,15 +4,19 @@ import UserLogOut from "./UserLogOut";
 import UserDelete from "./UserDelete";
 import UserUpdate from "./UserUpdate";
 import UserView from "./UserView";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import { UserDeletePopup } from "./UserDeletePopup";
 
 export default function UserOptions({ visible, setVisible }) {
   const hideModal = () => setVisible(false);
 
-  const { user, userRole, setUserRole } = useContext(UserContext);
+  const { user, setUser, userRole, setUserRole } = useContext(UserContext);
 
   const theme = useTheme();
+
+  const [visibleUserDelete, setVisibleUserDelete] = useState(false);
+  const toggleModalUserDelete = () => setVisibleUserDelete(!visibleUserDelete);
 
   const styles = StyleSheet.create({
     modal: {
@@ -29,11 +33,6 @@ export default function UserOptions({ visible, setVisible }) {
       justifyContent: "space-between",
       alignItems: "center",
       height: "100%",
-    },
-    text: {
-      color: theme.colors.primary,
-      textAlign: "center",
-      fontSize: 20,
     },
   });
 
@@ -58,10 +57,16 @@ export default function UserOptions({ visible, setVisible }) {
               <UserLogOut />
             </View>
             <View style={{ height: 50 }}></View>
-            <UserDelete />
+            <UserDelete toggleModalUserDelete={toggleModalUserDelete} />
           </View>
         </ScrollView>
       </Modal>
+      <UserDeletePopup
+        visibleUserDelete={visibleUserDelete}
+        toggleModalUserDelete={toggleModalUserDelete}
+        user={user}
+        setUser={setUser}
+      />
     </Portal>
   );
 }
