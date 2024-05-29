@@ -66,11 +66,11 @@ export default function MyFixtureUI({ fixture_id }) {
         },
         button: {
             flex: 2,
-            margin: 0,
+            margin: -5,
             padding: 0,
         },
         label: {
-            marginHorizontal: 22,
+            marginHorizontal: 20,
             marginVertical: 0,
         },
         yes: {
