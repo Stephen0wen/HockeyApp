@@ -24,8 +24,7 @@ export default function Header() {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            height: 50 + StatusBar.currentHeight,
-            paddingTop: StatusBar.currentHeight,
+            height: 50,
         },
         content: {
             flexDirection: "row",
