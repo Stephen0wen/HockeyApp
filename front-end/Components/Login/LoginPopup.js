@@ -8,8 +8,13 @@ import {
     TextInput,
 } from "react-native-paper";
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import SignUp from "./SignUp";
+import { getUsers } from "../Utils/getUsers";
+import { UserContext } from "../../Contexts/UserContext";
+import LoginSuccess from "./LoginSuccess";
+import LoginError from "./LoginError";
+
 export default function LoginPopup({ visible, setVisible }) {
     const hideModal = () => setVisible(false);
     const [text, onChangeText] = React.useState();
@@ -19,6 +24,41 @@ export default function LoginPopup({ visible, setVisible }) {
 
     const [visibleSignUp, setVisibleSignUp] = useState(false);
     const showModalSignUp = () => setVisibleSignUp(!visibleSignUp);
+
+    const [visibleLogInSuccess, setVisibleLogInSuccess] = useState(false);
+    const toggleModalLogIn = () => setVisibleLogInSuccess(!visibleLogInSuccess);
+
+    const [visibleLogInError, setVisibleLogInError] = useState(false);
+    const toggleModalLogInError = () =>
+        setVisibleLogInError(!visibleLogInError);
+
+    const [loginErrorMsg, setLoginErrorMsg] = useState("");
+
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+
+    const { user, setUser, setUserRole } = useContext(UserContext);
+
+    const handleLogIn = () => {
+        getUsers().then((users) => {
+            const correctUser = users.find(
+                (user) => user.user_email === username
+            );
+            setPassword();
+            if (!correctUser) {
+                setLoginErrorMsg("User not found!");
+                toggleModalLogInError();
+            } else if (correctUser.user_password !== password) {
+                toggleModalLogInError();
+                setLoginErrorMsg("Incorrect password!");
+            } else {
+                setUser({ ...correctUser });
+                setUserRole("player");
+                setVisible(!visible);
+                toggleModalLogIn();
+            }
+        });
+    };
 
     const containerStyle = {
         backgroundColor: theme.colors.primaryContainer,
@@ -43,10 +83,10 @@ export default function LoginPopup({ visible, setVisible }) {
                 <Text marginBottom={"5%"} variant="headlineLarge">
                     Login{" "}
                 </Text>
-                <Text> Name: </Text>
+                <Text> Email: </Text>
                 <TextInput
-                    onChangeText={onChangeText}
-                    value={text}
+                    onChangeText={setUsername}
+                    value={username}
                     mode="outlined"
                     multiline={false}
                     placeholder="enter name here"
@@ -55,8 +95,8 @@ export default function LoginPopup({ visible, setVisible }) {
                 ></TextInput>
                 <Text marginTop={"5%"}> Password: </Text>
                 <TextInput
-                    onChangeText={onChangeText2}
-                    value={text2}
+                    onChangeText={setPassword}
+                    value={password}
                     mode="outlined"
                     multiline={false}
                     placeholder="enter password"
@@ -68,9 +108,7 @@ export default function LoginPopup({ visible, setVisible }) {
                     width="100%"
                     marginBottom={"5%"}
                     mode="outlined"
-                    onPress={() => (
-                        setVisible(!visible), console.log(text, text2)
-                    )}
+                    onPress={() => handleLogIn()}
                 >
                     <Divider />
                     <Text>Submit </Text>
@@ -91,7 +129,6 @@ export default function LoginPopup({ visible, setVisible }) {
                     width="40%"
                     marginBottom={"5%"}
                     mode="outlined"
-                    // onPress={() => setVisible(!visible)}
                     onPress={() => setVisibleSignUp(!visibleSignUp)}
                 >
                     <SignUp
@@ -102,6 +139,15 @@ export default function LoginPopup({ visible, setVisible }) {
                     <Text>Sign up </Text>
                 </Button>
             </Modal>
+            <LoginSuccess
+                visibleLogInSuccess={visibleLogInSuccess}
+                toggleModalLogIn={toggleModalLogIn}
+            />
+            <LoginError
+                visibleLogInError={visibleLogInError}
+                toggleModalLogInError={toggleModalLogInError}
+                loginErrorMsg={loginErrorMsg}
+            />
         </Portal>
     );
 }
