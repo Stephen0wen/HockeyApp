@@ -1,23 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
+// import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 import { getVenueByFixtureId } from "../../ApiRequests";
 import { useState, useEffect, useContext } from "react";
 import { useColorScheme } from "react-native";
 
-const VenueMap = () => {
-  const {
-    currentFixture: { fixture_id },
-  } = useContext(MyFixtureContext);
+const VenueMap = ({ fixture_id }) => {
+  const [venue, setVenue] = useState(null);
 
-  const [region, setRegion] = useState({
-    latitude: 52.6386,
-    longitude: -1.1355,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
-  const [venue, setVenue] = useState({});
   console.log(fixture_id);
   useEffect(() => {
     getVenueByFixtureId(fixture_id)
@@ -27,36 +18,34 @@ const VenueMap = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [fixture_id]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Map</Text>
-      <>
-        {/* <Text style={styles.teamNames}>
-          {venue.home_team} vs {venue.away_team}
-        </Text> */}
-        {/* <Text style={styles.teamNames}>
-          Pushback at {venue.team_start_time}
-        </Text> */}
+      {venue ? ( // Check if venue has a valid value
         <MapView
           style={styles.map}
-          region={{
-            latitude: venue.venue_latitude,
-            longitude: venue.venue_longitude,
+          initialRegion={{
+            latitude: venue.venue_lat,
+            longitude: venue.venue_long,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
         >
           <Marker
             coordinate={{
-              latitude: venue.venue_latitude,
-              longitude: venue.venue_longitude,
+              latitude: venue.venue_lat,
+              longitude: venue.venue_long,
             }}
             title={venue.venue_name}
           />
         </MapView>
-      </>
+      ) : (
+        // Render a loading indicator or a placeholder view
+        <View>
+          <Text>Loading venue...</Text>
+        </View>
+      )}
     </View>
   );
 };
