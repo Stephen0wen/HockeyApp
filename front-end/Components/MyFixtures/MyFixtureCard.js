@@ -5,11 +5,10 @@ import MyFixtureUI from "./MyFixtureUI";
 export default function MyFixtureCard({ fixture, children }) {
     return (
         <MatchdayContainer
-            key={fixture.fixture_id}
             date={new Date(fixture.match_date).toLocaleDateString()}
         >
             <FixtureCard fixture={fixture}>
-                <MyFixtureUI />
+                <MyFixtureUI fixture_id={fixture.fixture_id} />
             </FixtureCard>
             {children}
         </MatchdayContainer>

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, Text } from "react-native";
 import { Modal, Portal, useTheme } from "react-native-paper";
 import UserLogOut from "./UserLogOut";
 import UserDelete from "./UserDelete";
@@ -47,6 +47,7 @@ export default function UserOptions({ visible, setVisible }) {
         <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
           <View style={styles.innerContainer}>
             <View>
+              <Text style={styles.text}>Welcome, {user.user_name}</Text>
               <UserView
                 user={user}
                 userRole={userRole}
