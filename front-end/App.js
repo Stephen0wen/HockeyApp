@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 
@@ -28,7 +27,6 @@ export default function App() {
         <>
             <Header />
             {navigator}
-            <StatusBar />
         </>
     );
 }

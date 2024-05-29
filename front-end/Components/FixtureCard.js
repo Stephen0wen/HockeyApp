@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     card: {
         maxWidth: 500,
         width: "100%",
+        padding: 5,
     },
     cardContent: {
         width: "100%",
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-evenly",
-        marginVertical: 10,
+        maxHeight: 50,
+        overflow: "visible",
     },
     scoreNumbers: {
         flexDirection: "row",
@@ -64,11 +66,9 @@ const styles = StyleSheet.create({
     },
     scoreText: {
         textAlign: "center",
-        padding: 2,
     },
     teamName: {
         width: "35%",
         textAlign: "center",
-        margin: 5,
     },
 });
