@@ -29,7 +29,7 @@ const VenueMap = () => {
         setVenue(venue);
       })
       .catch((error) => {
-        console.log("error:", error);
+        console.log(error);
       });
   }, [fixture_id]);
 
