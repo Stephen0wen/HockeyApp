@@ -1,27 +1,24 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-// import { MyFixtureProvider } from "../../Contexts/MyFixtureContext";
-// import MyFixturesList from "./MyFixturesList";
-
-export default function PostResults() {
+const PostResults = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hiya</Text>
+      <Text style={styles.text}>Placeholder</Text>
     </View>
   );
-}
+};
+
+export default PostResults;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#000000",
+    backgroundColor: "lightgreen",
+    padding: 20,
   },
   text: {
+    color: "purple",
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFFFFF",
   },
 });
