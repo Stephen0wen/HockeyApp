@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import LoadScreen from "./LoadScreen";
 import { useState, useEffect } from "react";
 import { Text } from "react-native-paper";
-import { getAllTeams } from "../ApiRequests";
+import { getAllTeams, getAllUsers } from "../ApiRequests";
 import DropDownPicker from "react-native-dropdown-picker";
 
 export default function UserByTeamId() {
