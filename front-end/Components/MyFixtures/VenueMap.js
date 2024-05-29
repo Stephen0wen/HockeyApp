@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 import { getVenueByFixtureId } from "../../ApiRequests";
@@ -43,29 +43,36 @@ const VenueMap = ({ navigation }) => {
                     Pushback at {currentFixture.start_time}
                 </Text>
             </MatchdayContainer>
-            <MapView
-                style={styles.map}
-                region={{
-                    latitude: venue.venue_latitude ? venue.venue_latitude : 0,
-                    longitude: venue.venue_longitude
-                        ? venue.venue_longitude
-                        : 0,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-            >
-                <Marker
-                    coordinate={{
+            <View style={styles.mapContainer}>
+                <MapView
+                    style={styles.map}
+                    region={{
                         latitude: venue.venue_latitude
                             ? venue.venue_latitude
                             : 0,
                         longitude: venue.venue_longitude
                             ? venue.venue_longitude
                             : 0,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
                     }}
-                    title={venue.venue_name}
-                />
-            </MapView>
+                >
+                    <Marker
+                        coordinate={{
+                            latitude: venue.venue_latitude
+                                ? venue.venue_latitude
+                                : 0,
+                            longitude: venue.venue_longitude
+                                ? venue.venue_longitude
+                                : 0,
+                        }}
+                        title={venue.venue_name}
+                    />
+                </MapView>
+            </View>
+            <Text style={styles.address} variant="headlineSmall">
+                {venue.venue_name}
+            </Text>
             <Button
                 onPress={() => {
                     navigation.goBack();
@@ -81,7 +88,15 @@ const VenueMap = ({ navigation }) => {
 const styles = StyleSheet.create({
     map: {
         flex: 1,
+    },
+    mapContainer: {
+        flex: 1,
+        borderRadius: 10,
+        overflow: "hidden",
         margin: 5,
+    },
+    address: {
+        textAlign: "center",
     },
 });
 
