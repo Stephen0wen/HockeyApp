@@ -213,6 +213,8 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
                     <Button
                         mode="outlined"
                         style={styles.button}
+                        buttonColor={theme.colors.primary}
+                        textColor={theme.colors.onPrimary}
                         onPress={() =>
                             setAuth(
                                 signUpForm(
@@ -241,6 +243,8 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
                     <Button
                         mode="elevated"
                         style={styles.button}
+                        buttonColor={theme.colors.primary}
+                        textColor={theme.colors.onPrimary}
                         onPress={() => setSuccessPopUp(false)}
                     >
                         Log In

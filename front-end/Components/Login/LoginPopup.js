@@ -140,9 +140,11 @@ export default function LoginPopup({ visible, setVisible }) {
                         <Button
                             mode="elevated"
                             style={styles.button}
+                            buttonColor={theme.colors.primary}
+                            textColor={theme.colors.onPrimary}
                             onPress={() => handleLogIn()}
                         >
-                            <Text>Log In</Text>
+                            Log In
                         </Button>
                     </View>
                     <View style={styles.signUp}>
@@ -150,6 +152,8 @@ export default function LoginPopup({ visible, setVisible }) {
                         <Button
                             mode="elevated"
                             style={styles.button}
+                            buttonColor={theme.colors.primary}
+                            textColor={theme.colors.onPrimary}
                             onPress={() => setVisibleSignUp(!visibleSignUp)}
                         >
                             <SignUp
@@ -157,7 +161,7 @@ export default function LoginPopup({ visible, setVisible }) {
                                 setVisibleSignUp={setVisibleSignUp}
                             />
                             <Divider />
-                            <Text>Sign up </Text>
+                            Sign up
                         </Button>
                     </View>
                 </ScrollView>
