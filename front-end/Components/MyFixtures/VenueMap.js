@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
+// import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 import { getVenueByFixtureId } from "../../ApiRequests";
 import { useState, useEffect, useContext } from "react";
 import FixtureCard from "../FixtureCard";

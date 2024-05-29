@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+import { StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import Header from "./Components/Header/Header";
 import { UserContext } from "./Contexts/UserContext";
 import PublicNavigator from "./Components/Navigators/PublicNavigator";
 import PlayerNavigator from "./Components/Navigators/PlayerNavigator";
+import SecretaryNavigator from "./Components/Navigators/SecretaryNavigator";
 
 export default function App() {
     const { userRole } = useContext(UserContext);
@@ -14,11 +16,15 @@ export default function App() {
     });
 
     useEffect(() => {
+        console.log(userRole);
         if (userRole === "public") {
             setNavigator(<PublicNavigator />);
         }
         if (userRole === "player") {
             setNavigator(<PlayerNavigator />);
+        }
+        if (userRole === "sec") {
+            setNavigator(<SecretaryNavigator />);
         }
     }, [userRole]);
 
@@ -26,6 +32,7 @@ export default function App() {
         <>
             <Header />
             {navigator}
+            <StatusBar />
         </>
     );
 }
