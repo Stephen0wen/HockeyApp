@@ -752,39 +752,50 @@ describe("DELETE /api/users/:user_id", () => {
   });
 });
 describe("/api/responses/:user_id", () => {
-  test("GET 200: Responds with endpoint json data", () => {
-    return request(app)
-      .get("/api/responses/1")
-      .expect(200)
-      .then(({ body }) => {
-        const responses = body.responses;
-        responses.forEach((response) => {
-          expect(typeof response.user_id).toBe("number");
-          expect(typeof response.fixture_id).toBe("number");
-          expect(typeof response.response).toBe("string");
-          expect(typeof response.created_at).toBe("string");
-          expect(["string", "object"]).toContain(typeof response.updated_at);
-        });
-      });
-  });
-  test("GET 404: Returns an error with a path of the right type, but not present in database", () => {
-    return request(app)
-      .get("/api/responses/999")
-      .expect(404)
-      .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe("Not found");
-      });
-  });
-  test("GET 400: Returns an error with a path of the wrong type", () => {
-    return request(app)
-      .get("/api/responses/banana")
-      .expect(400)
-      .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe("bad request");
-      });
-  });
+    test("GET 200: Responds responses for the given user", () => {
+        return request(app)
+            .get("/api/responses/1")
+            .expect(200)
+            .then(({ body }) => {
+                const responses = body.responses;
+                responses.forEach((response) => {
+                    expect(typeof response.user_id).toBe("number");
+                    expect(typeof response.fixture_id).toBe("number");
+                    expect(typeof response.response).toBe("string");
+                    expect(typeof response.created_at).toBe("string");
+                    expect(["string", "object"]).toContain(
+                        typeof response.updated_at
+                    );
+                });
+            });
+    });
+    test("GET 200: Responds with an empty array when the user exists, but has no responses", () => {
+        return request(app)
+            .get("/api/responses/5")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.responses).toEqual([]);
+            });
+    });
+    test("GET 404: Returns an error with a path of the right type, but not present in database", () => {
+        return request(app)
+            .get("/api/responses/999")
+            .expect(404)
+            .then(({ body }) => {
+                const { msg } = body;
+                expect(msg).toBe("User not found");
+            });
+    });
+    test("GET 400: Returns an error with a path of the wrong type", () => {
+        return request(app)
+            .get("/api/responses/banana")
+            .expect(400)
+            .then(({ body }) => {
+                const { msg } = body;
+                expect(msg).toBe("bad request");
+            });
+    });
+
 });
 
 describe("/api/venues/:fixture_id/venue", () => {
