@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import UserAvatar from "../User/UserAvatar";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Header() {
     const theme = useTheme();
@@ -46,11 +47,13 @@ export default function Header() {
     });
 
     return (
-        <Surface style={styles.surface} elevation={0}>
-            <View style={styles.content}>
-                <Logo />
-                <View style={styles.rightContainer}>{userUi}</View>
-            </View>
-        </Surface>
+        <SafeAreaView>
+            <Surface style={styles.surface} elevation={0}>
+                <View style={styles.content}>
+                    <Logo />
+                    <View style={styles.rightContainer}>{userUi}</View>
+                </View>
+            </Surface>
+        </SafeAreaView>
     );
 }
