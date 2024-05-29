@@ -66,6 +66,7 @@ export default function UserOptions({ visible, setVisible }) {
         toggleModalUserDelete={toggleModalUserDelete}
         user={user}
         setUser={setUser}
+        setUserRole={setUserRole}
       />
     </Portal>
   );
