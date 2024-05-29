@@ -7,29 +7,29 @@ import React from "react";
 // import DropDownPicker from "react-native-dropdown-picker";
 
 const SecretaryPage = () => {
-  //   const [open, setOpen] = useState(false);
-  //   const [isLoading, setIsLoading] = useState(true);
-  //   const [user, setUser] = useState(null);
+    //   const [open, setOpen] = useState(false);
+    //   const [isLoading, setIsLoading] = useState(true);
+    //   const [user, setUser] = useState(null);
 
-  //   useEffect(() => {
-  //     setIsLoading(true);
-  //     Promise.all(getMyFixtures(user.team_id))
-  //       .then((apiMyFixtures) => {
-  //         setMyFixtures(apiMyFixtures);
-  //       })
-  //       .then(() => {
-  //         setIsLoading(false);
-  //       });
-  //   }, []);
+    //   useEffect(() => {
+    //     setIsLoading(true);
+    //     Promise.all(getMyFixtures(user.team_id))
+    //       .then((apiMyFixtures) => {
+    //         setMyFixtures(apiMyFixtures);
+    //       })
+    //       .then(() => {
+    //         setIsLoading(false);
+    //       });
+    //   }, []);
 
-  //   if (isLoading) {
-  //     return <LoadScreen message="Loading your fixtures..." />;
-  //   }
+    //   if (isLoading) {
+    //     return <LoadScreen message="Loading your fixtures..." />;
+    //   }
 
-  return (
-    <View>
-      <Text>SecretaryPage</Text>
-      {/* <ContactContainer>
+    return (
+        <View>
+            <Text>SecretaryPage</Text>
+            {/* <ContactContainer>
         <Text>Contact details</Text>
         <DropDownPicker
           open={open}
@@ -59,8 +59,8 @@ const SecretaryPage = () => {
           keyboardType="numeric"
         />
       </PostResultsContainer> */}
-    </View>
-  );
+        </View>
+    );
 };
 
 export default SecretaryPage;
