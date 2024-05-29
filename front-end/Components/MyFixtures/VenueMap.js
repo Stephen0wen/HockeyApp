@@ -33,9 +33,9 @@ const VenueMap = () => {
     <View style={styles.container}>
       <Text style={styles.heading}>Map</Text>
       <>
-        {/* <Text style={styles.teamNames}>
+        <Text style={styles.teamNames}>
           {venue.home_team} vs {venue.away_team}
-        </Text> */}
+        </Text>
         {/* <Text style={styles.teamNames}>
           Pushback at {venue.team_start_time}
         </Text> */}
