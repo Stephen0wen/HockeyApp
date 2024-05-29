@@ -17,46 +17,49 @@ const VenueMap = () => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  const [venue, setVenue] = useState({});
-  console.log(fixture_id);
+  const [venue, setVenue] = useState({
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
   useEffect(() => {
     getVenueByFixtureId(fixture_id)
       .then((venue) => {
         setVenue(venue);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error:", error);
       });
-  }, []);
+  }, [fixture_id]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Map</Text>
-      <>
-        {/* <Text style={styles.teamNames}>
+
+      {/* <Text style={styles.teamNames}>
           {venue.home_team} vs {venue.away_team}
         </Text> */}
-        {/* <Text style={styles.teamNames}>
+      {/* <Text style={styles.teamNames}>
           Pushback at {venue.team_start_time}
         </Text> */}
-        <MapView
-          style={styles.map}
-          region={{
-            latitude: venue.venue_latitude,
-            longitude: venue.venue_longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+      <MapView
+        style={styles.map}
+        region={{
+          latitude: venue.venue_latitude ? venue.venue_latitude : 0,
+          longitude: venue.venue_longitude ? venue.venue_longitude : 0,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          coordinate={{
+            latitude: venue.venue_latitude ? venue.venue_latitude : 0,
+            longitude: venue.venue_longitude ? venue.venue_longitude : 0,
           }}
-        >
-          <Marker
-            coordinate={{
-              latitude: venue.venue_latitude,
-              longitude: venue.venue_longitude,
-            }}
-            title={venue.venue_name}
-          />
-        </MapView>
-      </>
+          title={venue.venue_name}
+        />
+      </MapView>
     </View>
   );
 };

@@ -33,7 +33,6 @@ exports.selectVenueByFixtureId = (fixture_id) => {
       [fixture_id]
     )
     .then(({ rows: venues }) => {
-      console.log(venues);
       if (venues.length === 0) {
         return Promise.reject({ status: 404, msg: "Invalid venue" });
       }
