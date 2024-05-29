@@ -63,12 +63,12 @@ export default function LoginPopup({ visible, setVisible }) {
 
     const styles = StyleSheet.create({
         modal: {
+            alignSelf: "center",
             backgroundColor: theme.colors.primaryContainer,
             height: 440,
             maxHeight: "90%",
             borderRadius: 10,
             marginHorizontal: 20,
-            alignSelf: "center",
         },
         scroll: {
             width: "100%",
