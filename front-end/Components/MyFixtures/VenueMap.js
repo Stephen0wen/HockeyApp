@@ -33,8 +33,6 @@ const VenueMap = () => {
       });
   }, [fixture_id]);
 
-  console.log(venue);
-
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Map</Text>
