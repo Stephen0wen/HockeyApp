@@ -14,6 +14,7 @@ import { emailValidator } from "../Utils/emailValidator";
 import DropDownPicker from "react-native-dropdown-picker";
 import { getTeams } from "../Utils/teamFetcher";
 import { patchUser } from "../../ApiRequests";
+import SuccessfulUserPatch from "./SuccessfulUserPatch";
 
 export default function UserDetails({ visible, setVisible, user }) {
   const currentUser = user.user;
@@ -38,6 +39,13 @@ export default function UserDetails({ visible, setVisible, user }) {
   const [display9, setDisplay9] = useState("");
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState();
+  const [canSubmit, setCanSubmit] = useState(true);
+  const [submitAttempt, setSubmitAttempt] = useState(false);
+  const [visiblePatchSuccess, setVisiblePatchSuccess] = useState(false);
+  const toggleModalSuccess = () => setVisiblePatchSuccess(!visiblePatchSuccess);
+  const [message, setMessage] = useState();
+  const [visibleTeam, setVisibleTeam] = useState("flex");
+  const toggleVisibleTeam = () => setVisibleTeam("flex");
 
   function isValidDate(stringDate) {
     return !isNaN(Date.parse(stringDate));
@@ -48,12 +56,9 @@ export default function UserDetails({ visible, setVisible, user }) {
     backgroundColor: theme.colors.onSecondary,
     padding: 20,
     width: "auto",
-    // marginLeft: "15%",
-    // marginRight: "15%",
     marginTop: "14%",
     flexGrow: 1,
     borderRadius: 10,
-    // alignItems: "center",
     justifyContent: "center",
     display: "flex",
   };
@@ -73,7 +78,18 @@ export default function UserDetails({ visible, setVisible, user }) {
       7: display7,
       8: display8,
     };
-    console.log(validatePatch);
+    let arr = Object.entries(validatePatch);
+    let checker = [];
+    arr.forEach((element) => {
+      if (element[1] !== "") {
+        checker.push(element[1]);
+      }
+    });
+    if (checker.length > 0) {
+      setCanSubmit(false);
+    } else {
+      setCanSubmit(true);
+    }
   }, [display, display4, display5, display6, display7, display8]);
 
   return (
@@ -239,7 +255,7 @@ export default function UserDetails({ visible, setVisible, user }) {
           }
         ></TextInput>
         <Text variant="labelMedium">{display8}</Text>
-        <Text>*Team:</Text>
+        <Text style={{ display: visibleTeam }}>*Team:</Text>
         <DropDownPicker
           open={open}
           value={team}
@@ -248,12 +264,13 @@ export default function UserDetails({ visible, setVisible, user }) {
           setValue={setTeam}
           setItems={setItems}
           placeholder={team}
+          style={{ display: visibleTeam }}
           // style={{ height: 40 }}
         />
         <Text variant="labelMedium">{display9}</Text>
         <Button
           mode="outlined"
-          onPress={() => {
+          onPressIn={() => {
             if (username.length < 1) {
               setDisplay("Name must not be empty!");
             } else setDisplay("");
@@ -290,10 +307,44 @@ export default function UserDetails({ visible, setVisible, user }) {
             if (password.length < 8) {
               setDisplay8("Password Must be 8 or more characters long.");
             } else setDisplay8("");
+            setSubmitAttempt(true);
+          }}
+          onPress={() => {
+            if (submitAttempt === true && canSubmit === true) {
+              patchUser(
+                {
+                  user_name: username,
+                  team_name: team,
+                  user_address_1: address1,
+                  user_address_2: address2,
+                  user_postcode: postCode,
+                  user_dob: dob,
+                  user_phone: phone,
+                  user_email: email,
+                  user_password: password,
+                },
+                currentUser.user_id
+              ),
+                setMessage("Congratulations you have updated your account!"),
+                toggleModalSuccess();
+              setVisibleTeam("none");
+            } else {
+              setMessage(
+                "Please ensure all inputs do not have errors before submitting."
+              ),
+                toggleModalSuccess();
+              setVisibleTeam("none");
+            }
           }}
         >
           Submit
         </Button>
+        <SuccessfulUserPatch
+          visiblePatchSuccess={visiblePatchSuccess}
+          toggleModalSuccess={toggleModalSuccess}
+          message={message}
+          toggleVisibleTeam={toggleVisibleTeam}
+        />
         <Divider />
       </Modal>
     </Portal>

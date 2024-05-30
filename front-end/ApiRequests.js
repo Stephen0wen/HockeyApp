@@ -73,14 +73,10 @@ export const putResponse = (request) => {
     });
 };
 
-export const patchUser = (patchBody) => {
+export const patchUser = (patchBody, user_id) => {
   return axios
-    .patch(
-      `https://hockeyapp.onrender.com/api/users/${patchBody.user_id}`,
-      patchBody
-    )
-    .then(({ data: { response } }) => {
-      console.log(response);
+    .patch(`https://hockeyapp.onrender.com/api/users/${user_id}`, patchBody)
+    .then((response) => {
       return response;
     });
 };
