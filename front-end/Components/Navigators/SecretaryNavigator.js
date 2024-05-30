@@ -3,10 +3,10 @@ import { createMaterialBottomTabNavigator } from "react-native-paper/react-navig
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomePage from "../Home/HomePage";
 // import SecretaryPage from "../User/Secretary/SecretaryPage";
-import ResultsPage from "../Results/ResultsPage";
 import MyFixturesPage from "../MyFixtures/MyFixturesPage";
 import { useTheme } from "react-native-paper";
 import SecretaryPage from "../Secretary/SecretaryPage";
+import PlayersPage from "../Players/PlayersPage";
 
 export default function SecretaryNavigator() {
   const theme = useTheme();
@@ -24,13 +24,14 @@ export default function SecretaryNavigator() {
             ),
           }}
         />
+        {/* Resplace results with update fixtures */}
         <Tab.Screen
           name="Results"
-          component={ResultsPage}
+          component={SecretaryPage}
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
-                name="scoreboard"
+                name="briefcase-variant-outline"
                 color={color}
                 size={30}
               />
@@ -51,12 +52,12 @@ export default function SecretaryNavigator() {
           }}
         />
         <Tab.Screen
-          name="Secretary"
-          component={SecretaryPage}
+          name="My Team"
+          component={PlayersPage}
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
-                name="briefcase-variant-outline"
+                name="account-group"
                 color={color}
                 size={30}
               />

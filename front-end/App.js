@@ -16,7 +16,6 @@ export default function App() {
     });
 
     useEffect(() => {
-        console.log(userRole);
         if (userRole === "public") {
             setNavigator(<PublicNavigator />);
         }

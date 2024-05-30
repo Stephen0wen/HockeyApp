@@ -1,5 +1,6 @@
-import { Modal, Text, useTheme, Button, Divider } from "react-native-paper";
+import { Modal, Text, useTheme, Button } from "react-native-paper";
 import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { deleteUserById } from "../../ApiRequests";
 
 export function UserDeletePopup({
@@ -10,17 +11,6 @@ export function UserDeletePopup({
     setUserRole,
 }) {
     const theme = useTheme();
-    const containerStyle = {
-        backgroundColor: theme.colors.primaryContainer,
-        padding: 20,
-        width: "auto",
-        borderRadius: 10,
-        alignItems: "center",
-        justifyContent: "center",
-        marginLeft: "10%",
-        marginRight: "10%",
-        display: "flex",
-    };
 
     const [visibleUserDeleteSuccess, setVisibleUserDeleteSuccess] =
         useState(false);
@@ -43,26 +33,69 @@ export function UserDeletePopup({
             });
     };
 
+    const styles = StyleSheet.create({
+        modal: {
+            alignSelf: "center",
+            backgroundColor: theme.colors.errorContainer,
+            borderRadius: 10,
+            marginHorizontal: 20,
+            alignItems: "center",
+            padding: 10,
+        },
+        confirmModal: {
+            alignSelf: "center",
+            backgroundColor: theme.colors.primaryContainer,
+            borderRadius: 10,
+            marginHorizontal: 20,
+            alignItems: "center",
+            padding: 10,
+        },
+        button: {
+            width: 100,
+        },
+        buttonContainer: {
+            flexDirection: "row",
+            justifyContent: "center",
+            padding: 10,
+            gap: 10,
+        },
+        container: {
+            gap: 15,
+            alignItems: "center",
+            width: 240,
+        },
+    });
+
     return (
         <>
             <Modal
                 visible={visibleUserDelete}
                 onDismiss={toggleModalUserDelete}
-                contentContainerStyle={containerStyle}
+                contentContainerStyle={styles.modal}
                 animationType="slide"
             >
                 <Text>WARNING</Text>
                 <Text>Are you sure you want to delete your account?</Text>
-                <Button
-                    width="100%"
-                    marginBottom={"5%"}
-                    marginTop={"10%"}
-                    mode="outlined"
-                    onPress={handleUserDeleteYes}
-                >
-                    <Divider />
-                    <Text>Yes</Text>
-                </Button>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        mode="elevated"
+                        onPress={handleUserDeleteYes}
+                        buttonColor={theme.colors.error}
+                        textColor={theme.colors.onError}
+                        style={styles.button}
+                    >
+                        Yes
+                    </Button>
+                    <Button
+                        mode="elevated"
+                        onPress={toggleModalUserDelete}
+                        buttonColor={theme.colors.error}
+                        textColor={theme.colors.onError}
+                        style={styles.button}
+                    >
+                        No
+                    </Button>
+                </View>
             </Modal>
             <Modal
                 visible={visibleUserDeleteSuccess}
@@ -71,44 +104,25 @@ export function UserDeletePopup({
                     setUser(null);
                     setUserRole("public");
                 }}
-                contentContainerStyle={containerStyle}
+                contentContainerStyle={styles.confirmModal}
                 animationType="slide"
             >
-                <Text>SUCCESS</Text>
-                <Text>User '{user.user_name}' has been deleted</Text>
-                <Button
-                    width="100%"
-                    marginBottom={"5%"}
-                    marginTop={"10%"}
-                    mode="outlined"
-                    onPress={() => {
-                        toggleModalUserDeleteSuccess();
-                        setUser(null);
-                        setUserRole("public");
-                    }}
-                >
-                    <Divider />
-                    <Text>Dismiss</Text>
-                </Button>
-            </Modal>
-            <Modal
-                visible={visibleUserDeleteFail}
-                onDismiss={toggleModalUserDeleteFail}
-                contentContainerStyle={containerStyle}
-                animationType="slide"
-            >
-                <Text>FAILURE</Text>
-                <Text>Please login first!</Text>
-                <Button
-                    width="100%"
-                    marginBottom={"5%"}
-                    marginTop={"10%"}
-                    mode="outlined"
-                    onPress={toggleModalUserDeleteFail}
-                >
-                    <Divider />
-                    <Text>Dismiss</Text>
-                </Button>
+                <View style={styles.container}>
+                    <Text>Your account has been deleted</Text>
+                    <Button
+                        mode="elevated"
+                        onPress={() => {
+                            toggleModalUserDeleteSuccess();
+                            setUser(null);
+                            setUserRole("public");
+                        }}
+                        buttonColor={theme.colors.primary}
+                        textColor={theme.colors.onPrimary}
+                        style={styles.button}
+                    >
+                        OK
+                    </Button>
+                </View>
             </Modal>
         </>
     );

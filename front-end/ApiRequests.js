@@ -72,6 +72,21 @@ export const putResponse = (request) => {
     });
 };
 
+export const getAllPlayers = () => {
+    return axios
+        .get(`https://hockeyapp.onrender.com/api/users`)
+        .then(({ data: { users } }) => {
+            return users;
+        });
+};
+
+export const getAllTeams = () => {
+    return axios
+        .get(`https://hockeyapp.onrender.com/api/teams`)
+        .then(({ data: { teams } }) => {
+            return teams;
+        });
+};
 export function deleteUserById(user_id) {
   return axios
     .delete(`https://hockeyapp.onrender.com/api/users/${user_id}`)
