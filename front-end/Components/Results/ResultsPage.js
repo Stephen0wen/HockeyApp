@@ -7,74 +7,79 @@ import { getResults } from "../../ApiRequests";
 import { Text } from "react-native-paper";
 
 export default function ResultsPage() {
-    const [results, setResults] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+  const [results, setResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [filterTeamId, setFilterTeamId] = useState();
 
-    useEffect(() => {
-        setIsLoading(true);
-        getResults()
-            .then((apiResults) => {
-                setResults(apiResults);
-            })
-            .then(() => {
-                setIsLoading(false);
-            });
-    }, []);
+  useEffect(() => {
+    setIsLoading(true);
+    getResults()
+      .then((apiResults) => {
+        setResults(apiResults);
+      })
+      .then(() => {
+        setIsLoading(false);
+      });
+  }, [filterTeamId]);
 
-    if (isLoading) {
-        return <LoadScreen message="Loading Results..." />;
+  if (isLoading) {
+    return <LoadScreen message="Loading Results..." />;
+  }
+
+  const matchDates = [];
+  results.forEach((result) => {
+    if (!matchDates.includes(result.match_date)) {
+      matchDates.push(result.match_date);
     }
+  });
 
-    const matchDates = [];
-    results.forEach((result) => {
-        if (!matchDates.includes(result.match_date)) {
-            matchDates.push(result.match_date);
-        }
-    });
-
-    const matchdayContainers = matchDates.map((matchDate) => {
-        const filteredFixtures = results.filter((result) => {
-            return result.match_date === matchDate;
-        });
-
-        return (
-            <MatchdayContainer
-                key={matchDate}
-                date={new Date(matchDate).toLocaleDateString()}
-            >
-                {filteredFixtures.map((filteredFixture) => {
-                    return (
-                        <FixtureCard
-                            key={filteredFixture.fixture_id}
-                            fixture={filteredFixture}
-                        />
-                    );
-                })}
-            </MatchdayContainer>
-        );
+  const matchdayContainers = matchDates.map((matchDate) => {
+    const filteredFixtures = results.filter((result) => {
+      return result.match_date === matchDate;
     });
 
     return (
-        <>
-            <Text variant="headlineMedium" style={styles.title}>
-                Results
-            </Text>
-            <ScrollView contentStyle={styles.scroll}>
-                {matchdayContainers}
-            </ScrollView>
-        </>
+      <MatchdayContainer
+        key={matchDate}
+        date={new Date(matchDate).toLocaleDateString()}
+      >
+        {filteredFixtures.map((filteredFixture) => {
+          return (
+            <FixtureCard
+              key={filteredFixture.fixture_id}
+              fixture={filteredFixture}
+            />
+          );
+        })}
+      </MatchdayContainer>
     );
+  });
+
+  return (
+    <>
+      <Text variant="headlineMedium" style={styles.title}>
+        Results
+      </Text>
+      <ScrollView contentStyle={styles.scroll}>{matchdayContainers}</ScrollView>
+      <FilterFixtures
+        setFixtures={setResults}
+        matchStatus="completed"
+        filterTeamId={filterTeamId}
+        setFilterTeamId={setFilterTeamId}
+      />
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
-    scroll: {
-        flex: 1,
-        alignItems: "center",
-        gap: 5,
-        padding: 5,
-    },
-    title: {
-        textAlign: "center",
-        margin: 5,
-    },
+  scroll: {
+    flex: 1,
+    alignItems: "center",
+    gap: 5,
+    padding: 5,
+  },
+  title: {
+    textAlign: "center",
+    margin: 5,
+  },
 });
