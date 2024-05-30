@@ -37,7 +37,7 @@ export default function UserOptions({ visible, setVisible }) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            height: "100%",
+            height: 680,
         },
         text: {
             textAlign: "center",
@@ -52,7 +52,7 @@ export default function UserOptions({ visible, setVisible }) {
                 contentContainerStyle={styles.modal}
                 animationType="slide"
             >
-                <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+                <ScrollView>
                     <View style={styles.innerContainer}>
                         <View>
                             <Text style={styles.text}>
@@ -68,14 +68,13 @@ export default function UserOptions({ visible, setVisible }) {
                                 toggleModalUserLogOff={toggleModalUserLogOff}
                             />
                         </View>
-                        <View style={{ height: 50 }}></View>
+
                         <UserDelete
                             toggleModalUserDelete={toggleModalUserDelete}
                         />
                     </View>
                 </ScrollView>
                 <View style={{ height: 50 }} />
-                <UserDelete />
             </Modal>
             <UserLogOutPopup
                 visibleUserLogOff={visibleUserLogOff}
