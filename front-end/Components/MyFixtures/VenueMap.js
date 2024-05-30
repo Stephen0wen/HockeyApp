@@ -1,86 +1,103 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
 import { getVenueByFixtureId } from "../../ApiRequests";
 import { useState, useEffect, useContext } from "react";
-import { useColorScheme } from "react-native";
+import FixtureCard from "../FixtureCard";
+import MatchdayContainer from "../MatchdayContainer";
+import { Text, Button } from "react-native-paper";
 
-const VenueMap = () => {
-  const {
-    currentFixture: { fixture_id },
-  } = useContext(MyFixtureContext);
+const VenueMap = ({ navigation }) => {
+    const { currentFixture, setCurrentFixture } = useContext(MyFixtureContext);
 
-  const [region, setRegion] = useState({
-    latitude: 52.6386,
-    longitude: -1.1355,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
-  const [venue, setVenue] = useState({});
-  console.log(fixture_id);
-  useEffect(() => {
-    getVenueByFixtureId(fixture_id)
-      .then((venue) => {
-        setVenue(venue);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    const [region, setRegion] = useState({
+        latitude: 52.6386,
+        longitude: -1.1355,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    });
+    const [venue, setVenue] = useState({
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    });
+    useEffect(() => {
+        getVenueByFixtureId(currentFixture.fixture_id)
+            .then((venue) => {
+                setVenue(venue);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [currentFixture]);
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Map</Text>
-      <>
-        {/* <Text style={styles.teamNames}>
-          {venue.home_team} vs {venue.away_team}
-        </Text> */}
-        {/* <Text style={styles.teamNames}>
-          Pushback at {venue.team_start_time}
-        </Text> */}
-        <MapView
-          style={styles.map}
-          region={{
-            latitude: venue.venue_latitude,
-            longitude: venue.venue_longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        >
-          <Marker
-            coordinate={{
-              latitude: venue.venue_latitude,
-              longitude: venue.venue_longitude,
-            }}
-            title={venue.venue_name}
-          />
-        </MapView>
-      </>
-    </View>
-  );
+    return (
+        <>
+            <MatchdayContainer
+                date={new Date(currentFixture.match_date).toLocaleDateString()}
+            >
+                <FixtureCard fixture={currentFixture} />
+                <Text variant="labelLarge">
+                    Pushback at {currentFixture.start_time}
+                </Text>
+            </MatchdayContainer>
+            <View style={styles.mapContainer}>
+                <MapView
+                    style={styles.map}
+                    region={{
+                        latitude: venue.venue_latitude
+                            ? venue.venue_latitude
+                            : 0,
+                        longitude: venue.venue_longitude
+                            ? venue.venue_longitude
+                            : 0,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                >
+                    <Marker
+                        coordinate={{
+                            latitude: venue.venue_latitude
+                                ? venue.venue_latitude
+                                : 0,
+                            longitude: venue.venue_longitude
+                                ? venue.venue_longitude
+                                : 0,
+                        }}
+                        title={venue.venue_name}
+                    />
+                </MapView>
+            </View>
+            <Text style={styles.address} variant="headlineSmall">
+                {venue.venue_name}
+            </Text>
+            <Button
+                onPress={() => {
+                    navigation.goBack();
+                    setCurrentFixture({});
+                }}
+            >
+                Back
+            </Button>
+        </>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#fff",
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  teamNames: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 8,
-    textAlign: "center",
-  },
-  map: {
-    flex: 1,
-  },
+    map: {
+        flex: 1,
+    },
+    mapContainer: {
+        flex: 1,
+        borderRadius: 10,
+        overflow: "hidden",
+        margin: 5,
+    },
+    address: {
+        textAlign: "center",
+    },
 });
 
 export default VenueMap;

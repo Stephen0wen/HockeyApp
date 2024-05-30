@@ -62,6 +62,7 @@ export default function ResultsPage() {
             <ScrollView contentStyle={styles.scroll}>
                 {matchdayContainers}
             </ScrollView>
+            <FilterFixtures setFixtures={setResults} matchStatus="completed" />
         </>
     );
 }

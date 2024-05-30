@@ -1,42 +1,44 @@
 import { Modal, Text, useTheme, Button, Divider } from "react-native-paper";
 import React from "react";
+import { StyleSheet } from "react-native";
 
 export default function LoginError({
-  visibleLogInError,
-  toggleModalLogInError,
-  loginErrorMsg,
+    visibleLogInError,
+    toggleModalLogInError,
+    loginErrorMsg,
 }) {
-  const theme = useTheme();
-  const containerStyle = {
-    backgroundColor: theme.colors.primaryContainer,
-    padding: 20,
-    width: "auto",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: "10%",
-    marginRight: "10%",
-    display: "flex",
-  };
+    const theme = useTheme();
 
-  return (
-    <Modal
-      visible={visibleLogInError}
-      onDismiss={toggleModalLogInError}
-      contentContainerStyle={containerStyle}
-      animationType="slide"
-    >
-      <Text>{loginErrorMsg}</Text>
-      <Button
-        width="100%"
-        marginBottom={"5%"}
-        marginTop={"10%"}
-        mode="outlined"
-        onPress={toggleModalLogInError}
-      >
-        <Divider />
-        <Text>Dismiss</Text>
-      </Button>
-    </Modal>
-  );
+    const styles = StyleSheet.create({
+        containerStyle: {
+            alignSelf: "center",
+            backgroundColor: theme.colors.errorContainer,
+            alignItems: "center",
+            justifyContent: "center",
+            width: 200,
+            gap: 15,
+            padding: 20,
+            borderRadius: 10,
+            marginHorizontal: 40,
+        },
+    });
+
+    return (
+        <Modal
+            visible={visibleLogInError}
+            onDismiss={toggleModalLogInError}
+            contentContainerStyle={styles.containerStyle}
+            animationType="slide"
+        >
+            <Text variant="bodyLarge">{loginErrorMsg}</Text>
+            <Button
+                mode="elevated"
+                buttonColor={theme.colors.error}
+                onPress={toggleModalLogInError}
+                textColor={theme.colors.onError}
+            >
+                Dismiss
+            </Button>
+        </Modal>
+    );
 }

@@ -1,7 +1,9 @@
-import { Button } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
 
-export default function UserLogOut() {
+export default function UserLogOut({ toggleModalUserLogOff }) {
+    const theme = useTheme();
+
     const styles = StyleSheet.create({
         button: {
             width: 150,
@@ -11,7 +13,14 @@ export default function UserLogOut() {
     });
 
     return (
-        <Button mode="elevated" compact="true" style={styles.button}>
+        <Button
+            mode="elevated"
+            compact="true"
+            style={styles.button}
+            buttonColor={theme.colors.primary}
+            textColor={theme.colors.onPrimary}
+            onPress={toggleModalUserLogOff}
+        >
             Log Out
         </Button>
     );
