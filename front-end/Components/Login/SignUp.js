@@ -4,10 +4,10 @@ import {
     Text,
     useTheme,
     Button,
-    Divider,
     TextInput,
 } from "react-native-paper";
 import React from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { useState, useEffect } from "react";
 import { signUpForm } from "../Utils/signUpForm";
 import IncorrectWarning from "../Utils/IncorrectWarning";
@@ -34,17 +34,49 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
     const [successPopUp, setSuccessPopUp] = useState(false);
     const [user, setUser] = useState([]);
 
-    const containerStyle = {
-        backgroundColor: theme.colors.primaryContainer,
-        padding: 20,
-        width: "auto",
-        borderRadius: 10,
-        alignItems: "center",
-        justifyContent: "center",
-        marginLeft: "10%",
-        marginRight: "10%",
-        display: "flex",
-    };
+    const styles = StyleSheet.create({
+        modal: {
+            alignSelf: "center",
+            backgroundColor: theme.colors.primaryContainer,
+            maxWidth: 500,
+            maxHeight: "90%",
+            borderRadius: 10,
+            marginHorizontal: 20,
+            alignItems: "center",
+            padding: 20,
+        },
+        form: {
+            gap: 15,
+            alignItems: "center",
+            width: "100%",
+            marginVertical: 20,
+        },
+        signUp: {
+            gap: 15,
+            alignItems: "center",
+            width: "100%",
+            marginTop: 40,
+        },
+        field: {
+            width: "100%",
+            alignItems: "center",
+            gap: 2,
+        },
+        input: {
+            height: 35,
+            lineHeight: 30,
+            maxWidth: "100%",
+            width: 500,
+        },
+        button: {
+            width: 100,
+        },
+        success: {
+            gap: 15,
+            alignItems: "center",
+            width: 200,
+        },
+    });
 
     useEffect(() => {
         if (Object.values(auth).includes(false) === false) {
@@ -70,125 +102,154 @@ export default function SignUp({ visibleSignUp, setVisibleSignUp }) {
     const [team, setTeam] = useState(null);
     const [items, setItems] = useState();
 
+    const handleDismiss = () => {
+        setAuth({
+            name: false,
+            email: false,
+            password: false,
+            password2: false,
+            check: false,
+            team: false,
+        });
+        hideModal();
+    };
+
     return (
         <Portal>
             <Modal
                 visible={visibleSignUp}
-                onDismiss={hideModal}
-                contentContainerStyle={containerStyle}
+                onDismiss={handleDismiss}
+                contentContainerStyle={styles.modal}
                 animationType="slide"
             >
-                <Text marginBottom={"5%"} variant="headlineLarge">
-                    Sign Up
-                </Text>
-                <Text marginTop={"5%"}> Full Name: </Text>
-                <TextInput
-                    onChangeText={setName}
-                    value={name}
-                    mode="outlined"
-                    placeholder="enter full name         "
-                    multiline={false}
-                    textAlign="default"
-                ></TextInput>
-                <IncorrectWarning
-                    display={auth.name}
-                    check={auth.check}
-                    type="name"
-                />
-                <Text marginTop={"5%"}> email: </Text>
-                <TextInput
-                    onChangeText={setEmail}
-                    value={email}
-                    mode="outlined"
-                    placeholder="enter email address"
-                    multiline={false}
-                    textAlign="default"
-                ></TextInput>
-                <IncorrectWarning
-                    display={auth.email}
-                    check={auth.check}
-                    type="email"
-                />
-                <Text marginTop={"5%"}> Password: </Text>
-                <TextInput
-                    onChangeText={setPassword}
-                    value={password}
-                    mode="outlined"
-                    placeholder="enter password       "
-                    multiline={false}
-                    secureTextEntry={true}
-                    textAlign="default"
-                ></TextInput>
-                <IncorrectWarning
-                    display={auth.password}
-                    check={auth.check}
-                    type="password"
-                />
-                <Text marginTop={"5%"}> Re-enter Password: </Text>
-                <TextInput
-                    onChangeText={setPassword2}
-                    value={password2}
-                    mode="outlined"
-                    placeholder="re-enter password   "
-                    multiline={false}
-                    secureTextEntry={true}
-                    textAlign="default"
-                ></TextInput>
-                <IncorrectWarning
-                    display={auth.password2}
-                    check={auth.check}
-                    type="password2"
-                />
-                <Text></Text>
-                <DropDownPicker
-                    open={open}
-                    value={team}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setTeam}
-                    setItems={setItems}
-                    placeholder="Choose your team"
-                />
-
-                <IncorrectWarning
-                    display={auth.team}
-                    check={auth.check}
-                    type="team"
-                />
-                <Text />
-                <Button
-                    width="100%"
-                    marginBottom={"5%"}
-                    mode="outlined"
-                    onPress={() =>
-                        setAuth(
-                            signUpForm(name, email, password, password2, team)
-                        )
-                    }
-                >
-                    <Divider />
-                    <Text>Submit </Text>
-                </Button>
+                <Text variant="headlineSmall">Sign Up</Text>
+                <View style={styles.form}>
+                    <View style={styles.field}>
+                        <Text> Full Name: </Text>
+                        <TextInput
+                            onChangeText={setName}
+                            value={name}
+                            mode="outlined"
+                            placeholder="John Smith"
+                            multiline={false}
+                            style={styles.input}
+                        />
+                        <IncorrectWarning
+                            display={auth.name}
+                            check={auth.check}
+                            type="name"
+                        />
+                    </View>
+                    <View style={styles.field}>
+                        <Text> Email: </Text>
+                        <TextInput
+                            onChangeText={setEmail}
+                            value={email}
+                            mode="outlined"
+                            placeholder="enter email address"
+                            multiline={false}
+                            textAlign="default"
+                            style={styles.input}
+                        />
+                        <IncorrectWarning
+                            display={auth.email}
+                            check={auth.check}
+                            type="email"
+                        />
+                    </View>
+                    <View style={styles.field}>
+                        <Text> Password: </Text>
+                        <TextInput
+                            onChangeText={setPassword}
+                            value={password}
+                            mode="outlined"
+                            placeholder="enter password       "
+                            multiline={false}
+                            secureTextEntry={true}
+                            textAlign="default"
+                            style={styles.input}
+                        />
+                        <IncorrectWarning
+                            display={auth.password}
+                            check={auth.check}
+                            type="password"
+                        />
+                    </View>
+                    <View style={styles.field}>
+                        <Text> Re-enter Password: </Text>
+                        <TextInput
+                            onChangeText={setPassword2}
+                            value={password2}
+                            mode="outlined"
+                            placeholder="re-enter password   "
+                            multiline={false}
+                            secureTextEntry={true}
+                            textAlign="default"
+                            style={styles.input}
+                        />
+                        <IncorrectWarning
+                            display={auth.password2}
+                            check={auth.check}
+                            type="password2"
+                        />
+                    </View>
+                    <View style={styles.field}>
+                        <Text>Choose Your Team</Text>
+                        <DropDownPicker
+                            open={open}
+                            value={team}
+                            items={items}
+                            setOpen={setOpen}
+                            setValue={setTeam}
+                            setItems={setItems}
+                            placeholder=""
+                        />
+                        <IncorrectWarning
+                            display={auth.team}
+                            check={auth.check}
+                            type="team"
+                        />
+                    </View>
+                    <Button
+                        mode="outlined"
+                        style={styles.button}
+                        buttonColor={theme.colors.primary}
+                        textColor={theme.colors.onPrimary}
+                        onPress={() =>
+                            setAuth(
+                                signUpForm(
+                                    name,
+                                    email,
+                                    password,
+                                    password2,
+                                    team
+                                )
+                            )
+                        }
+                    >
+                        Submit
+                    </Button>
+                </View>
             </Modal>
             <Modal
                 visible={successPopUp}
                 onDismiss={hideSuccess}
                 onRequestClose={hideSuccess}
-                contentContainerStyle={containerStyle}
+                contentContainerStyle={styles.modal}
                 animationType="slide"
             >
-                <Text>Congratulations your account it set up!</Text>
-                <Text style={{ textAlign: `left` }}>{user[0]}</Text>
-                <Text>{user[1]}</Text>
-                <Text>{user[2]}</Text>
-                <Button
-                    width="100%"
-                    marginBottom={"5%"}
-                    mode="outlined"
-                    onPress={() => setSuccessPopUp(false)}
-                >
-                    <Text>Back to log in </Text>
-                </Button>
+                <View style={styles.success}>
+                    <Text>Sign Up Complete!</Text>
+                    <Button
+                        mode="elevated"
+                        style={styles.button}
+                        buttonColor={theme.colors.primary}
+                        textColor={theme.colors.onPrimary}
+                        onPress={() => setSuccessPopUp(false)}
+                    >
+                        Log In
+                    </Button>
+                </View>
             </Modal>
         </Portal>
     );
