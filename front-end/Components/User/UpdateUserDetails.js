@@ -317,7 +317,7 @@ export default function UserDetails({ visible, setVisible, user }) {
                             if (username.length < 1) {
                                 setDisplay("Name must not be empty!");
                             } else setDisplay("");
-                            if (dob.length > 1) {
+                            if (dob) {
                                 if (isValidDate(dob)) {
                                     setDisplay5("");
                                 } else {
@@ -326,7 +326,7 @@ export default function UserDetails({ visible, setVisible, user }) {
                                     );
                                 }
                             } else setDisplay5("");
-                            if (postCode.length > 1) {
+                            if (postCode) {
                                 if (valid_postcode(postCode)) {
                                     setDisplay4("");
                                 } else {
@@ -335,7 +335,7 @@ export default function UserDetails({ visible, setVisible, user }) {
                                     );
                                 }
                             } else setDisplay4("");
-                            if (phone.length > 1) {
+                            if (phone) {
                                 if (valid_phoneNumber(phone)) {
                                     setDisplay6("");
                                 } else {
@@ -377,9 +377,7 @@ export default function UserDetails({ visible, setVisible, user }) {
                                     },
                                     currentUser.user_id
                                 ),
-                                    setMessage(
-                                        "Congratulations you have updated your account!"
-                                    ),
+                                    setMessage("Account Updated"),
                                     toggleModalSuccess();
                                 setVisibleTeam("none");
                             } else {
