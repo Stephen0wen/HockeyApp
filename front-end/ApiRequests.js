@@ -95,10 +95,10 @@ export const deleteUserById = (user_id) => {
         });
 };
 
-export const getFixturesByTeamId = (match_status, team_id) => {
+export const getFilteredFixtures = (match_status, team_id, division) => {
     return axios
         .get("https://hockeyapp.onrender.com/api/fixtures", {
-            params: { match_status: match_status, team_id: team_id },
+            params: { match_status, team_id, division },
         })
         .then(({ data: { fixtures } }) => {
             return fixtures;

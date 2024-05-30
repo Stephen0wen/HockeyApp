@@ -2,17 +2,16 @@ import { Modal, RadioButton, Text, useTheme } from "react-native-paper";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useEffect, useState } from "react";
 
-export default TeamFilter = ({
-    teams,
-    showTeam,
-    toggleShowTeam,
-    setFilterTeamId,
+export default DivisionFilter = ({
+    showDivision,
+    toggleShowDivision,
+    setFilterDivision,
 }) => {
     const theme = useTheme();
     const [value, setValue] = useState("");
 
     useEffect(() => {
-        setFilterTeamId(value);
+        setFilterDivision(value);
     }, [value]);
 
     const styles = StyleSheet.create({
@@ -23,21 +22,21 @@ export default TeamFilter = ({
             marginHorizontal: 20,
             alignItems: "center",
             padding: 10,
-            height: 400,
+            height: 180,
         },
         container: {
             gap: 15,
             alignItems: "center",
-            width: 280,
+            width: 220,
         },
         buttonContainer: {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: 250,
+            width: 120,
         },
         label: {
-            width: 200,
+            width: 80,
             textAlign: "right",
         },
         title: {
@@ -47,13 +46,13 @@ export default TeamFilter = ({
 
     return (
         <Modal
-            visible={showTeam}
-            onDismiss={toggleShowTeam}
+            visible={showDivision}
+            onDismiss={toggleShowDivision}
             contentContainerStyle={styles.modal}
             animationType="slide"
         >
             <Text variant="headlineMedium" style={styles.title}>
-                Filter By Team
+                Filter By Division
             </Text>
             <ScrollView contentContainerStyle={styles.container}>
                 <RadioButton.Group onValueChange={setValue} value={value}>
@@ -61,19 +60,14 @@ export default TeamFilter = ({
                         <Text style={styles.label}>All</Text>
                         <RadioButton value="" />
                     </View>
-                    {teams.map((team) => {
-                        return (
-                            <View
-                                key={team.team_id}
-                                style={styles.buttonContainer}
-                            >
-                                <Text style={styles.label}>
-                                    {team.team_name}
-                                </Text>
-                                <RadioButton value={team.team_id} />
-                            </View>
-                        );
-                    })}
+                    <View style={styles.buttonContainer}>
+                        <Text style={styles.label}>Division 1</Text>
+                        <RadioButton value="1" />
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Text style={styles.label}>Division 2</Text>
+                        <RadioButton value="2" />
+                    </View>
                 </RadioButton.Group>
             </ScrollView>
         </Modal>

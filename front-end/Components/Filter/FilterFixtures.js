@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 import { FAB } from "react-native-paper";
 
-import { getAllTeams, getFixturesByTeamId } from "../../ApiRequests";
+import { getAllTeams, getFilteredFixtures } from "../../ApiRequests";
 import TeamFilter from "./TeamFilter";
+import DivisionFilter from "./DivisionFilter";
 
 export default FilterFixtures = ({ setFixtures, matchStatus }) => {
     const [expanded, setVisible] = useState(false);
     const [filterTeamId, setFilterTeamId] = useState(null);
+    const [filterDivision, setFilterDivision] = useState(null);
     const [teams, setTeams] = useState([]);
     const [showTeam, setShowTeam] = useState(false);
+    const [showDivision, setShowDivision] = useState(false);
 
     const onStateChange = () => setVisible(!expanded);
     const toggleShowTeam = () => {
         setShowTeam(!showTeam);
-        console.log(showTeam);
+    };
+    const toggleShowDivision = () => {
+        setShowDivision(!showDivision);
     };
 
     useEffect(() => {
@@ -22,23 +27,15 @@ export default FilterFixtures = ({ setFixtures, matchStatus }) => {
                 setTeams(teamsList);
             })
             .then(() => {
-                getFixturesByTeamId(matchStatus, filterTeamId).then(
-                    (filteredFixturesByTeam) => {
-                        setFixtures(filteredFixturesByTeam);
-                    }
-                );
+                getFilteredFixtures(
+                    matchStatus,
+                    filterTeamId,
+                    filterDivision
+                ).then((filteredFixturesByTeam) => {
+                    setFixtures(filteredFixturesByTeam);
+                });
             });
-    }, [filterTeamId]);
-
-    const teamsActionsList = teams.map((team, index) => {
-        return {
-            icon: "plus",
-            label: team.team_name,
-            onPress: () => {
-                setFilterTeamId(team.team_id);
-            },
-        };
-    });
+    }, [filterTeamId, filterDivision]);
 
     return (
         <>
@@ -54,7 +51,7 @@ export default FilterFixtures = ({ setFixtures, matchStatus }) => {
                     {
                         icon: "plus",
                         label: "Division",
-                        onPress: toggleShowTeam,
+                        onPress: toggleShowDivision,
                     },
                 ]}
                 onStateChange={onStateChange}
@@ -64,6 +61,12 @@ export default FilterFixtures = ({ setFixtures, matchStatus }) => {
                 showTeam={showTeam}
                 toggleShowTeam={toggleShowTeam}
                 setFilterTeamId={setFilterTeamId}
+            />
+            <DivisionFilter
+                teams={teams}
+                showDivision={showDivision}
+                toggleShowDivision={toggleShowDivision}
+                setFilterDivision={setFilterDivision}
             />
         </>
     );
