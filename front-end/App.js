@@ -8,30 +8,13 @@ import PlayerNavigator from "./Components/Navigators/PlayerNavigator";
 import SecretaryNavigator from "./Components/Navigators/SecretaryNavigator";
 
 export default function App() {
-  const { userRole } = useContext(UserContext);
-  const [navigator, setNavigator] = useState(<PublicNavigator />);
+    const { userRole } = useContext(UserContext);
+    const [navigator, setNavigator] = useState(<PublicNavigator />);
 
-  const [fontsLoaded] = useFonts({
-    Jaro: require("./assets/fonts/Jaro-Regular.ttf"),
-  });
+    const [fontsLoaded] = useFonts({
+        Jaro: require("./assets/fonts/Jaro-Regular.ttf"),
+    });
 
-<<<<<<< HEAD
-  useEffect(() => {
-    if (userRole === "public") {
-      setNavigator(<PublicNavigator />);
-    }
-    if (userRole === "player") {
-      setNavigator(<PlayerNavigator />);
-    }
-  }, [userRole]);
-
-  return (
-    <>
-      <Header />
-      {navigator}
-    </>
-  );
-=======
     useEffect(() => {
         console.log(userRole);
         if (userRole === "public") {
@@ -52,5 +35,4 @@ export default function App() {
             <StatusBar />
         </>
     );
->>>>>>> 8eb50b78ba81125f6b1bfccb709e43a689a5092d
 }
