@@ -59,12 +59,12 @@ export default function SecretaryNavigator() {
                     }}
                 />
                 <Tab.Screen
-                    name="Secretary"
+                    name="My Team"
                     component={PlayersPage}
                     options={{
                         tabBarIcon: ({ color }) => (
                             <MaterialCommunityIcons
-                                name="briefcase-variant-outline"
+                                name="account-group"
                                 color={color}
                                 size={30}
                             />
