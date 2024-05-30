@@ -87,6 +87,7 @@ export const getAllTeams = () => {
             return teams;
         });
 };
+
 export function deleteUserById(user_id) {
   return axios
     .delete(`https://hockeyapp.onrender.com/api/users/${user_id}`)
@@ -101,4 +102,22 @@ export const patchFixtureById = (fixture_id, request) => {
     .then(({ data: { fixture } }) => {
       return fixture;
     });
+
+export const deleteUserById = (user_id) => {
+    return axios
+        .delete(`https://hockeyapp.onrender.com/api/users/${user_id}`)
+        .then((res) => {
+            return;
+        });
+};
+
+export const getFilteredFixtures = (match_status, team_id, division) => {
+    return axios
+        .get("https://hockeyapp.onrender.com/api/fixtures", {
+            params: { match_status, team_id, division },
+        })
+        .then(({ data: { fixtures } }) => {
+            return fixtures;
+        });
+
 };
