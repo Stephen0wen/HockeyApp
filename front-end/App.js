@@ -8,27 +8,27 @@ import PublicNavigator from "./Components/Navigators/PublicNavigator";
 import PlayerNavigator from "./Components/Navigators/PlayerNavigator";
 
 export default function App() {
-    const { userRole } = useContext(UserContext);
-    const [navigator, setNavigator] = useState(<PublicNavigator />);
+  const { userRole, user } = useContext(UserContext);
+  const [navigator, setNavigator] = useState(<PublicNavigator />);
 
-    const [fontsLoaded] = useFonts({
-        Jaro: require("./assets/fonts/Jaro-Regular.ttf"),
-    });
+  const [fontsLoaded] = useFonts({
+    Jaro: require("./assets/fonts/Jaro-Regular.ttf"),
+  });
 
-    useEffect(() => {
-        if (userRole === "public") {
-            setNavigator(<PublicNavigator />);
-        }
-        if (userRole === "player") {
-            setNavigator(<PlayerNavigator />);
-        }
-    }, [userRole]);
+  useEffect(() => {
+    if (userRole === "public") {
+      setNavigator(<PublicNavigator />);
+    }
+    if (userRole === "player") {
+      setNavigator(<PlayerNavigator />);
+    }
+  }, [userRole]);
 
-    return (
-        <>
-            <Header />
-            {navigator}
-            <StatusBar />
-        </>
-    );
+  return (
+    <>
+      <Header />
+      {navigator}
+      <StatusBar />
+    </>
+  );
 }

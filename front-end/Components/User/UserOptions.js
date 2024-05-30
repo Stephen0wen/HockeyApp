@@ -54,7 +54,7 @@ export default function UserOptions({ visible, setVisible }) {
                 userRole={userRole}
                 setUserRole={setUserRole}
               />
-              <UserUpdate />
+              <UserUpdate user={user} />
               <UserLogOut />
             </View>
             <View style={{ height: 50 }}></View>
