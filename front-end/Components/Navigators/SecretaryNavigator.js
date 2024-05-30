@@ -31,7 +31,7 @@ export default function SecretaryNavigator() {
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
-                name="briefcase-variant-outline"
+                name="whistle-outline"
                 color={color}
                 size={30}
               />
