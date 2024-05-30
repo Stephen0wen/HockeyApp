@@ -87,10 +87,20 @@ export const getAllTeams = () => {
             return teams;
         });
 };
-export function deleteUserById(user_id) {
+export const deleteUserById = (user_id) => {
     return axios
         .delete(`https://hockeyapp.onrender.com/api/users/${user_id}`)
         .then((res) => {
             return;
         });
-}
+};
+
+export const getFixturesByTeamId = (match_status, team_id) => {
+    return axios
+        .get("https://hockeyapp.onrender.com/api/fixtures", {
+            params: { match_status: match_status, team_id: team_id },
+        })
+        .then(({ data: { fixtures } }) => {
+            return fixtures;
+        });
+};
