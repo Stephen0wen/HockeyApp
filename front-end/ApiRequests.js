@@ -72,7 +72,7 @@ export const putResponse = (request) => {
         });
 };
 
-export const getAllUsers = () => {
+export const getAllPlayers = () => {
     return axios
         .get(`https://hockeyapp.onrender.com/api/users`)
         .then(({ data: { users } }) => {
