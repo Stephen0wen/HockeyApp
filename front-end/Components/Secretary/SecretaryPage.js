@@ -1,68 +1,147 @@
-import { StyleSheet, View } from "react-native";
-import React from "react";
-// import LoadScreen from "../../LoadScreen";
-// import { useState, useEffect } from "react";
-// import { getMyFixtures } from "../../../ApiRequests";
-// import { Text } from "react-native-paper";
-// import DropDownPicker from "react-native-dropdown-picker";
+import { ScrollView, StyleSheet, View } from "react-native";
+import FixtureCard from "../FixtureCard";
+import MatchdayContainer from "../MatchdayContainer";
+import LoadScreen from "../LoadScreen";
+import { useState, useEffect } from "react";
+import { getUpcomingFixtures, patchFixtureById } from "../../ApiRequests";
+import { Text, Button, TextInput } from "react-native-paper";
 
-const SecretaryPage = () => {
-    //   const [open, setOpen] = useState(false);
-    //   const [isLoading, setIsLoading] = useState(true);
-    //   const [user, setUser] = useState(null);
+export default function SecretaryPage({ handleSubmitScores }) {
+  const [upcomingFixtures, setUpcomingFixtures] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [homeTeamScore, setHomeTeamScore] = useState("0");
+  const [awayTeamScore, setAwayTeamScore] = useState("0");
+  const [selectedFixture, setSelectedFixture] = useState(null);
+  const [updatedFixture, setUpdatedFixture] = useState(null);
 
-    //   useEffect(() => {
-    //     setIsLoading(true);
-    //     Promise.all(getMyFixtures(user.team_id))
-    //       .then((apiMyFixtures) => {
-    //         setMyFixtures(apiMyFixtures);
-    //       })
-    //       .then(() => {
-    //         setIsLoading(false);
-    //       });
-    //   }, []);
+  const styles = StyleSheet.create({
+    scroll: {
+      flex: 1,
+      alignItems: "center",
+    },
+    title: {
+      textAlign: "center",
+      margin: 5,
+    },
+    button: {
+      margin: -5,
+    },
+    text: {
+      textAlign: "center",
+      marginVertical: 10,
+    },
+  });
 
-    //   if (isLoading) {
-    //     return <LoadScreen message="Loading your fixtures..." />;
-    //   }
+  useEffect(() => {
+    setIsLoading(true);
+    getUpcomingFixtures()
+      .then((apiUpcomingFixtures) => {
+        setUpcomingFixtures(apiUpcomingFixtures);
+      })
+      .then(() => {
+        setIsLoading(false);
+      });
+  }, [updatedFixture]);
+
+  if (isLoading) {
+    return <LoadScreen message="Loading Upcoming Fixtures..." />;
+  }
+
+  const matchDates = [];
+  upcomingFixtures.forEach((upcomingFixture) => {
+    if (!matchDates.includes(upcomingFixture.match_date)) {
+      matchDates.push(upcomingFixture.match_date);
+    }
+  });
+
+  const handleFixturePress = (fixture) => {
+    setSelectedFixture(fixture);
+    setHomeTeamScore("");
+    setAwayTeamScore("");
+  };
+
+  const handleSubmitScoresForFixture = (fixture, homeScore, awayScore) => {
+    setUpdatedFixture(fixture.fixture_id);
+
+    console.log("Updated Fixture:", updatedFixture);
+    patchFixtureById(fixture.fixture_id, {
+      match_status: "completed",
+      team1_score: homeScore,
+      team2_score: awayScore,
+    });
+  };
+
+  const matchdayContainers = matchDates.map((matchDate) => {
+    const filteredFixtures = upcomingFixtures.filter((upcomingFixture) => {
+      return upcomingFixture.match_date === matchDate;
+    });
 
     return (
-        <View>
-            <Text>SecretaryPage</Text>
-            {/* <ContactContainer>
-        <Text>Contact details</Text>
-        <DropDownPicker
-          open={open}
-          value={user}
-          setOpen={setOpen}
-          setValue={setUser}
-          placeholder="Who are you looking for sucker?"
-        />
-        <Text>{user.user_name}</Text>
-        <Text>{user.user_phone}</Text> <Text>{user.user_email}</Text>
-      </ContactContainer>
-      <PostResultsContainer>
-        <Text>Post Results</Text>
-
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          placeholder={team2 + "score"}
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          placeholder={team2 + "score"}
-          keyboardType="numeric"
-        />
-      </PostResultsContainer> */}
-        </View>
+      <MatchdayContainer
+        key={matchDate}
+        date={new Date(matchDate).toLocaleDateString()}
+      >
+        {filteredFixtures.map((filteredFixture) => (
+          <FixtureCard
+            key={filteredFixture.fixture_id}
+            fixture={filteredFixture}
+          >
+            <Button
+              style={styles.button}
+              onPress={() => handleFixturePress(filteredFixture)}
+            >
+              Add result
+            </Button>
+            {selectedFixture &&
+              selectedFixture.fixture_id === filteredFixture.fixture_id && (
+                <View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <TextInput
+                      label="Home Score"
+                      placeholder="Home Score"
+                      value={homeTeamScore}
+                      onChangeText={setHomeTeamScore}
+                      keyboardType="numeric"
+                    />
+                    <TextInput
+                      label="Away Score"
+                      placeholder="Away Score"
+                      value={awayTeamScore}
+                      onChangeText={setAwayTeamScore}
+                      keyboardType="numeric"
+                    />
+                  </View>
+                  <Button
+                    style={styles.button}
+                    onPress={() =>
+                      handleSubmitScoresForFixture(
+                        selectedFixture,
+                        homeTeamScore,
+                        awayTeamScore
+                      )
+                    }
+                  >
+                    Submit Scores
+                  </Button>
+                </View>
+              )}
+          </FixtureCard>
+        ))}
+      </MatchdayContainer>
     );
-};
+  });
 
-export default SecretaryPage;
-
-const styles = StyleSheet.create({});
+  return (
+    <>
+      <Text variant="headlineMedium" style={styles.title}>
+        Upcoming Fixtures
+      </Text>
+      <ScrollView contentStyle={styles.scroll}>{matchdayContainers}</ScrollView>
+    </>
+  );
+}
