@@ -63,7 +63,7 @@ export default function UserOptions({ visible, setVisible }) {
                                 userRole={userRole}
                                 setUserRole={setUserRole}
                             />
-                            <UserUpdate />
+                            <UserUpdate user={user} />
                             <UserLogOut
                                 toggleModalUserLogOff={toggleModalUserLogOff}
                             />
@@ -74,6 +74,8 @@ export default function UserOptions({ visible, setVisible }) {
                         />
                     </View>
                 </ScrollView>
+                <View style={{ height: 50 }} />
+                <UserDelete />
             </Modal>
             <UserLogOutPopup
                 visibleUserLogOff={visibleUserLogOff}

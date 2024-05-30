@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Button, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
+import UserDetails from "./UpdateUserDetails";
 
-export default function UserUpdate() {
-    const theme = useTheme();
+export default function UserUpdate(user) {
+    const [visible, setVisible] = useState(false);
+
+    const showUserDetails = () => setVisible(!visible);
 
     const styles = StyleSheet.create({
         button: {
@@ -12,14 +16,21 @@ export default function UserUpdate() {
         },
     });
     return (
-        <Button
-            mode="elevated"
-            compact="true"
-            style={styles.button}
-            buttonColor={theme.colors.primary}
-            textColor={theme.colors.onPrimary}
-        >
-            Update My Details
-        </Button>
+        <>
+            <UserDetails
+                visible={visible}
+                setVisible={setVisible}
+                showUserDetails={showUserDetails}
+                user={user}
+            />
+            <Button
+                mode="elevated"
+                compact="true"
+                style={styles.button}
+                onPress={showUserDetails}
+            >
+                Update My Details
+            </Button>
+        </>
     );
 }

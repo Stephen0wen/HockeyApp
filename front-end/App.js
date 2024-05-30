@@ -8,7 +8,7 @@ import PlayerNavigator from "./Components/Navigators/PlayerNavigator";
 import SecretaryNavigator from "./Components/Navigators/SecretaryNavigator";
 
 export default function App() {
-    const { userRole } = useContext(UserContext);
+    const { userRole, user } = useContext(UserContext);
     const [navigator, setNavigator] = useState(<PublicNavigator />);
 
     const [fontsLoaded] = useFonts({
