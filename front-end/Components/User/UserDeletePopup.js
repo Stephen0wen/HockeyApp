@@ -110,7 +110,7 @@ export function UserDeletePopup({
                 <View style={styles.container}>
                     <Text>Your account has been deleted</Text>
                     <Button
-                        mode="outlined"
+                        mode="elevated"
                         onPress={() => {
                             toggleModalUserDeleteSuccess();
                             setUser(null);

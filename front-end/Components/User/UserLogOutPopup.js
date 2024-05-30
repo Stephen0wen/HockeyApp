@@ -91,10 +91,7 @@ export default function UserLogOutPopup({
                 <View style={styles.container}>
                     <Text>You have logged off.</Text>
                     <Button
-                        width="100%"
-                        marginBottom={"5%"}
-                        marginTop={"10%"}
-                        mode="outlined"
+                        mode="elevated"
                         onPress={() => {
                             toggleModalUserLogOffSuccess;
                             setUser(null);
