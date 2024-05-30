@@ -6,11 +6,11 @@ import { useState, useEffect, useContext } from "react";
 import { getUpcomingFixtures } from "../../ApiRequests";
 import { Text, Button } from "react-native-paper";
 import { MyFixtureContext } from "../../Contexts/MyFixtureContext";
+import FilterFixtures from "../Filter/FilterFixtures";
 
 export default function UpcomingList({ navigation }) {
     const [upcomingFixtures, setUpcomingFixtures] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
     const { setCurrentFixture } = useContext(MyFixtureContext);
 
     useEffect(() => {
@@ -75,6 +75,10 @@ export default function UpcomingList({ navigation }) {
             <ScrollView contentStyle={styles.scroll}>
                 {matchdayContainers}
             </ScrollView>
+            <FilterFixtures
+                setFixtures={setUpcomingFixtures}
+                matchStatus="upcoming"
+            />
         </>
     );
 }
