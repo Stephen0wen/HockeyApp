@@ -1357,7 +1357,7 @@ module.exports = [
     team1_score: 3,
     team2_score: 5,
     match_venue: 1,
-    match_date: "2024-25-05",
+    match_date: "2024-05-25",
   },
   {
     fixture_id: 137,
@@ -1367,7 +1367,7 @@ module.exports = [
     team1_score: 4,
     team2_score: 1,
     match_venue: 1,
-    match_date: "2024-18-05",
+    match_date: "2024-05-18",
   },
   {
     fixture_id: 138,
@@ -1377,7 +1377,7 @@ module.exports = [
     team1_score: 2,
     team2_score: 1,
     match_venue: 6,
-    match_date: "2024-11-05",
+    match_date: "2024-05-11",
   },
   {
     fixture_id: 139,
@@ -1387,7 +1387,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 3,
     match_venue: 1,
-    match_date: "2024-04-05",
+    match_date: "2024-05-04",
   },
   {
     fixture_id: 140,
@@ -1397,7 +1397,7 @@ module.exports = [
     team1_score: 5,
     team2_score: 5,
     match_venue: 6,
-    match_date: "2024-27-04",
+    match_date: "2024-04-27",
   },
   {
     fixture_id: 141,
@@ -1407,7 +1407,7 @@ module.exports = [
     team1_score: 6,
     team2_score: 6,
     match_venue: 1,
-    match_date: "2024-20-04",
+    match_date: "2024-04-20",
   },
   {
     fixture_id: 142,
@@ -1417,7 +1417,7 @@ module.exports = [
     team1_score: 1,
     team2_score: 2,
     match_venue: 5,
-    match_date: "2024-13-4",
+    match_date: "2024-04-13",
   },
   {
     fixture_id: 143,
@@ -1427,7 +1427,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 0,
     match_venue: 1,
-    match_date: "2024-06-04",
+    match_date: "2024-04-06",
   },
   {
     fixture_id: 144,
@@ -1437,7 +1437,7 @@ module.exports = [
     team1_score: 1,
     team2_score: 5,
     match_venue: 7,
-    match_date: "2024-03-30",
+    match_date: "2024-30-03",
   },
   {
     fixture_id: 145,
@@ -1447,7 +1447,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 2,
     match_venue: 1,
-    match_date: "2024-05-25",
+    match_date: "2024-25-05",
   },
   {
     fixture_id: 146,
@@ -1457,7 +1457,7 @@ module.exports = [
     team1_score: 2,
     team2_score: 3,
     match_venue: 6,
-    match_date: "2024-05-18",
+    match_date: "2024-18-05",
   },
   {
     fixture_id: 147,
@@ -1467,7 +1467,7 @@ module.exports = [
     team1_score: 2,
     team2_score: 0,
     match_venue: 1,
-    match_date: "2024-05-11",
+    match_date: "2024-11-05",
   },
   {
     fixture_id: 148,
@@ -1477,7 +1477,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 0,
     match_venue: 7,
-    match_date: "2024-05-04",
+    match_date: "2024-04-05",
   },
   {
     fixture_id: 149,
@@ -1487,7 +1487,7 @@ module.exports = [
     team1_score: 4,
     team2_score: 1,
     match_venue: 1,
-    match_date: "2024-04-27",
+    match_date: "2024-27-04",
   },
   {
     fixture_id: 150,
@@ -1497,7 +1497,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 2,
     match_venue: 5,
-    match_date: "2024-04-20",
+    match_date: "2024-20-04",
   },
   {
     fixture_id: 151,
@@ -1507,7 +1507,7 @@ module.exports = [
     team1_score: 3,
     team2_score: 1,
     match_venue: 1,
-    match_date: "2024-04-13",
+    match_date: "2024-13-04",
   },
   {
     fixture_id: 152,
@@ -1517,7 +1517,7 @@ module.exports = [
     team1_score: 3,
     team2_score: 0,
     match_venue: 10,
-    match_date: "2024-04-06",
+    match_date: "2024-06-04",
   },
   {
     fixture_id: 153,
@@ -1527,7 +1527,7 @@ module.exports = [
     team1_score: 3,
     team2_score: 3,
     match_venue: 1,
-    match_date: "2024-03-30",
+    match_date: "2024-30-03",
   },
   {
     fixture_id: 154,
@@ -1537,7 +1537,7 @@ module.exports = [
     team1_score: 2,
     team2_score: 3,
     match_venue: 6,
-    match_date: "2024-05-25",
+    match_date: "2024-25-05",
   },
   {
     fixture_id: 155,
@@ -1547,7 +1547,7 @@ module.exports = [
     team1_score: 2,
     team2_score: 1,
     match_venue: 1,
-    match_date: "2024-05-18",
+    match_date: "2024-18-05",
   },
   {
     fixture_id: 156,
@@ -1557,7 +1557,7 @@ module.exports = [
     team1_score: 3,
     team2_score: 2,
     match_venue: 7,
-    match_date: "2024-05-11",
+    match_date: "2024-11-05",
   },
   {
     fixture_id: 157,
@@ -1567,7 +1567,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 1,
     match_venue: 1,
-    match_date: "2024-05-04",
+    match_date: "2024-04-05",
   },
   {
     fixture_id: 158,
@@ -1577,7 +1577,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 2,
     match_venue: 6,
-    match_date: "2024-04-27",
+    match_date: "2024-27-04",
   },
   {
     fixture_id: 159,
@@ -1587,7 +1587,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 0,
     match_venue: 10,
-    match_date: "2024-04-20",
+    match_date: "2024-20-04",
   },
   {
     fixture_id: 160,
@@ -1597,7 +1597,7 @@ module.exports = [
     team1_score: 1,
     team2_score: 3,
     match_venue: 6,
-    match_date: "2024-04-13",
+    match_date: "2024-13-04",
   },
   {
     fixture_id: 161,
@@ -1607,7 +1607,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 1,
     match_venue: 5,
-    match_date: "2024-04-06",
+    match_date: "2024-06-04",
   },
   {
     fixture_id: 162,
@@ -1617,7 +1617,7 @@ module.exports = [
     team1_score: 1,
     team2_score: 2,
     match_venue: 6,
-    match_date: "2024-03-30",
+    match_date: "2024-30-03",
   },
   {
     fixture_id: 163,
@@ -1627,7 +1627,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 2,
     match_venue: 5,
-    match_date: "2024-05-25",
+    match_date: "2024-25-05",
   },
   {
     fixture_id: 164,
@@ -1637,7 +1637,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 1,
     match_venue: 6,
-    match_date: "2024-05-18",
+    match_date: "2024-18-05",
   },
   {
     fixture_id: 165,
@@ -1647,7 +1647,7 @@ module.exports = [
     team1_score: 1,
     team2_score: 4,
     match_venue: 10,
-    match_date: "2024-05-11",
+    match_date: "2024-11-05",
   },
   {
     fixture_id: 166,
@@ -1657,7 +1657,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 2,
     match_venue: 6,
-    match_date: "2024-05-04",
+    match_date: "2024-04-05",
   },
   {
     fixture_id: 167,
@@ -1667,7 +1667,7 @@ module.exports = [
     team1_score: 3,
     team2_score: 0,
     match_venue: 6,
-    match_date: "2024-04-27",
+    match_date: "2024-27-04",
   },
   {
     fixture_id: 168,
@@ -1677,7 +1677,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 2,
     match_venue: 7,
-    match_date: "2024-04-20",
+    match_date: "2024-20-04",
   },
   {
     fixture_id: 169,
@@ -1687,7 +1687,7 @@ module.exports = [
     team1_score: 2,
     team2_score: 1,
     match_venue: 6,
-    match_date: "2024-04-13",
+    match_date: "2024-13-04",
   },
   {
     fixture_id: 170,
@@ -1697,7 +1697,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 1,
     match_venue: 6,
-    match_date: "2024-04-06",
+    match_date: "2024-06-04",
   },
   {
     fixture_id: 171,
@@ -1707,7 +1707,7 @@ module.exports = [
     team1_score: 2,
     team2_score: 1,
     match_venue: 5,
-    match_date: "2024-03-30",
+    match_date: "2024-30-03",
   },
   {
     fixture_id: 172,
@@ -1717,7 +1717,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 2,
     match_venue: 5,
-    match_date: "2024-05-25",
+    match_date: "2024-25-05",
   },
   {
     fixture_id: 173,
@@ -1727,7 +1727,7 @@ module.exports = [
     team1_score: 2,
     team2_score: 3,
     match_venue: 5,
-    match_date: "2024-05-18",
+    match_date: "2024-18-05",
   },
   {
     fixture_id: 174,
@@ -1737,7 +1737,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 4,
     match_venue: 10,
-    match_date: "2024-05-11",
+    match_date: "2024-11-05",
   },
   {
     fixture_id: 175,
@@ -1747,7 +1747,7 @@ module.exports = [
     team1_score: 3,
     team2_score: 1,
     match_venue: 7,
-    match_date: "2024-05-04",
+    match_date: "2024-04-05",
   },
   {
     fixture_id: 176,
@@ -1757,7 +1757,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 2,
     match_venue: 6,
-    match_date: "2024-04-27",
+    match_date: "2024-27-04",
   },
   {
     fixture_id: 177,
@@ -1767,7 +1767,7 @@ module.exports = [
     team1_score: 1,
     team2_score: 2,
     match_venue: 7,
-    match_date: "2024-04-20",
+    match_date: "2024-20-04",
   },
   {
     fixture_id: 178,
@@ -1777,7 +1777,7 @@ module.exports = [
     team1_score: 1,
     team2_score: 1,
     match_venue: 5,
-    match_date: "2024-04-13",
+    match_date: "2024-13-04",
   },
   {
     fixture_id: 179,
@@ -1787,7 +1787,7 @@ module.exports = [
     team1_score: 0,
     team2_score: 1,
     match_venue: 10,
-    match_date: "2024-04-06",
+    match_date: "2024-06-04",
   },
   {
     fixture_id: 180,
@@ -1797,6 +1797,6 @@ module.exports = [
     team1_score: 1,
     team2_score: 1,
     match_venue: 6,
-    match_date: "2024-03-30",
+    match_date: "2024-30-03",
   },
 ];
