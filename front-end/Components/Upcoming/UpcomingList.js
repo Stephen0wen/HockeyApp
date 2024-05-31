@@ -35,6 +35,8 @@ export default function UpcomingList({ navigation }) {
         }
     });
 
+    matchDates.sort();
+
     const matchdayContainers = matchDates.map((matchDate) => {
         const filteredFixtures = upcomingFixtures.filter((upcomingFixture) => {
             return upcomingFixture.match_date === matchDate;

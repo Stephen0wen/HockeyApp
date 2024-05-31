@@ -32,6 +32,8 @@ export default function ResultsPage() {
         }
     });
 
+    matchDates.sort().reverse();
+
     const matchdayContainers = matchDates.map((matchDate) => {
         const filteredFixtures = results.filter((result) => {
             return result.match_date === matchDate;
