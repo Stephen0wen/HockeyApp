@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
-import UserDetails from "./UpdateUserDetails";
 
 export default function UserUpdate(user) {
     const [visible, setVisible] = useState(false);
