@@ -3,6 +3,7 @@ import React from "react";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { View, StyleSheet } from "react-native";
+import LoginForm from "./LoginForm";
 
 export default function LoginPopup({ visible, setVisible }) {
     const hideModal = () => setVisible(false);
@@ -57,6 +58,7 @@ export default function LoginPopup({ visible, setVisible }) {
                         Sign In to Hockey App
                     </Text>
                 </View>
+                <LoginForm />
                 <View style={styles.subtext}>
                     <Text variant="bodyLarge" style={styles.outerText}>
                         Don't have an account?
