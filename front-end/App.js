@@ -6,6 +6,7 @@ import { UserContext } from "./Contexts/UserContext";
 import PublicNavigator from "./Components/Navigators/PublicNavigator";
 import PlayerNavigator from "./Components/Navigators/PlayerNavigator";
 import SecretaryNavigator from "./Components/Navigators/SecretaryNavigator";
+import "./firebase.config";
 
 export default function App() {
     const { userRole, user } = useContext(UserContext);

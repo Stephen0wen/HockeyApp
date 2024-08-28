@@ -15,7 +15,7 @@ export default function LoginPopup({ visible, setVisible }) {
     const styles = StyleSheet.create({
         modal: {
             alignSelf: "center",
-            backgroundColor: theme.colors.primary,
+            backgroundColor: theme.colors.primaryContainer,
             height: 450,
             maxHeight: "90%",
             borderRadius: 10,
@@ -28,7 +28,7 @@ export default function LoginPopup({ visible, setVisible }) {
             padding: 10,
         },
         outerText: {
-            color: theme.colors.onPrimary,
+            color: theme.colors.primary,
         },
         subtext: {
             flexDirection: "row",
@@ -36,7 +36,7 @@ export default function LoginPopup({ visible, setVisible }) {
             gap: 5,
         },
         outerTextUnderlined: {
-            color: theme.colors.onPrimary,
+            color: theme.colors.primary,
             textAlign: "center",
             textDecorationLine: "underline",
             fontWeight: "bold",
