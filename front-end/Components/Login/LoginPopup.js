@@ -19,18 +19,16 @@ export default function LoginPopup({ visible, setVisible }) {
             height: 450,
             maxHeight: "90%",
             borderRadius: 10,
-            marginHorizontal: 20,
         },
         scroll: {
             width: "100%",
-            height: "90%",
+            height: "100%",
             alignItems: "center",
             justifyContent: "space-between",
-            paddingHorizontal: 15,
+            padding: 10,
         },
         outerText: {
             color: theme.colors.onPrimary,
-            textAlign: "center",
         },
         subtext: {
             flexDirection: "row",
@@ -57,18 +55,18 @@ export default function LoginPopup({ visible, setVisible }) {
                     <Text variant="headlineSmall" style={styles.outerText}>
                         Sign In to Hockey App
                     </Text>
-                </View>
-                <LoginForm />
-                <View style={styles.subtext}>
-                    <Text variant="bodyLarge" style={styles.outerText}>
-                        Don't have an account?
-                    </Text>
-                    <Text
-                        variant="bodyLarge"
-                        style={styles.outerTextUnderlined}
-                    >
-                        Sign Up
-                    </Text>
+                    <LoginForm />
+                    <View style={styles.subtext}>
+                        <Text variant="bodyLarge" style={styles.outerText}>
+                            Don't have an account?
+                        </Text>
+                        <Text
+                            variant="bodyLarge"
+                            style={styles.outerTextUnderlined}
+                        >
+                            Sign Up
+                        </Text>
+                    </View>
                 </View>
             </Modal>
         </Portal>
