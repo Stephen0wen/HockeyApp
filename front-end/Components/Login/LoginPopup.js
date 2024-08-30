@@ -1,16 +1,16 @@
 import { Modal, Portal, Text, useTheme } from "react-native-paper";
-import React from "react";
+import React, { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { View, StyleSheet } from "react-native";
 import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
 
 export default function LoginPopup({ visible, setVisible }) {
     const hideModal = () => setVisible(false);
-
     const theme = useTheme();
-
     const { user, setUser, setUserRole } = useContext(UserContext);
+    const [isLoginForm, setIsLoginForm] = useState(true);
 
     const styles = StyleSheet.create({
         modal: {
@@ -27,20 +27,6 @@ export default function LoginPopup({ visible, setVisible }) {
             justifyContent: "space-between",
             padding: 10,
         },
-        outerText: {
-            color: theme.colors.primary,
-        },
-        subtext: {
-            flexDirection: "row",
-            justifyContent: "center",
-            gap: 5,
-        },
-        outerTextUnderlined: {
-            color: theme.colors.primary,
-            textAlign: "center",
-            textDecorationLine: "underline",
-            fontWeight: "bold",
-        },
     });
 
     return (
@@ -52,21 +38,11 @@ export default function LoginPopup({ visible, setVisible }) {
                 animationType="slide"
             >
                 <View style={styles.scroll}>
-                    <Text variant="headlineSmall" style={styles.outerText}>
-                        Sign In to Hockey App
-                    </Text>
-                    <LoginForm />
-                    <View style={styles.subtext}>
-                        <Text variant="bodyLarge" style={styles.outerText}>
-                            Don't have an account?
-                        </Text>
-                        <Text
-                            variant="bodyLarge"
-                            style={styles.outerTextUnderlined}
-                        >
-                            Sign Up
-                        </Text>
-                    </View>
+                    {isLoginForm ? (
+                        <LoginForm setIsLoginForm={setIsLoginForm} />
+                    ) : (
+                        <SignUpForm setIsLoginForm={setIsLoginForm} />
+                    )}
                 </View>
             </Modal>
         </Portal>

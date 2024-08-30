@@ -3,7 +3,7 @@ import { Text, useTheme, Button } from "react-native-paper";
 import { View, StyleSheet, TextInput } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-export default function LoginForm() {
+export default function LoginForm({ setIsLoginForm }) {
     const auth = getAuth();
     const theme = useTheme();
     const [inputEmail, setInputEmail] = useState("");
@@ -53,10 +53,28 @@ export default function LoginForm() {
             width: 250,
             margin: 5,
         },
+
+        outerText: {
+            color: theme.colors.primary,
+        },
+        subtext: {
+            flexDirection: "row",
+            justifyContent: "center",
+            gap: 5,
+        },
+        outerTextUnderlined: {
+            color: theme.colors.primary,
+            textAlign: "center",
+            textDecorationLine: "underline",
+            fontWeight: "bold",
+        },
     });
 
     return (
         <>
+            <Text variant="headlineSmall" style={styles.outerText}>
+                Sign In to Hockey App
+            </Text>
             <View>
                 <Text style={styles.label} variant="labelLarge">
                     Email
@@ -89,6 +107,20 @@ export default function LoginForm() {
                 >
                     Log In
                 </Button>
+            </View>
+            <View style={styles.subtext}>
+                <Text variant="bodyLarge" style={styles.outerText}>
+                    Don't have an account?
+                </Text>
+                <Text
+                    variant="bodyLarge"
+                    style={styles.outerTextUnderlined}
+                    onPress={() => {
+                        setIsLoginForm(false);
+                    }}
+                >
+                    Sign Up
+                </Text>
             </View>
         </>
     );
