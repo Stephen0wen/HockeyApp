@@ -1,10 +1,18 @@
-import { Text, useTheme } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
+import { Text, useTheme, Button } from "react-native-paper";
+import { View, StyleSheet, TextInput } from "react-native";
+import { useEffect, useState } from "react";
 
 export default function SignUpForm({ setIsLoginForm }) {
     const theme = useTheme();
+    const [inputEmail, setInputEmail] = useState("");
+    const [inputPassword1, setInputPassword1] = useState("");
+    const [inputPassword2, setInputPassword2] = useState("");
+    const [error, setError] = useState(" ");
 
     const styles = StyleSheet.create({
+        form: {
+            marginVertical: 10,
+        },
         label: {
             color: theme.colors.primary,
             textAlign: "center",
@@ -47,12 +55,70 @@ export default function SignUpForm({ setIsLoginForm }) {
         },
     });
 
+    useEffect(() => {}, [inputEmail]);
+
     return (
         <>
             <Text variant="headlineSmall" style={styles.outerText}>
                 Sign Up for Hockey App
             </Text>
-
+            <View style={styles.form}>
+                <View>
+                    <Text style={styles.label} variant="labelLarge">
+                        Email
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        value={inputEmail}
+                        onChangeText={setInputEmail}
+                    />
+                    <Text style={styles.error} variant="labelLarge">
+                        {error}
+                    </Text>
+                </View>
+                <View>
+                    <Text style={styles.label} variant="labelLarge">
+                        Password
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        secureTextEntry={true}
+                        value={inputPassword1}
+                        onChangeText={setInputPassword1}
+                    />
+                    <Text style={styles.error} variant="labelLarge">
+                        {error}
+                    </Text>
+                </View>
+                <View>
+                    <Text style={styles.label} variant="labelLarge">
+                        Repeat Password
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        secureTextEntry={true}
+                        value={inputPassword2}
+                        onChangeText={setInputPassword2}
+                    />
+                    <Text style={styles.error} variant="labelLarge">
+                        {error}
+                    </Text>
+                </View>
+                <View>
+                    <Text style={styles.label} variant="labelLarge">
+                        {" "}
+                    </Text>
+                    <Button
+                        style={styles.button}
+                        textColor={theme.colors.onPrimary}
+                        onPress={() => {
+                            console.log("next");
+                        }}
+                    >
+                        Next
+                    </Button>
+                </View>
+            </View>
             <View style={styles.subtext}>
                 <Text variant="bodyLarge" style={styles.outerText}>
                     Already have an account?

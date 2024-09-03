@@ -16,9 +16,8 @@ export default function LoginPopup({ visible, setVisible }) {
         modal: {
             alignSelf: "center",
             backgroundColor: theme.colors.primaryContainer,
-            height: 450,
-            maxHeight: "90%",
             borderRadius: 10,
+            height: 520,
         },
         scroll: {
             width: "100%",
